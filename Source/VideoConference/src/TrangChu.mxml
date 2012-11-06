@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   width="1200" height="620" backgroundAlpha="0"
+			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference">
+	
+	<fx:Script>
+		<![CDATA[
+					
+			//Click Events: đối tượng toàn là Label
+			protected function Label_signUp_clickHandler(event:MouseEvent):void //Click vào label chuyển tới trang DangNhap
+			{
+				
+			}
+			
+			protected function Label2_clickHandler(event:MouseEvent):void //Click vào label chuyển tới trang DangKy
+			{
+								
+			}
+			
+			protected function Label_ab_clickHandler(event:MouseEvent):void //Click vào label chuyển tới trang About Us
+			{
+								
+			}
+			
+			//Focus Events: phần này tính làm hiệu ứng cho label, bt label sẽ ko có nền và chữ màu đen, khi hover qua thì label có nền đen và chữ trắng
+			//nhưng tạm thời chưa cần lắm nên cứ để trống ^^
+			protected function Label_logIn_focusInHandler(event:FocusEvent):void
+			{
+								
+			}
+			
+			protected function Label_logIn_focusOutHandler(event:FocusEvent):void
+			{
+								
+			}
+			
+			protected function Label_signUp_focusInHandler(event:FocusEvent):void
+			{
+								
+			}
+			
+			protected function Label_signUp_focusOutHandler(event:FocusEvent):void
+			{
+								
+			}
+			
+			protected function Label_ab_focusInHandler(event:FocusEvent):void
+			{
+								
+			}
+			
+			protected function Label_ab_focusOutHandler(event:FocusEvent):void
+			{
+								
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here-->
+	</fx:Declarations>
+	
+	<fx:Style source="conferenceSkin.css"/>
+	
+	<!--Label-->
+	<s:Label id="Label_signUp" x="597" y="457" width="80" height="30" text="Sign Up" 
+			 click="Label_signUp_clickHandler(event)" 
+			 focusIn="Label_signUp_focusInHandler(event)" 
+			 focusOut="Label_signUp_focusOutHandler(event)"/>
+	<s:Label id="Label_logIn" x="507" y="457" width="80" height="30" 
+			 text="Log In" click="Label2_clickHandler(event)" 
+			 focusIn="Label_logIn_focusInHandler(event)" 
+			 focusOut="Label_logIn_focusOutHandler(event)"/>
+	<s:Label id="Label_copyr" x="0" y="595" width="1200" height="25" text="Copyright © 2012 by [BRB]. All rights reserved"/>
+	<s:Label x="0" y="0" width="1200" height="10" backgroundColor="#000000"/>
+	<s:Label id="Label_ab" x="1120" y="0" width="80" height="30" text="About Us" 
+			 click="Label_ab_clickHandler(event)" 
+			 focusIn="Label_ab_focusInHandler(event)" 
+			 focusOut="Label_ab_focusOutHandler(event)"/>
+	
+	<!--Images-->
+	<s:Image x="400" y="39" width="400" height="400" source="@Embed('../images/logo.png')"/>
+	<s:Image x="809" y="219" width="382" height="54" source="@Embed('../images/1.png')"/>
+	<s:Image x="10" y="220" width="382" height="54" source="@Embed('../images/2.png')"/>
+	
+</s:Application>
