@@ -1,0 +1,109 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+/*TrangChu*/
+
+#Label_signUp
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	fontWeight: bold;
+	verticalAlign: middle;	
+	text-align: center;
+	background-color: #000000;
+}
+
+#Label_logIn
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	fontWeight: bold;
+	verticalAlign: middle;
+	text-align: center;
+	background-color: #000000;
+}
+
+#Label_copyr
+{
+	color: #FFFFFF;
+	background-color: #000000;
+	fontFamily: Arial;
+	fontSize: 10;
+	fontWeight: bold;
+	verticalAlign: middle;
+	text-align: center;
+}
+
+#Label_ab
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	fontWeight: bold;
+	verticalAlign: middle;	
+	background-color: #000000;
+	text-align: center;
+}
+
+/*Dang nhap*/
+
+#Label_sub
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	fontWeight: bold;
+	verticalAlign: middle;	
+	background-color: #000000;
+	text-align: center;
+}
+
+#Label_home
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	fontWeight: bold;
+	verticalAlign: middle;	
+	background-color: #000000;
+	text-align: center;
+}
+
+/*About Us*/
+
+#Label_close
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	fontWeight: bold;
+	verticalAlign: middle;	
+	background-color: #000000;
+	text-align: center;
+}
+
+/*TrangChu1*/
+
+#Label_logOut
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	fontWeight: bold;
+	verticalAlign: middle;	
+	background-color: #000000;
+	text-align: center;
+}
+
+#Label_acc
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	fontWeight: bold;
+	verticalAlign: middle;	
+	background-color: #000000;
+	text-align: center;
+}
+
+
+
+
+
+
+

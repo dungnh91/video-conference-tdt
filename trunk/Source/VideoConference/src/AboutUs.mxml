@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   width="1200" height="620" backgroundAlpha="0"
+			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference">
+	
+	<fx:Script>
+		<![CDATA[
+			protected function Label_close_clickHandler(event:MouseEvent):void //Click vào để quay trở lại trang trước đó
+			{
+								
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Style source="conferenceSkin.css"/>
+	
+	<s:Image x="400" y="46" width="400" height="500" source="@Embed('../images/boder1.png')"/>
+	<s:Image x="445" y="218" width="85" height="85" source="@Embed('../images/canh.png')"/>
+	<s:Image x="445" y="326" width="85" height="85" source="@Embed('../images/mai.png')"/>
+	<s:Image x="445" y="434" width="85" height="85" source="@Embed('../images/canh.png')"/>
+	
+	<s:Label x="535" y="231" width="217" height="25" text="Name: Duy Canh Tran&#xd;Student ID: "/>
+	<s:Label x="537" y="340" width="217" height="25" text="Name: Thanh Mai Cao Thi&#xd;Student ID: 50903194"/>
+	<s:Label x="537" y="448" width="217" height="25" text="Name: Hoang Dung Nguyen&#xd;Student ID: "/>
+	<s:Label x="535" y="264" width="217" height="25" text="Coder" fontWeight="bold"/>
+	<s:Label x="537" y="373" width="217" height="25" text="Designer" fontWeight="bold"/>
+	<s:Label x="537" y="481" width="217" height="25" text="Coder" fontWeight="bold"/>
+	<s:Label x="445" y="75" width="110" height="30" text="About Software " color="#FFFFFF" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000"/>
+	<s:Label x="446" y="166" width="110" height="30" text="About DMC Team " color="#FFFFFF" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000"/>
+	
+	<s:Label id="Label_copyr" x="0" y="595" width="1200" height="25" text="Copyright © 2012 by [BRB]. All rights reserved"/>
+	<s:Label x="0" y="0" width="1200" height="10" backgroundColor="#000000"/>
+	<s:Label id="Label_close" x="1120" y="0" width="80" height="30" text="Close" 
+			 click="Label_close_clickHandler(event)"/>
+</s:Application>
