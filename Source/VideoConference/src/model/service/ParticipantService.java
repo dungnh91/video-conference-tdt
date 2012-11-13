@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import project.java.object.Participant;
+import model.object.Participant;
 
 public class ParticipantService {
 
@@ -22,45 +22,6 @@ public class ParticipantService {
 		init();
 	}
 	
-	public ArrayList<Participant> getParticipant()
-	{
-		ArrayList<Participant> ParticipantList = new ArrayList<Participant>();
-		try {
-			rs = stm.executeQuery("SELECT * FROM tbl_vc_participant");
-			while(rs.next())
-			{
-				Participant tmp = new Participant();
-				tmp.setParticipant_id(rs.getInt(TABLE_Participant_ID));
-				tmp.setUser_id(rs.getInt(UserService.TABLE_USER_ID));
-				tmp.setConference_id(rs.getInt(ConferenceService.TABLE_CONFERENCE_ID));
-				tmp.setStatus(rs.getInt(ConferenceService.TABLE_STATUS));
-				tmp.setModify(rs.getString(UserService.TABLE_MODIFY));
-				ParticipantList.add(tmp);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return ParticipantList;
-	}
-	
-	public Boolean insertParticipant(Participant tmp)
-	{
-		try {
-			String sql = "INSERT INTO test ("+ UserService.TABLE_USER_ID + ConferenceService.TABLE_CONFERENCE_ID + ConferenceService.TABLE_STATUS 
-					+ UserService.TABLE_MODIFY + ")" +
-					"values ('" + tmp.getUser_id() + "','" + tmp.getConference_id()  + "','" + tmp.getStatus() + "','" +
-					tmp.getModify()+ "')"; 
-			if(stm.execute(sql))
-				return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
-		
-	}
-	
 	private void init()
 	{
 		try
@@ -73,5 +34,87 @@ public class ParticipantService {
         {
             e.printStackTrace();
         }
+	}
+	
+	public ArrayList<Participant> getParticipant()
+	{
+		ArrayList<Participant> ParticipantList = new ArrayList<Participant>();
+		try {
+			rs = stm.executeQuery("SELECT * FROM tbl_vc_participant AND " + ConferenceService.TABLE_STATUS + " = '1'");
+			while(rs.next())
+			{
+				Participant tmp = new Participant();
+				tmp.setParticipant_id(rs.getInt(TABLE_Participant_ID));
+				tmp.setUser_id(rs.getInt(UserService.TABLE_USER_ID));
+				tmp.setConference_id(rs.getInt(ConferenceService.TABLE_CONFERENCE_ID));
+				ParticipantList.add(tmp);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ParticipantList;
+	}
+	
+	public Boolean createParticipant(Participant tmp)
+	{
+		try {
+			String sql = "INSERT INTO tbl_vc_participant ("+ UserService.TABLE_USER_ID + ConferenceService.TABLE_CONFERENCE_ID + ")" 
+					+"values ('" + tmp.getUser_id() + "','" + tmp.getConference_id() +"')"; 
+			if(stm.execute(sql))
+				return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+		
+	}
+	
+	public ArrayList<Participant> getParticipant(int conference_id)
+	{
+		ArrayList<Participant> ParticipantList = new ArrayList<Participant>();
+		try {
+			rs = stm.executeQuery("SELECT * FROM tbl_vc_participant WHERE " + ConferenceService.TABLE_CONFERENCE_ID + " = '"+ conference_id + "' AND "+ ConferenceService.TABLE_STATUS +"= '1'" );
+			while(rs.next())
+			{
+				Participant tmp = new Participant();
+				tmp.setParticipant_id(rs.getInt(TABLE_Participant_ID));
+				tmp.setUser_id(rs.getInt(UserService.TABLE_USER_ID));
+				tmp.setConference_id(rs.getInt(ConferenceService.TABLE_CONFERENCE_ID));
+				ParticipantList.add(tmp);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ParticipantList;
+	}
+	
+	public Boolean deleteParticipant(int conference_id, int user_id)
+	{
+		try {
+			String sql = "UPDATE tbl_vc_participant SET "+ ConferenceService.TABLE_STATUS + "='0' WHERE " + ConferenceService.TABLE_CONFERENCE_ID +" = '"+ conference_id + "' AND "+  UserService.TABLE_USER_ID + " = '" + user_id + "'"; 
+			if(stm.execute(sql))
+				return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public Boolean addParticipant(Participant tmp)
+	{
+		try {
+			String sql = "INSERT INTO tbl_vc_participant ("+ UserService.TABLE_USER_ID + ConferenceService.TABLE_CONFERENCE_ID +  ConferenceService.TABLE_STATUS + UserService.TABLE_MODIFY 
+					+ ") values ('" + tmp.getUser_id() + "','" + tmp.getConference_id() +"')"; 
+			if(stm.execute(sql))
+				return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
