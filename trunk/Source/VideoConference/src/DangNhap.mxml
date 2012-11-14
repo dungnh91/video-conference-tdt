@@ -7,6 +7,7 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.managers.PopUpManager;
 			protected function Label_sub_clickHandler(event:MouseEvent):void //Click vào label kiểm tra username và password hợp lệ, sau đó chuyển tới TrangChu1
 			{
 								
@@ -14,7 +15,7 @@
 			
 			protected function Label_home_clickHandler(event:MouseEvent):void //Click vào để trở về TrangChu nếu ko đăng nhập
 			{
-				
+				PopUpManager.removePopUp(this);
 			}
 			
 			// còn mấy cái của textInput tự xử dùm M nha :">
