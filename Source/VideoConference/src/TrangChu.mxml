@@ -7,6 +7,7 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.managers.PopUpManager;
 					
 			//Click Events: đối tượng toàn là Label
 			protected function Label_signUp_clickHandler(event:MouseEvent):void //Click vào label chuyển tới trang DangNhap
@@ -16,7 +17,9 @@
 			
 			protected function Label2_clickHandler(event:MouseEvent):void //Click vào label chuyển tới trang DangKy
 			{
-								
+				var dn:DangNhap = new DangNhap();
+				PopUpManager.addPopUp(dn,this,true);
+				PopUpManager.centerPopUp(dn);
 			}
 			
 			protected function Label_ab_clickHandler(event:MouseEvent):void //Click vào label chuyển tới trang About Us
