@@ -9,6 +9,8 @@
 		<![CDATA[
 			import component.checkLogin;
 			
+			import flash.sampler.NewObjectSample;
+			
 			import mx.controls.Alert;
 			import mx.managers.PopUpManager;						
 			protected function close_clickHandler(event:MouseEvent):void
@@ -20,12 +22,8 @@
 			protected function signUp_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
-				var tmp:checkLogin = new checkLogin;
-				if (tmp.checkUsername(username.text) == false)
-				{
-					Alert.show('aaaaaaa');
-				}
-				
+				var tmp:checkLogin = new checkLogin();
+				tmp.run(username.text, password.text, retype_pass.text, email.text);
 			}
 			
 		]]>
