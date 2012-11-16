@@ -7,11 +7,11 @@
 	
 	<fx:Script>
 		<![CDATA[
-									
+			import mx.managers.PopUpManager;						
 			protected function close_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
-				
+				PopUpManager.removePopUp(this);			
 			}
 			
 			protected function signUp_clickHandler(event:MouseEvent):void
