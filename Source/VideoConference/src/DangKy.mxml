@@ -7,6 +7,9 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import component.checkLogin;
+			
+			import mx.controls.Alert;
 			import mx.managers.PopUpManager;						
 			protected function close_clickHandler(event:MouseEvent):void
 			{
@@ -17,6 +20,11 @@
 			protected function signUp_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
+				var tmp:checkLogin = new checkLogin;
+				if (tmp.checkUsername(username.text) == false)
+				{
+					Alert.show('aaaaaaa');
+				}
 				
 			}
 			
@@ -46,9 +54,9 @@
 	<s:RadioButton id="gold" x="736" y="278"/>
 	
 
-	<s:TextInput id="retype_pass" x="551" y="167" />
+	<s:TextInput id="retype_pass" displayAsPassword="true" x="551" y="167" />
 	<s:TextInput id="email" x="551" y="197" />
-	<s:TextInput id="password" x="551" y="137" />
+	<s:TextInput id="password" displayAsPassword="true" x="551" y="137" />
 	<s:TextInput id="fullname" x="551" y="77" />
 	<s:TextInput id="username" x="551" y="107" />
 	
