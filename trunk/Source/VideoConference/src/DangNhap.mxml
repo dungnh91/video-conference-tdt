@@ -13,12 +13,13 @@
 								
 			}
 			
-			protected function Label_home_clickHandler(event:MouseEvent):void //Click vào để trở về TrangChu nếu ko đăng nhập
+			// còn mấy cái của textInput tự xử dùm M nha :">
+			
+			protected function close_clickHandler(event:MouseEvent):void
 			{
-				PopUpManager.removePopUp(this);
+				PopUpManager.removePopUp(this);				
 			}
 			
-			// còn mấy cái của textInput tự xử dùm M nha :">
 		]]>
 	</fx:Script>
 	
@@ -28,16 +29,17 @@
 	
 	<fx:Style source="conferenceSkin.css"/>
 	
-	<s:Image x="485" y="158" width="230" height="190" source="@Embed('../images/boder.png')"/>
-	<s:Label x="502" y="196" text="Username " fontWeight="bold"/>
-	<s:TextInput x="570" y="190"/>	
-	<s:Label x="501" y="240" text="Password " fontWeight="bold"/>
-	<s:TextInput x="570" y="234"/>	
-	<s:Label id="Label_sub" x="543" y="287" width="110" height="30" text="Log In to Flex"
+	<s:Image x="485" y="192" width="230" height="190" source="@Embed(source='images/boder.png')"/>
+	
+	<s:Label x="502" y="243" text="Username " fontWeight="bold"/>		
+	<s:Label x="501" y="287" text="Password " fontWeight="bold"/>
+	
+	<s:TextInput x="570" y="237"/>
+	<s:TextInput x="570" y="281"/>	
+	
+	<s:Label id="Label_sub" x="543" y="334" width="110" height="30" text="Log In to Flex"
 			 click="Label_sub_clickHandler(event)"/>
-	<s:Label x="0" y="0" width="1200" height="10" backgroundColor="#000000"/>
-	<s:Label id="Label_copyr" x="0" y="595" width="1200" height="25" text="Copyright © 2012 by [BRB]. All rights reserved"/>
-	<s:Label id="Label_home" x="1120" y="0" width="80" height="30" text="Home" 
-			 click="Label_home_clickHandler(event)"/>
+	
+	<s:Image id="close" x="689" y="198" width="20" height="20" source="@Embed(source='images/button_close.png')" click="close_clickHandler(event)"/>
 	
 </s:Application>
