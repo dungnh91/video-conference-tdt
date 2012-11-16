@@ -27,30 +27,31 @@
 	<s:Label x="415" y="151" text="Current Password: " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
 	<s:Label x="434" y="181" text="New Password: " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
 	<s:Label x="443" y="211" text="Current Email: " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
+	<s:Label x="461" y="240" text="New Email: " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
 	<s:Label x="440" y="280" text="Subscriptions: " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
 	<s:Label x="486" y="372" text="Avatar " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
 	<s:Label x="553" y="280" text="Free" width="70" height="30" fontSize="16" fontWeight="bold" textAlign="center" verticalAlign="middle" />
 	<s:Label x="631" y="280" text="Basic" width="70" height="30" fontSize="16" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
 	<s:Label x="709" y="280" text="Gold" width="70" height="30" fontSize="16" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFF00"/>
+	
 	<s:RadioButton id="free" x="583" y="318"/>
 	<s:RadioButton id="basic" x="661" y="318"/>
 	<s:RadioButton id="gold" x="738" y="318"/>
 	
-	<s:TextInput x="551" y="180" />
-	<s:TextInput x="551" y="210" />
-	<s:Label x="461" y="240" text="New Email: " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
-	<s:TextInput x="552" y="240" />
-	<s:TextInput x="551" y="150" />
-	<s:TextInput x="551" y="90" />
-	<s:TextInput x="551" y="120" />
+	<s:TextInput id="new_pass" x="551" y="180" />
+	<s:TextInput id="current_email" x="551" y="210" />	
+	<s:TextInput id="new_email" x="552" y="240" />
+	<s:TextInput id="current_pass" x="551" y="150" />
+	<s:TextInput id="current_user" x="551" y="90" />
+	<s:TextInput id="new_user" x="551" y="120" />
 	
 	<s:Image x="553" y="354" width="126" height="126" source="@Embed(source='images/avatar.png')"/>
 	
-	<s:Button x="709" y="372" label="Computer"/>
-	<s:Button x="709" y="406" label="Webcame"/>
-	<s:Button x="709" y="440" width="76" label="Internet"/>
+	<s:Button id="computer" x="709" y="372" label="Computer"/>
+	<s:Button id="webcam" x="709" y="406" width="76" label="Webcam"/>
+	<s:Button id="internet" x="709" y="440" width="76" label="Internet"/>
 	
-	<s:Label x="512" y="504" text="Save Changes" width="103" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
-	<s:Label x="629" y="504" text="Cancel" width="60" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
+	<s:Label id="save" x="512" y="504" text="Save Changes" width="103" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
+	<s:Label id="cancel" x="629" y="504" text="Cancel" width="60" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
 		
 </s:Application>
