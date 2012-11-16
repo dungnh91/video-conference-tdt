@@ -1,0 +1,19 @@
+package object
+{
+	public class User
+	{
+		[Bindable]
+		[RemoteClass(alias="model.object.User")]
+		
+		public var user_id:int;
+		public var fullname:String;
+		public var user_name:String;
+		public var password:String;
+		public var email:String;
+		public var avartar:String;
+		public var subcriptions:int;
+		public function User()
+		{
+		}
+	}
+}
