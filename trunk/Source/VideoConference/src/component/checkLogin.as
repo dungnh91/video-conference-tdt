@@ -14,27 +14,27 @@ package component
 			
 			if (username == null || username == '')
 			{
-				mx.controls.Alert.show('Bạn phải nhập vào Username', 'Lỗi !!!', mx.controls.Alert.CANCEL);
+				Alert.show('Bạn phải nhập vào Username', 'Lỗi !!!', Alert.CANCEL);
 				return false;
 			}
 			else if (password == null || password == '')
 			{
-				mx.controls.Alert.show('Bạn phải nhập vào Mật khẩu', 'Lỗi !!!', mx.controls.Alert.CANCEL);
+				Alert.show('Bạn phải nhập vào Mật khẩu', 'Lỗi !!!', Alert.CANCEL);
 				return false;
 			}
 			else if (password.length < 8)
 			{
-				mx.controls.Alert.show('Mật khẩu phải có ít nhất 8 ký tự','Lỗi !!!', mx.controls.Alert.CANCEL);
+				Alert.show('Mật khẩu phải có ít nhất 8 ký tự','Lỗi !!!', Alert.CANCEL);
 				return false;
 			}
 			else if (repass == null || repass == '')
 			{
-				mx.controls.Alert.show('Bạn hãy nhập lại Mật khẩu','Lỗi !!!', mx.controls.Alert.CANCEL);
+				Alert.show('Bạn hãy nhập lại Mật khẩu','Lỗi !!!', Alert.CANCEL);
 				return false;
 			}
 			else if (repass != password)
 			{
-				mx.controls.Alert.show('Xác nhận mật khẩu phải giống mật khẩu','Lỗi !!!', mx.controls.Alert.CANCEL);
+				Alert.show('Xác nhận mật khẩu phải giống mật khẩu','Lỗi !!!', Alert.CANCEL);
 				return false;
 			}
 			
