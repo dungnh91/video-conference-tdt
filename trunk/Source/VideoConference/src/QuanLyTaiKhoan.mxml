@@ -44,13 +44,11 @@
 	<s:Label x="10" y="221" text="My Conferences" width="364" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
 	<s:Label x="10" y="408" text="Conferences about Me" width="364" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
 	
-	<s:Image x="344" y="446" width="20" height="20" source="@Embed(source='images/recycle.png')"/>
-	<s:Image x="313" y="446" width="20" height="20" source="@Embed(source='images/edit.png')"/>
-	
 	<s:Image x="344" y="259" width="20" height="20" source="@Embed(source='images/recycle.png')"/>
 	<s:Image x="313" y="259" width="20" height="20" source="@Embed(source='images/edit.png')"/>
 	
 	<!--Right Column-->
+	
 	<s:Image x="690" y="87" width="500" height="462" source="@Embed(source='images/boder9.png')"/>
 	<s:Image x="382" y="295" width="300" height="292" source="@Embed(source='images/boder7.png')"/>
 	<s:Image x="382" y="87" width="300" height="200" source="@Embed(source='images/boder6.png')"/>
@@ -94,6 +92,8 @@
 	<s:Label x="334" y="575" text="More" fontWeight="bold" fontStyle="italic"/>
 	<s:Label x="323" y="201" text="Details" fontStyle="italic" fontWeight="bold"/>
 	<s:Label x="390" y="32" text="TITLE: ĐI NHẬU THỊT CHÓ ^^" fontSize="30" fontWeight="bold"/>
+	
+	
 	
 	
 </s:Application>
