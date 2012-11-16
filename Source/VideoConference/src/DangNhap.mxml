@@ -34,8 +34,8 @@
 	<s:Label x="502" y="243" text="Username " fontWeight="bold"/>		
 	<s:Label x="501" y="287" text="Password " fontWeight="bold"/>
 	
-	<s:TextInput x="570" y="237"/>
-	<s:TextInput x="570" y="281"/>	
+	<s:TextInput id="username" x="570" y="237"/>
+	<s:TextInput id="password" x="570" y="281"/>	
 	
 	<s:Label id="Label_sub" x="543" y="334" width="110" height="30" text="Log In to Flex"
 			 click="Label_sub_clickHandler(event)"/>
