@@ -34,7 +34,7 @@
 	<s:RadioButton id="am" x="618" y="237" label="AM" fontWeight="bold"/>
 	<s:RadioButton id="pm" x="662" y="237" label="PM" fontWeight="bold"/>
 	<s:Label x="440" y="263" text="Participants: " fontWeight="bold"/>
-	<s:List id="participants" x="522" y="263" width="176" height="210"/>
+	<s:List id="participants" x="522" y="263" width="176" height="210" allowMultipleSelection="true"/>
 		<s:CheckBox x="531" y="273" label="bap_rang_bo"/>
 		<s:CheckBox x="531" y="299" label="duka_tran"/>
 		<s:CheckBox x="531" y="325" label="hoang_dung"/>	
