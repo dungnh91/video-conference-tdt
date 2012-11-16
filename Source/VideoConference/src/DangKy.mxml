@@ -7,10 +7,19 @@
 	
 	<fx:Script>
 		<![CDATA[
-			protected function Label_home_clickHandler(event:MouseEvent):void // trở về TrangChu
+									
+			protected function close_clickHandler(event:MouseEvent):void
 			{
+				// TODO Auto-generated method stub
 				
 			}
+			
+			protected function signUp_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -20,9 +29,35 @@
 	
 	<fx:Style source="conferenceSkin.css"/>
 	
-	<s:Label x="0" y="0" width="1200" height="10" backgroundColor="#000000"/>
-	<s:Label id="Label_copyr" x="0" y="595" width="1200" height="25" text="Copyright © 2012 by [BRB]. All rights reserved"/>
-	<s:Label id="Label_home" x="1120" y="0" width="80" height="30" text="Home" 
-			 click="Label_home_clickHandler(event)"/>
+	<s:Image x="375" y="47" width="450" height="480" source="@Embed(source='images/boder3.png')"/>
+	
+	<s:Label x="468" y="77" text="Fullname: " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
+	<s:Label x="460" y="107" text="Username: " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
+	<s:Label x="461" y="138" text="Password: " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
+	<s:Label x="415" y="168" text="Re-type Password: " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
+	<s:Label x="488" y="197" text="Email: " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
+	<s:Label x="440" y="243" text="Subscriptions: " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
+	<s:Label x="486" y="334" text="Avatar " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
+	<s:Label x="551" y="240" text="Free" width="70" height="30" fontSize="16" fontWeight="bold" textAlign="center" verticalAlign="middle" />
+	<s:Label x="629" y="240" text="Basic" width="70" height="30" fontSize="16" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
+	<s:Label x="707" y="240" text="Gold" width="70" height="30" fontSize="16" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFF00"/>
+	<s:RadioButton id="free" x="581" y="278"/>
+	<s:RadioButton id="basic" x="659" y="278"/>
+	<s:RadioButton id="gold" x="736" y="278"/>
+	
+	<s:TextInput x="551" y="167" />
+	<s:TextInput x="551" y="197" />
+	<s:TextInput x="551" y="137" />
+	<s:TextInput x="551" y="77" />
+	<s:TextInput x="551" y="107" />
+	
+	<s:Image x="551" y="314" width="126" height="126" source="@Embed(source='images/avatar.png')"/>
+	<s:Image id="close" x="798" y="53" width="20" height="20" source="@Embed(source='images/button_close.png')" click="close_clickHandler(event)"/>
+	
+	<s:Button x="707" y="332" label="Computer"/>
+	<s:Button x="707" y="366" label="Webcame"/>
+	<s:Button x="707" y="400" width="76" label="Internet"/>
+	
+	<s:Label id="signUp" x="565" y="467" text="Sign Up" width="71" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" click="signUp_clickHandler(event)"/>
 	
 </s:Application>
