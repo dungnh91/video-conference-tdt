@@ -45,9 +45,9 @@
 	<s:RadioButton id="basic" x="659" y="278"/>
 	<s:RadioButton id="gold" x="736" y="278"/>
 	
-	<s:TextInput x="551" y="167" />
+	<s:TextInput id="repassword" displayAsPassword="true" x="551" y="167"/>
 	<s:TextInput x="551" y="197" />
-	<s:TextInput x="551" y="137" />
+	<s:TextInput id="password" displayAsPassword="true" x="551" y="137" />
 	<s:TextInput x="551" y="77" />
 	<s:TextInput x="551" y="107" />
 	
@@ -55,7 +55,7 @@
 	<s:Image id="close" x="798" y="53" width="20" height="20" source="@Embed(source='images/button_close.png')" click="close_clickHandler(event)"/>
 	
 	<s:Button x="707" y="332" label="Computer"/>
-	<s:Button x="707" y="366" label="Webcame"/>
+	<s:Button x="707" y="366" label="Webcam"/>
 	<s:Button x="707" y="400" width="76" label="Internet"/>
 	
 	<s:Label id="signUp" x="565" y="467" text="Sign Up" width="71" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" click="signUp_clickHandler(event)"/>
