@@ -74,17 +74,20 @@
 	<s:Label id="Label_signUp" x="597" y="457" width="80" height="30" text="Sign Up" 
 			 click="Label_signUp_clickHandler(event)" 
 			 focusIn="Label_signUp_focusInHandler(event)" 
-			 focusOut="Label_signUp_focusOutHandler(event)"/>
-	<s:Label id="Label_logIn" x="507" y="457" width="80" height="30" 
+			 focusOut="Label_signUp_focusOutHandler(event)" 
+			 useHandCursor="true" buttonMode="true" mouseChildren="false"/>
+	<s:Label id="Label_logIn" x="507" y="457" width="80" height="30"
 			 text="Log In" click="Label2_clickHandler(event)" 
-			 focusIn="Label_logIn_focusInHandler(event)" 
-			 focusOut="Label_logIn_focusOutHandler(event)"/>
+			 focusIn="Label_logIn_focusInHandler(event)"
+			 focusOut="Label_logIn_focusOutHandler(event)"
+			 useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	<s:Label id="Label_copyr" x="0" y="595" width="1200" height="25" text="Copyright © 2012 by [BRB]. All rights reserved"/>
 	<s:Label x="0" y="0" width="1200" height="10" backgroundColor="#000000"/>
 	<s:Label id="Label_ab" x="1120" y="0" width="80" height="30" text="About Us" 
 			 click="Label_ab_clickHandler(event)" 
 			 focusIn="Label_ab_focusInHandler(event)" 
-			 focusOut="Label_ab_focusOutHandler(event)"/>
+			 focusOut="Label_ab_focusOutHandler(event)"
+			 useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	
 	<!--Images-->
 	<s:Image x="400" y="39" width="400" height="400" source="@Embed('../images/logo.png')"/>

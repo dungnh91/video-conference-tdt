@@ -38,8 +38,9 @@
 	<s:TextInput id="password" x="570" y="281"/>	
 	
 	<s:Label id="Label_sub" x="543" y="334" width="110" height="30" text="Log In to Flex"
-			 click="Label_sub_clickHandler(event)"/>
+			 click="Label_sub_clickHandler(event)"
+			 useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	
-	<s:Image id="close" x="689" y="198" width="20" height="20" source="@Embed(source='images/button_close.png')" click="close_clickHandler(event)"/>
+	<s:Image id="close" x="689" y="198" width="20" height="20" source="@Embed(source='images/button_close.png')" click="close_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	
 </s:Application>
