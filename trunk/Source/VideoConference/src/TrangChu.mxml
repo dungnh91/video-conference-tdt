@@ -26,7 +26,9 @@
 			
 			protected function Label_ab_clickHandler(event:MouseEvent):void //Click vào label chuyển tới trang About Us
 			{
-								
+				var ab:AboutUs = new AboutUs;
+				PopUpManager.addPopUp(ab,this,true);
+				PopUpManager.centerPopUp(ab);
 			}
 			
 			//Focus Events: phần này tính làm hiệu ứng cho label, bt label sẽ ko có nền và chữ màu đen, khi hover qua thì label có nền đen và chữ trắng
