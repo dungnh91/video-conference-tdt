@@ -7,11 +7,12 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.managers.PopUpManager;
 			
 			protected function close_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
-				
+				PopUpManager.removePopUp(this);
 			}
 			
 		]]>
@@ -28,14 +29,15 @@
 	<s:Image x="445" y="341" width="85" height="85" source="@Embed(source='images/mai.png')"/>
 	<s:Image x="445" y="449" width="85" height="85" source="@Embed(source='images/canh.png')"/>
 	
-	<s:Label x="535" y="246" width="217" height="25" text="Name: Duy Canh Tran&#xd;Student ID: "/>
+	<s:Label x="535" y="246" width="217" height="25" text="Name: Canh Tran&#xd;Student ID: 50903163 "/>
 	<s:Label x="537" y="355" width="217" height="25" text="Name: Thanh Mai Cao Thi&#xd;Student ID: 50903194"/>
-	<s:Label x="537" y="463" width="217" height="25" text="Name: Hoang Dung Nguyen&#xd;Student ID: "/>
+	<s:Label x="537" y="463" width="217" height="25" text="Name: Hoang Dung Nguyen&#xd;Student ID: 50903168"/>
 	<s:Label x="535" y="279" width="217" height="25" text="Coder" fontWeight="bold"/>
 	<s:Label x="537" y="388" width="217" height="25" text="Designer" fontWeight="bold"/>
 	<s:Label x="537" y="496" width="217" height="25" text="Coder" fontWeight="bold"/>
 	<s:Label x="445" y="90" width="110" height="30" text="About Software " color="#FFFFFF" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000"/>
 	<s:Label x="446" y="181" width="110" height="30" text="About DMC Team " color="#FFFFFF" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000"/>
 	
-	<s:Image id="close" x="774" y="67" width="20" height="20" source="@Embed(source='images/button_close.png')" click="close_clickHandler(event)"/>
+	<s:Image id="close" x="774" y="67" width="20" height="20" source="@Embed(source='images/button_close.png')" click="close_clickHandler(event)"
+			 useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 </s:Application>
