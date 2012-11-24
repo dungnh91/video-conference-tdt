@@ -36,61 +36,35 @@
 	<s:Image x="10" y="87" width="126" height="126" source="@Embed(source='images/avatar.png')"/>
 	<s:Label x="144" y="118" width="76" height="42" text="Username:&#xd;Email:&#xd;Subscription:" fontWeight="bold"/>
 	<s:DataGroup id="acc_info" x="224" y="118" width="150" height="42"/>
-	<s:DataGroup id="my_conferences" x="10" y="259" width="364" height="141"/>
-	<s:Label x="20" y="323" text="20:30:00" fontWeight="bold" color="#00ff00"/>
-	<s:Label x="74" y="323" text="18/11/2012" fontWeight="bold" color="#00bbff"/>
-	<s:DataGroup id="confereces_bout_me" x="10" y="446" width="364" height="141"/>
+	<s:List id="my_conference" x="419" y="126" width="364" height="462"></s:List>
+	<s:List id="participants" x="10" y="259" width="364" height="329"></s:List>
+	<s:List id="conference_bout_me" x="826" y="125" width="364" height="462"></s:List>
 	
-	<s:Label x="10" y="221" text="My Conferences" width="364" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
-	<s:Label x="10" y="408" text="Conferences about Me" width="364" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
+	<s:Label x="418" y="88" text="My Conferences" width="364" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
+	<s:Label x="10" y="221" text="Participants" width="364" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
+	<s:Label x="825" y="88" text="Conferences about Me" width="364" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
 	
-	<s:Image x="344" y="259" width="20" height="20" source="@Embed(source='images/recycle.png')"/>
-	<s:Image x="313" y="259" width="20" height="20" source="@Embed(source='images/edit.png')"/>
+	<s:Image x="751" y="130" width="20" height="20" source="@Embed(source='images/recycle.png')"/>
+	<s:Image x="723" y="131" width="20" height="20" source="@Embed(source='images/edit.png')"/>
 	
 	<!--Right Column-->
-	
-	<s:Image x="690" y="87" width="500" height="462" source="@Embed(source='images/boder9.png')"/>
-	<s:Image x="382" y="295" width="300" height="292" source="@Embed(source='images/boder7.png')"/>
-	<s:Image x="382" y="87" width="300" height="200" source="@Embed(source='images/boder6.png')"/>
-		
-	<s:Label id="join" x="760" y="557" text="Join" width="50" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
-	<s:Label id="create" x="926" y="557" text="Create a Conference" width="140" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
-	<s:Image id="call" x="818" y="557" width="100" height="30" source="@Embed(source='images/call.png')"/>
-	<s:Image id="mail" x="1074" y="557" width="50" height="30" source="@Embed(source='images/mail.png')"/>
 		
 	<!--Demo-->
-	<s:Label x="20" y="266" text="20:30:00" fontWeight="bold" color="#00ff00"/>
-	<s:Label x="20" y="301" text="20:30:00" fontWeight="bold" color="#00ff00"/>
-	<s:Label x="74" y="266" text="18/11/2012" fontWeight="bold" color="#00bbff"/>	
-	<s:Label x="74" y="301" text="18/11/2012" fontWeight="bold" color="#00bbff"/>
-	<s:Label x="20" y="365" text="20:30:00" fontWeight="bold" color="#00ff00"/>
-	<s:Label x="74" y="365" text="18/11/2012" fontWeight="bold" color="#00bbff"/>
-	<s:Label x="20" y="344" text="20:30:00" fontWeight="bold" color="#00ff00"/>
-	<s:Label x="74" y="344" text="18/11/2012" fontWeight="bold" color="#00bbff"/>
-	<s:Label x="144" y="266" text="Đi nhậu thịt chó =))" fontWeight="bold" color="#ff6600"/>
-	<s:Label x="144" y="301" text="Đi nhậu thịt chó =))" fontWeight="bold" color="#ff6600"/>
-	<s:Label x="144" y="323" text="Đi nhậu thịt chó =))" fontWeight="bold" color="#ff6600"/>
-	<s:Label x="144" y="344" text="Đi nhậu thịt chó =))" fontWeight="bold" color="#ff6600"/>
-	<s:Label x="144" y="365" text="Đi nhậu thịt chó =))" fontWeight="bold" color="#ff6600"/>
-	<s:Label id="more_myconfer" x="334" y="388" text="More" fontWeight="bold" fontStyle="italic"/>
-	<s:Label x="20" y="510" text="20:30:00" fontWeight="bold" color="#00ff00"/>
-	<s:Label x="74" y="510" text="18/11/2012" fontWeight="bold" color="#00bbff"/>
-	<s:Label x="20" y="453" text="20:30:00" fontWeight="bold" color="#00ff00"/>
-	<s:Label x="20" y="488" text="20:30:00" fontWeight="bold" color="#00ff00"/>
-	<s:Label x="74" y="453" text="18/11/2012" fontWeight="bold" color="#00bbff"/>
-	<s:Label x="74" y="488" text="18/11/2012" fontWeight="bold" color="#00bbff"/>
-	<s:Label x="20" y="552" text="20:30:00" fontWeight="bold" color="#00ff00"/>
-	<s:Label x="74" y="552" text="18/11/2012" fontWeight="bold" color="#00bbff"/>
-	<s:Label x="20" y="531" text="20:30:00" fontWeight="bold" color="#00ff00"/>
-	<s:Label x="74" y="531" text="18/11/2012" fontWeight="bold" color="#00bbff"/>
-	<s:Label x="144" y="453" text="Đi nhậu thịt chó =))" fontWeight="bold" color="#ff6600"/>
-	<s:Label x="144" y="488" text="Đi nhậu thịt chó =))" fontWeight="bold" color="#ff6600"/>
-	<s:Label x="144" y="510" text="Đi nhậu thịt chó =))" fontWeight="bold" color="#ff6600"/>
-	<s:Label x="144" y="531" text="Đi nhậu thịt chó =))" fontWeight="bold" color="#ff6600"/>
-	<s:Label x="144" y="552" text="Đi nhậu thịt chó =))" fontWeight="bold" color="#ff6600"/>
-	<s:Label id="more_aboutconfer" x="334" y="575" text="More" fontWeight="bold" fontStyle="italic"/>
+	<s:Label x="427" y="137" text="20:30:00" fontWeight="bold" color="#00d550"/>
+	<s:Label x="481" y="137" text="18/11/2012" fontWeight="bold" color="#00bbff"/>	
+	<s:Label x="551" y="137" text="Đi nhậu thịt chó =))" fontWeight="bold" color="#ff6600"/>
+	<s:Label x="48" y="273" text="bap_rang_bo" fontWeight="bold" color="#00d550"/>
+	<s:Label x="48" y="300" text="duka_tran" fontWeight="bold" color="#00d550"/>
+	<s:Label x="47" y="328" text="hoang_dung" fontWeight="bold" color="#00d550"/>
+	<s:Label x="836" y="138" text="20:30:00" fontWeight="bold" color="#00d550"/>
+	<s:Label x="890" y="138" text="18/11/2012" fontWeight="bold" color="#00bbff"/>
+	<s:Label x="960" y="138" text="Đi nhậu thịt chó =))" fontWeight="bold" color="#ff6600"/>
 	<s:Label id="details" x="323" y="201" text="Details" fontStyle="italic" fontWeight="bold"/>
-	<s:Label id="title" x="390" y="32" text="TITLE: ĐI NHẬU THỊT CHÓ ^^" fontSize="30" fontWeight="bold"/>
+	<s:Image x="340" y="34" width="519" height="35" source="@Embed(source='images/slogan.png')"/>
+	<s:Image x="15" y="265" width="20" height="20" source="@Embed(source='images/delete.png')"/>
+	<s:Image x="15" y="293" width="20" height="20" source="@Embed(source='images/delete.png')"/>
+	<s:Image x="15" y="321" width="20" height="20" source="@Embed(source='images/delete.png')"/>
+	
 	
 	
 	
