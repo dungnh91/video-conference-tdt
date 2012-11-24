@@ -19,27 +19,27 @@
 	<fx:Style source="conferenceSkin.css"/>
 	
 	<s:Image x="420" y="57" width="380" height="500" source="@Embed(source='images/boder10.png')"/>
-	<s:Label x="482" y="92" text="Title: " fontWeight="bold"/>	
-	<s:TextInput id="title" x="522" y="86" width="239"/>
-	<s:Label x="440" y="121" text="Description: " fontWeight="bold"/>
-	<s:TextInput id="description" x="522" y="116" width="239" height="77"/>
-	<s:Label x="479" y="208" text="Date: " fontWeight="bold"/>
-	<s:Label x="686" y="207" text="(dd/mm/yyyy)" fontWeight="bold"/>
-	<s:Label x="478" y="238" text="Time: " fontWeight="bold"/>
-	<s:NumericStepper id="day" x="522" y="201" width="40"/>
-	<s:NumericStepper id="month" x="570" y="201" width="40"/>
-	<s:NumericStepper id="year" x="618" y="201" width="60"/>
-	<s:NumericStepper id="hour" x="522" y="232" width="40"/>
-	<s:NumericStepper id="second" x="570" y="232" width="40"/>
-	<s:RadioButton id="am" x="618" y="237" label="AM" fontWeight="bold"/>
-	<s:RadioButton id="pm" x="662" y="237" label="PM" fontWeight="bold"/>
-	<s:Label x="440" y="263" text="Participants: " fontWeight="bold"/>
-	<s:List id="participants" x="522" y="263" width="176" height="210"/>
-		<s:CheckBox x="531" y="273" label="bap_rang_bo"/>
-		<s:CheckBox x="531" y="299" label="duka_tran"/>
-		<s:CheckBox x="531" y="325" label="hoang_dung"/>	
-	<s:Label id="create" x="534" y="501" text="Create" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle"/>
-	<s:Label id="cancel" x="607" y="501" text="Cancel" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle"/>
+	<s:Label x="482" y="89" text="Title: " fontWeight="bold"/>	
+	<s:TextInput id="title" x="522" y="83" width="239"/>
+	<s:Label x="440" y="118" text="Description: " fontWeight="bold"/>
+	<s:TextInput id="description" x="522" y="113" width="239" height="77"/>
+	<s:Label x="479" y="205" text="Date: " fontWeight="bold"/>
+	<s:Label x="686" y="204" text="(dd/mm/yyyy)" fontWeight="bold"/>
+	<s:Label x="478" y="235" text="Time: " fontWeight="bold"/>
+	<s:NumericStepper id="day" x="522" y="198" width="40"/>
+	<s:NumericStepper id="month" x="570" y="198" width="40"/>
+	<s:NumericStepper id="year" x="618" y="198" width="60"/>
+	<s:NumericStepper id="hour" x="522" y="229" width="40"/>
+	<s:NumericStepper id="second" x="570" y="229" width="40"/>
+	<s:RadioButton id="am" x="618" y="234" label="AM" fontWeight="bold"/>
+	<s:RadioButton id="pm" x="662" y="234" label="PM" fontWeight="bold"/>
+	<s:Label x="440" y="260" text="Participants: " fontWeight="bold"/>
+	<s:List id="participants" x="522" y="260" width="239" height="210"/>
+		<s:CheckBox x="531" y="270" label="bap_rang_bo"/>
+		<s:CheckBox x="531" y="296" label="duka_tran"/>
+		<s:CheckBox x="531" y="322" label="hoang_dung"/>	
+	<s:Label id="create" x="534" y="502" text="Create" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle"/>
+	<s:Label id="cancel" x="607" y="502" text="Cancel" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle"/>
 	
 		
 </s:Application>
