@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+              "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">       
+<hibernate-mapping>
+           <class name="object.User" table="tbl_vc_user">
+				<id name="user_id" type="java.lang.Integer">
+					<column name="user_id"/>
+					<generator class="identity"/>
+				</id>
+				<property name="fullname" type="java.lang.String">
+				     <column name="fullname"/>
+				</property>
+				<property name="user_name" type="java.lang.String">
+				    <column name="user_name"/>
+				</property>
+				<property name="password" type="java.lang.String">
+				    <column name="password"/>
+				</property>
+				<property name="email" type="java.lang.String">
+				    <column name="email"></column>
+				</property>
+				<property name="avartar" type="java.lang.String">
+				    <column name="avartar"></column>
+				</property>
+				<property name="subcriptions" type="java.lang.Integer">
+				    <column name="subcriptions"></column>
+				</property>
+            </class>
+</hibernate-mapping>
