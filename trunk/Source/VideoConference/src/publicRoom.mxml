@@ -22,6 +22,13 @@
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:RemoteObject id="ro_conference" destination="ConferenceService" showBusyCursor="true">
+				
+		</s:RemoteObject>
+		<s:RemoteObject id="ro_participant" destination="ParticipantService" showBusyCursor="true">
+			
+		</s:RemoteObject>
+		
 	</fx:Declarations>
 	
 	<fx:Style source="conferenceSkin.css"/>

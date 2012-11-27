@@ -42,7 +42,7 @@
 				if(password.text == event.result as String)
 				{
 					var url:URLRequest = new URLRequest();
-					url.url="conference.html";
+					url.url="publicRoom.html";
 					navigateToURL(url,"_self");
 				}
 			}
