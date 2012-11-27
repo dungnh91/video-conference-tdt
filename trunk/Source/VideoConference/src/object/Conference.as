@@ -5,7 +5,7 @@ package object
 	public class Conference
 	{
 		[Bindable]
-		[RemoteClass(alias="model.object.Conference")]
+		[RemoteClass(alias="object.Conference")]
 		
 		public var conference_id:int;
 		public var int user_id:int;
@@ -16,6 +16,7 @@ package object
 		public var description:String;
 		public var password:String;
 		public var participant:int;
+		public var status:int;
 		
 		public function Conference()
 		{

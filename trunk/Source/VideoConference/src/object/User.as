@@ -3,7 +3,7 @@ package object
 	public class User
 	{
 		[Bindable]
-		[RemoteClass(alias="model.object.User")]
+		[RemoteClass(alias="object.User")]
 		
 		public var user_id:int;
 		public var fullname:String;

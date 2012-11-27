@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+              "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">       
+<hibernate-mapping>
+           <class name="object.Conference" table="tbl_vc_conference">
+				<id name="conference_id" type="java.lang.Integer">
+					<column name="conference_id"/>
+					<generator class="identity"/>
+				</id>
+				<property name="user_id" type="java.lang.Integer">
+				     <column name="user_id"/>
+				</property>
+				<property name="conference_name" type="java.lang.String">
+				    <column name="conference_name"/>
+				</property>
+				<property name="date" type="java.util.Date">
+				    <column name="date"/>
+				</property>
+				<property name="time_start" type="java.util.Date">
+				    <column name="time_start"></column>
+				</property>
+				<property name="time_end" type="java.util.Date">
+				    <column name="time_end"></column>
+				</property>
+				<property name="description" type="java.lang.String">
+				    <column name="description"></column>
+				</property>
+				<property name="password" type="java.lang.String">
+				    <column name="password"></column>
+				</property>
+				<property name="participant" type="java.lang.Integer">
+				     <column name="participant"/>
+				</property>
+				<property name="status" type="java.lang.Integer">
+				     <column name="status"/>
+				</property>
+            </class>
+</hibernate-mapping>
