@@ -14,32 +14,32 @@ package component
 			
 			if (username == null || username == '')
 			{
-				Alert.show('Bạn phải nhập vào Username', 'Lỗi !!!', Alert.CANCEL);
+				Alert.show('Username field is required.', 'Error !!!', Alert.CANCEL);
 				return false;
 			}
 			else if (password == null || password == '')
 			{
-				Alert.show('Bạn phải nhập vào Mật khẩu', 'Lỗi !!!', Alert.CANCEL);
+				Alert.show('Password field is required.', 'Error !!!', Alert.CANCEL);
 				return false;
 			}
 			else if (password.length < 8)
 			{
-				Alert.show('Mật khẩu phải có ít nhất 8 ký tự','Lỗi !!!', Alert.CANCEL);
+				Alert.show('Password must contain 8 characters','Error !!!', Alert.CANCEL);
 				return false;
 			}
 			else if (repass == null || repass == '')
 			{
-				Alert.show('Bạn hãy nhập lại Mật khẩu','Lỗi !!!', Alert.CANCEL);
+				Alert.show('Please re-type Password','Error !!!', Alert.CANCEL);
 				return false;
 			}
 			else if (repass != password)
 			{
-				Alert.show('Xác nhận mật khẩu phải giống mật khẩu','Lỗi !!!', Alert.CANCEL);
+				Alert.show('The re-type password is not correct','Error !!!', Alert.CANCEL);
 				return false;
 			}
 			else if (email.match(pattern) == null)
 			{
-				Alert.show('Sai định dạng Email','Lỗi !!!', Alert.CANCEL);
+				Alert.show('Your Email field is required.','Error !!!', Alert.CANCEL);
 				return false;
 			}
 			
