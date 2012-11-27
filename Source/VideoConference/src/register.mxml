@@ -30,7 +30,13 @@
 				
 				if (tmp.run(username.text, password.text, retype_pass.text, email.text) == true)
 				{
-										
+					var user:User = new User();
+					user.fullname = fullname.text;
+					user.user_name = username.text;
+					user.password = password.text;
+					user.email = email.text;
+					user.subcriptions = free.selected==true?1:basic.selected==true?2:3;
+					
 				}
 			}
 			

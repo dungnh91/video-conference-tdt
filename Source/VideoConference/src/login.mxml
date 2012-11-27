@@ -42,7 +42,7 @@
 				if(password.text == event.result as String)
 				{
 					var url:URLRequest = new URLRequest();
-					url.url="QuanLyTaiKhoan.html";
+					url.url="conference.html";
 					navigateToURL(url,"_self");
 				}
 			}

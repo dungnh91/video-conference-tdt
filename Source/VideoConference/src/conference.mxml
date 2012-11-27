@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
-			   xmlns:VideoContainer = "component.VideoContainer.as"
+			   xmlns:Video = "component.*"
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
 			   width="1200" height="620" backgroundAlpha="0"
 			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference">
@@ -37,7 +37,7 @@
 	<!--<s:Image x="10" y="86" width="300" height="200" source="@Embed(source='images/boder6.png')"/>-->
 	<s:HGroup>
 		<s:VGroup styleName="div" height="100%">
-			<VideoContainer
+			<Video:VideoContainer
 				id="videoDisplay"
 				width="320" height="240" video="{videoCamera}"/>
 			<s:HGroup>				
