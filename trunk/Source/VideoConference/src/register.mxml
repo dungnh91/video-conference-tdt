@@ -70,9 +70,9 @@
 	<s:Label x="551" y="240" text="Free" width="70" height="30" fontSize="16" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
 	<s:Label x="629" y="240" text="Basic" width="70" height="30" fontSize="16" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
 	<s:Label x="707" y="240" text="Gold" width="70" height="30" fontSize="16" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFF00"/>
-	<s:RadioButton id="free" selected="true" x="581" y="278" value="1"/>
-	<s:RadioButton id="basic" x="659" y="278" value="2"/>
-	<s:RadioButton id="gold" x="736" y="278" value="3"/>
+	<s:RadioButton styleName="sub_radio" id="free" selected="true" x="581" y="278" value="1"/>
+	<s:RadioButton styleName="sub_radio" id="basic" x="659" y="278" value="2"/>
+	<s:RadioButton styleName="sub_radio" id="gold" x="736" y="278" value="3"/>
 	
 
 	<s:TextInput id="retype_pass" displayAsPassword="true" x="551" y="167" />
