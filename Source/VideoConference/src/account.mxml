@@ -7,9 +7,13 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import flash.net.navigateToURL;
+
 			protected function Label_logOut_clickHandler(event:MouseEvent):void //Log out tài khoản và trở về TrangChu
 			{
-				
+				var url:URLRequest = new URLRequest();
+				url.url = "home.html";
+				navigateToURL(url,"_self");
 			}
 						
 		]]>
