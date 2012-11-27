@@ -11,12 +11,12 @@ package component
 		{
 			if (username == null || username == '')
 			{
-				Alert.show('Bạn phải nhập vào Tên đăng nhập', 'Lỗi !!!', Alert.CANCEL);
+				Alert.show('Please input username', 'Error !!!', Alert.CANCEL);
 				return false;
 			}
 			else if (password == null || password == '')
 			{
-				Alert.show('Bạn phải nhập vào Mật khẩu', 'Lỗi !!!', Alert.CANCEL);
+				Alert.show('Please input password', 'Lỗi !!!', Alert.CANCEL);
 				return false;
 			}
 			return true;
