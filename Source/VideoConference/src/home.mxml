@@ -12,14 +12,14 @@
 			//Click Events: đối tượng toàn là Label
 			protected function Label_signUp_clickHandler(event:MouseEvent):void //Click vào label chuyển tới trang DangNhap
 			{
-				var dk:DangKy = new DangKy();
+				var dk:register = new register();
 				PopUpManager.addPopUp(dk,this,true);
 				PopUpManager.centerPopUp(dk);
 			}
 			
 			protected function Label2_clickHandler(event:MouseEvent):void //Click vào label chuyển tới trang DangKy
 			{
-				var dn:DangNhap = new DangNhap();
+				var dn:login = new login();
 				PopUpManager.addPopUp(dn,this,true);
 				PopUpManager.centerPopUp(dn);
 			}
