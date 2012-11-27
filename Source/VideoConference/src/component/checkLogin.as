@@ -19,6 +19,7 @@ package component
 				Alert.show('Bạn phải nhập vào Mật khẩu', 'Lỗi !!!', Alert.CANCEL);
 				return false;
 			}
+			return true;
 		}
 	}
 }
