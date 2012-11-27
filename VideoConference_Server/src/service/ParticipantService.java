@@ -1,120 +1,103 @@
 package service;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 
 import object.Participant;
 
 public class ParticipantService {
 
-	private Connection conn;
-	private Statement stm;
-	private ResultSet rs;
-	
+	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 	private static String TABLE_Participant_ID= "Participant_id";
 	
 	public ParticipantService() 
 	{
-		init();
+
 	}
 	
-	private void init()
-	{
-		try
-        {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/video_conference","root","");
-            stm = conn.createStatement();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-	}
-	
+	@SuppressWarnings("unchecked")
 	public ArrayList<Participant> getParticipant()
 	{
-		ArrayList<Participant> ParticipantList = new ArrayList<Participant>();
-		try {
-			rs = stm.executeQuery("SELECT * FROM tbl_vc_participant AND " + ConferenceService.TABLE_STATUS + " = '1'");
-			while(rs.next())
-			{
-				Participant tmp = new Participant();
-				tmp.setParticipant_id(rs.getInt(TABLE_Participant_ID));
-				tmp.setUser_id(rs.getInt(UserService.TABLE_USER_ID));
-				tmp.setConference_id(rs.getInt(ConferenceService.TABLE_CONFERENCE_ID));
-				ParticipantList.add(tmp);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return ParticipantList;
+		Session session = sessionFactory.openSession();
+		ArrayList<Participant> participants = (ArrayList<Participant>)session.createCriteria(Participant.class).list();
+		session.close();
+		return participants;
 	}
 	
-	public Boolean createParticipant(Participant tmp)
+	public void createParticipant(Participant tmp)
 	{
-		try {
-			String sql = "INSERT INTO tbl_vc_participant ("+ UserService.TABLE_USER_ID + ConferenceService.TABLE_CONFERENCE_ID + ")" 
-					+"values ('" + tmp.getUser_id() + "','" + tmp.getConference_id() +"')"; 
-			if(stm.execute(sql))
-				return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
-		
+		Session session = sessionFactory.openSession();
+		Transaction ts = session.beginTransaction();
+		tmp.setStatus(1);
+		session.save(tmp);
+		ts.commit();
+		session.close();
 	}
 	
-	public ArrayList<Participant> getParticipant(int conference_id)
+	@SuppressWarnings("unchecked")
+	public ArrayList<Participant> getParticipant(int participant_id)
 	{
-		ArrayList<Participant> ParticipantList = new ArrayList<Participant>();
-		try {
-			rs = stm.executeQuery("SELECT * FROM tbl_vc_participant WHERE " + ConferenceService.TABLE_CONFERENCE_ID + " = '"+ conference_id + "' AND "+ ConferenceService.TABLE_STATUS +"= '1'" );
-			while(rs.next())
-			{
-				Participant tmp = new Participant();
-				tmp.setParticipant_id(rs.getInt(TABLE_Participant_ID));
-				tmp.setUser_id(rs.getInt(UserService.TABLE_USER_ID));
-				tmp.setConference_id(rs.getInt(ConferenceService.TABLE_CONFERENCE_ID));
-				ParticipantList.add(tmp);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return ParticipantList;
+		Session session = sessionFactory.openSession();
+		ArrayList<Participant> participants = (ArrayList<Participant>)session.createCriteria(Participant.class)
+				.add(Restrictions.eq(TABLE_Participant_ID, participant_id))
+				.add(Restrictions.eq(ConferenceService.TABLE_STATUS,1)).list();
+		session.close();
+		return participants;
 	}
 	
-	public Boolean deleteParticipant(int conference_id, int user_id)
+	public void deleteParticipant(Participant participant)
 	{
-		try {
-			String sql = "UPDATE tbl_vc_participant SET "+ ConferenceService.TABLE_STATUS + "='0' WHERE " + ConferenceService.TABLE_CONFERENCE_ID +" = '"+ conference_id + "' AND "+  UserService.TABLE_USER_ID + " = '" + user_id + "'"; 
-			if(stm.execute(sql))
-				return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
+		Session session = sessionFactory.openSession();
+		participant.setStatus(0);
+		Transaction ts = session.beginTransaction();
+		session.update(participant);
+		ts.commit();
+		session.close();
 	}
 	
-	public Boolean addParticipant(Participant tmp)
+	@SuppressWarnings("unchecked")
+	public void deleteParticipant(int conference_id, int user_id)
 	{
-		try {
-			String sql = "INSERT INTO tbl_vc_participant ("+ UserService.TABLE_USER_ID + ConferenceService.TABLE_CONFERENCE_ID +  ConferenceService.TABLE_STATUS + UserService.TABLE_MODIFY 
-					+ ") values ('" + tmp.getUser_id() + "','" + tmp.getConference_id() +"')"; 
-			if(stm.execute(sql))
-				return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Session session = sessionFactory.openSession();
+		Transaction ts = session.beginTransaction();
+		ArrayList<Participant> participant = (ArrayList<Participant>)session.createCriteria(Participant.class)
+				.add(Restrictions.eq(ConferenceService.TABLE_CONFERENCE_ID, conference_id))
+				.add(Restrictions.eq(UserService.TABLE_USER_ID, user_id))
+				.list();
+		participant.get(0).setStatus(0);
+		session.update(participant.get(0));
+		ts.commit();
+		session.close();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void deleteParticipant(int conference_id)
+	{
+		Session session = sessionFactory.openSession();
+		Transaction ts = session.beginTransaction();
+		ArrayList<Participant> participants = (ArrayList<Participant>)session.createCriteria(Participant.class)
+				.add(Restrictions.eq(ConferenceService.TABLE_CONFERENCE_ID, conference_id))
+				.list();
+		for(int i=0;i<participants.size();i++)
+		{
+			participants.get(i).setStatus(0);
+			session.update(participants.get(i));
 		}
-		return false;
+		ts.commit();
+		session.close();
+	}
+	
+	public void updateParticipant(Participant tmp)
+	{
+		Session session = sessionFactory.openSession();
+		Transaction ts = session.beginTransaction();
+		session.update(tmp);
+		ts.commit();
+		session.close();
 	}
 }

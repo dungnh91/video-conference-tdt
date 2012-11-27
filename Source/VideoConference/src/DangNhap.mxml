@@ -7,10 +7,22 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import flash.net.navigateToURL;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
 			import mx.managers.PopUpManager;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import object.User;
+			
+			import spark.components.NavigatorContent;
+			import spark.core.NavigationUnit;
+			
 			protected function Label_sub_clickHandler(event:MouseEvent):void //Click vào label kiểm tra username và password hợp lệ, sau đó chuyển tới TrangChu1
 			{
-								
+				ro.getPassword(username.text);
 			}
 			
 			// còn mấy cái của textInput tự xử dùm M nha :">
@@ -20,11 +32,31 @@
 				PopUpManager.removePopUp(this);				
 			}
 			
+			protected function getPasswordResult(event:ResultEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(password.text == event.result as String)
+				{
+					var url:URLRequest = new URLRequest();
+					url.url="TrangChu.html";
+					navigateToURL(url,"_self");
+				}
+			}
+			
+			protected function method1_faultHandler(event:FaultEvent):void
+			{
+				// TODO Auto-generated method stub
+				Alert.show(event.fault.faultString);
+			}
+			
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:RemoteObject id="ro" destination="UserService">
+			<s:method name="getPassword" result="getPasswordResult(event)" fault="method1_faultHandler(event)"/>
+		</s:RemoteObject>
 	</fx:Declarations>
 	
 	<fx:Style source="conferenceSkin.css"/>
@@ -35,7 +67,7 @@
 	<s:Label x="501" y="287" text="Password " fontWeight="bold"/>
 	
 	<s:TextInput id="username" x="570" y="237"/>
-	<s:TextInput id="password" x="570" y="281"/>	
+	<s:TextInput id="password" x="570" y="281" displayAsPassword="true"/>	
 	
 	<s:Label id="Label_sub" x="543" y="334" width="110" height="30" text="Log In to Flex"
 			 click="Label_sub_clickHandler(event)"

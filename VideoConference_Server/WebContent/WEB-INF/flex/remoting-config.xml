@@ -10,9 +10,21 @@
         <channel ref="my-amf"/>
     </default-channels>
      
-    <destination id="Service">
+    <destination id="UserService">
     	<properties>
-    		<source>EmployeeService.Service</source>
+    		<source>service.UserService</source>
+    	</properties>
+    </destination>
+    
+    <destination id="ConferenceService">
+    	<properties>
+    		<source>service.ConferenceService</source>
+    	</properties>
+    </destination>
+    
+    <destination id="ParticipantService">
+    	<properties>
+    		<source>service.ParticipantService</source>
     	</properties>
     </destination>
     

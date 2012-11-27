@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+              "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">       
+<hibernate-mapping>
+           <class name="object.Participant" table="tbl_vc_participant">
+				<id name="participant_id" type="java.lang.Integer">
+					<column name="participant_id"/>
+					<generator class="identity"/>
+				</id>
+				<property name="user_id" type="java.lang.Integer">
+				     <column name="user_id"/>
+				</property>
+				<property name="conference_id" type="java.lang.Integer">
+				    <column name="conference_id"/>
+				</property>
+				<property name="status" type="java.lang.Integer">
+				    <column name="status"/>
+				</property>
+            </class>
+</hibernate-mapping>
