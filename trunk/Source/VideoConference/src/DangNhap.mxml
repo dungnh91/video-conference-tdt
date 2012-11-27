@@ -7,6 +7,8 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import component.checkLogin;
+			
 			import flash.net.navigateToURL;
 			
 			import mx.collections.ArrayCollection;
@@ -22,7 +24,9 @@
 			
 			protected function Label_sub_clickHandler(event:MouseEvent):void //Click vào label kiểm tra username và password hợp lệ, sau đó chuyển tới TrangChu1
 			{
-				ro.getPassword(username.text);
+				var check:checkLogin= new checkLogin();
+				if(check.run(username.text,password.text))
+					ro.getPassword(username.text);
 			}
 			
 			// còn mấy cái của textInput tự xử dùm M nha :">
@@ -38,7 +42,7 @@
 				if(password.text == event.result as String)
 				{
 					var url:URLRequest = new URLRequest();
-					url.url="TrangChu.html";
+					url.url="QuanLyTaiKhoan.html";
 					navigateToURL(url,"_self");
 				}
 			}
