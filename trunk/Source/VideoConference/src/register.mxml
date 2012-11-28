@@ -3,10 +3,12 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
 			   width="1200" height="620" backgroundAlpha="0"
-			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference">
+			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference" applicationComplete="application1_applicationCompleteHandler(event)">
 	
 	<fx:Script>
 		<![CDATA[
+			import component.MD5;
+			import component.Message;
 			import component.checkRegister;
 			import component.upload;
 			
@@ -14,6 +16,7 @@
 			
 			import mx.controls.Alert;
 			import mx.core.mx_internal;
+			import mx.events.FlexEvent;
 			import mx.events.Request;
 			import mx.managers.PopUpManager;
 			import mx.rpc.Fault;
@@ -32,12 +35,12 @@
 				// TODO Auto-generated method stub
 				var tmp:checkRegister = new checkRegister();
 				
-				if (tmp.run(txt_username.text, txt_password.text, txt_retype_pass.text, txt_email.text) == true)
+				if (tmp.run(txt_username.text, txt_password.text, txt_retype_pass.text, txt_email.text,this) == true)
 				{
 					var user:User = new User();
 					user.fullname = txt_fullname.text;
 					user.user_name = txt_username.text;
-					user.password = txt_password.text;
+					user.password = MD5.encrypt(txt_password.text);
 					user.email = txt_email.text;
 					user.subcriptions = rd_free.selected==true?1:rd_basic.selected==true?2:3;
 					user.avartar = "test";
@@ -57,15 +60,11 @@
 			protected function webcam_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
-				
 			}
 			
 			protected function createUser_resultHandler(event:ResultEvent):void
 			{
-				// TODO Auto-generated method stub
-				var mess:message = new message();
-				mess.body="Adding a new user successfull!";
-				PopUpManager.addPopUp(mess,this,true);
+				Message.show("Adding a new user successfull",Message.Information,this,true);
 				PopUpManager.removePopUp(this);
 				txt_fullname.text = null;
 				txt_username.text=null;
@@ -73,6 +72,12 @@
 				txt_retype_pass.text = null;
 				txt_email.text = null;
 				rd_free.selected = true;
+				txt_fullname.setFocus();
+			}
+			
+			protected function application1_applicationCompleteHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
 				txt_fullname.setFocus();
 			}
 			
@@ -106,11 +111,11 @@
 	<s:RadioButton styleName="sub_radio" id="rd_gold" x="736" y="278" value="3"/>
 	
 
-	<s:TextInput id="txt_retype_pass" displayAsPassword="true" x="551" y="167" />
-	<s:TextInput id="txt_email" x="551" y="197" />
-	<s:TextInput id="txt_password" displayAsPassword="true" x="551" y="137" />
-	<s:TextInput id="txt_fullname" x="551" y="77" />
-	<s:TextInput id="txt_username" x="551" y="107" />
+	<s:TextInput id="txt_retype_pass" displayAsPassword="true" x="551" y="167" tabIndex="3"/>
+	<s:TextInput id="txt_email" x="551" y="197" tabIndex="4"/>
+	<s:TextInput id="txt_password" displayAsPassword="true" x="551" y="137" tabIndex="2"/>
+	<s:TextInput id="txt_fullname" x="551" y="77" tabIndex="0"/>
+	<s:TextInput id="txt_username" x="551" y="107" tabIndex="1"/>
 	
 	
 	<s:Image x="551" y="314" width="126" height="126" source="@Embed(source='images/avatar.png')"/>
