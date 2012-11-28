@@ -7,9 +7,13 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import mx.controls.Alert;
 			import mx.managers.PopUpManager;
 			
 			public var body:String;
+			public var title:String;
+			public var img:String = "assets/info.png";
+			
 			protected function ok_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
@@ -17,19 +21,33 @@
 			}	
 		]]>
 	</fx:Script>
-	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
 	<fx:Style source="conferenceSkin.css"/>
 	
-	<s:Image x="485" y="192" width="230" height="190" source="@Embed(source='images/boder.png')"/>
-	
-	<s:Label id="ok" x="575" y="339" width="50" height="30" text="OK" click="ok_clickHandler(event)" color="#ffffff" backgroundColor="#000000" fontWeight="bold" verticalAlign="middle" textAlign="center"/>
-	<s:Label x="485" y="192" width="230" height="30" text="Alert" color="#ffffff" backgroundColor="#000000" fontWeight="bold" verticalAlign="middle" textAlign="center"/>
-	<s:Label x="508" y="259" width="189" height="41" fontSize="15" id="lblbody" text="{body}"/>
-	
+	<s:BorderContainer  width="300" height="130" horizontalCenter="1" verticalCenter="1" backgroundImage="@Embed('../images/boder.png')">
+		<s:VGroup height="100%" width="100%">
+			<s:HGroup height="34" paddingLeft="5" paddingTop="10" paddingBottom="5" verticalAlign="middle" width="100%">
+				<s:Image width="32" height="32"/>
+				<s:Label  text="{title}"  fontWeight="bold" verticalAlign="middle" fontSize="16"/>
+			</s:HGroup>
+			<s:Label  backgroundColor="#000000" width="100%" height="3"/>			
+			<s:Label  width="189" height="17" fontSize="13" id="lblbody" text="{body}" paddingLeft="10" paddingTop="5"/>
+			<s:VGroup horizontalAlign="center" verticalAlign="middle" width="100%" paddingTop="15">
+				<s:Label id="ok"  width="50" height="30" text="OK" click="ok_clickHandler(event)" color="#ffffff" backgroundColor="#000000" fontWeight="bold" verticalAlign="middle" textAlign="center"/>
+			</s:VGroup>
+			
+		</s:VGroup>
+	</s:BorderContainer>
+<!--	<s:Image x="485" y="192" width="240" height="173" source="@Embed(source='images/boder.png')"/>
+	<s:Image x="494" y="195" source="@Embed('../images/error.png')"/>
+	<s:Label x="485" y="230" width="240" height="9" backgroundColor="#000000"/>
+	<s:Label id="ok" x="575" y="316" width="50" height="30" text="OK" click="ok_clickHandler(event)" color="#ffffff" backgroundColor="#000000" fontWeight="bold" verticalAlign="middle" textAlign="center"/>
+	<s:Label x="534" y="200" width="185" height="30" text="{title}"  fontWeight="bold" verticalAlign="middle"/>
+	<s:Label x="508" y="259" width="189" height="28" fontSize="12" id="lblbody" text="{body}"/>
+	-->
 	
 	
 </s:Application>
