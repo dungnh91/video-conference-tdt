@@ -36,14 +36,15 @@ public class UserService {
 		return UserList;
 	}
 	
-	public void createUser(User tmp)
+	public Boolean createUser(User tmp)
 	{
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction ts = session.beginTransaction();
 		session.save(tmp);
 		ts.commit();
-		session.close();		
+		session.close();	
+		return ts.wasCommitted();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -70,7 +71,7 @@ public class UserService {
 		return password.get(0).getPassword();
 	}
 	
-	public void updateInfo(User user)
+	public Boolean updateInfo(User user)
 	{
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -78,6 +79,7 @@ public class UserService {
 		session.update(user);
 		ts.commit();
 		session.close();
+		return ts.wasCommitted();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -96,7 +98,7 @@ public class UserService {
 		return UserList;
 	}
 	
-	public void deleteUser(User user)
+	public Boolean deleteUser(User user)
 	{
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -104,5 +106,6 @@ public class UserService {
 		session.delete(user);
 		ts.commit();
 		session.close();
+		return ts.wasCommitted();
 	}
 }

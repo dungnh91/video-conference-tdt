@@ -1,12 +1,9 @@
 package object
 {
-	import flash.utils.Timer;
-
+	[Bindable]
+	[RemoteClass(alias="object.Conference")]
 	public class Conference
-	{
-		[Bindable]
-		[RemoteClass(alias="object.Conference")]
-		
+	{	
 		public var conference_id:int;
 		public var int user_id:int;
 		public var conference_name:String;

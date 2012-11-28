@@ -1,10 +1,9 @@
 package object
 {
+	[Bindable]
+	[RemoteClass(alias="object.User")]
 	public class User
 	{
-		[Bindable]
-		[RemoteClass(alias="object.User")]
-		
 		public var user_id:int;
 		public var fullname:String;
 		public var user_name:String;

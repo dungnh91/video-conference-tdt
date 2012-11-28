@@ -7,13 +7,14 @@
 	
 	<fx:Script>
 		<![CDATA[
-						
+			import mx.managers.PopUpManager;
+			
+			public var body:String;
 			protected function ok_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
-				
-			}
-			
+				PopUpManager.removePopUp(this);
+			}	
 		]]>
 	</fx:Script>
 	
@@ -27,6 +28,7 @@
 	
 	<s:Label id="ok" x="575" y="339" width="50" height="30" text="OK" click="ok_clickHandler(event)" color="#ffffff" backgroundColor="#000000" fontWeight="bold" verticalAlign="middle" textAlign="center"/>
 	<s:Label x="485" y="192" width="230" height="30" text="Alert" color="#ffffff" backgroundColor="#000000" fontWeight="bold" verticalAlign="middle" textAlign="center"/>
+	<s:Label x="508" y="259" width="189" height="41" fontSize="15" id="lblbody" text="{body}"/>
 	
 	
 	

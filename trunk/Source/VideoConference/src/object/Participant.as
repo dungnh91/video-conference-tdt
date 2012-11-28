@@ -1,9 +1,9 @@
 package object
 {
+	[Bindable]
+	[RemoteClass(alias="object.Participant")]
 	public class Participant
 	{
-		[Bindable]
-		[RemoteClass(alias="object.Participant")]
 		public var participant_id:int;
 		public var user_id:int;
 		public var conference_id:int;
