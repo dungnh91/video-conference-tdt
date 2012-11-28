@@ -12,6 +12,8 @@
 			
 			import flash.net.navigateToURL;
 			
+			import model.AppModel;
+			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.managers.PopUpManager;
@@ -43,6 +45,7 @@
 				var user:User = event.result as User
 				if(password.text == user.password)
 				{
+					AppModel.getInstance().setUser(user);
 					var url:URLRequest = new URLRequest();
 					url.url="publicRoom.html";
 					navigateToURL(url,"_self");
