@@ -7,6 +7,7 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import component.Message;
 			import component.checkLogin;
 			
 			import flash.net.navigateToURL;
@@ -26,7 +27,7 @@
 			{
 				var check:checkLogin= new checkLogin();
 				if(check.run(username.text,password.text))
-					ro.getPassword(username.text);
+					ro.getUser(username.text);
 			}
 			
 			// còn mấy cái của textInput tự xử dùm M nha :">
@@ -36,10 +37,11 @@
 				PopUpManager.removePopUp(this);				
 			}
 			
-			protected function getPasswordResult(event:ResultEvent):void
+			protected function getUserResult(event:ResultEvent):void
 			{
 				// TODO Auto-generated method stub
-				if(password.text == event.result as String)
+				var user:User = event.result as User
+				if(password.text == user.password)
 				{
 					var url:URLRequest = new URLRequest();
 					url.url="publicRoom.html";
@@ -50,7 +52,7 @@
 			protected function method1_faultHandler(event:FaultEvent):void
 			{
 				// TODO Auto-generated method stub
-				Alert.show(event.fault.faultString);
+				Message.show("this user is not exist",Message.Error,this,true);
 			}
 			
 		]]>
@@ -58,8 +60,8 @@
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
-		<s:RemoteObject id="ro" destination="UserService">
-			<s:method name="getPassword" result="getPasswordResult(event)" fault="method1_faultHandler(event)"/>
+		<s:RemoteObject id="ro" destination="UserService" showBusyCursor="true">
+			<s:method name="getUser" result="getUserResult(event)" fault="method1_faultHandler(event)"/>
 		</s:RemoteObject>
 	</fx:Declarations>
 	
