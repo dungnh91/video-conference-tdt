@@ -5,7 +5,8 @@ package model
 	public class AppModel
 	{
 		private static var _instance:AppModel;
-		[Bindable]private  var user:User;
+		private static var user:User;
+		[Bindable] public var tmp:User;
 		public static function getInstance():AppModel
 		{
 			if(_instance == null){
@@ -13,13 +14,13 @@ package model
 			}
 			return _instance;
 		}
-		public function getUser():User
+		public  static function getUser():User
 		{
 			return user;
 		}
-		public function setUser(user:User):void
+		public static  function setUser(newuser:User):void
 		{
-			this.user = user;
+			user = newuser;
 		}
 		public function AppModel()
 		{
