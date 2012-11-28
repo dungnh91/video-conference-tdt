@@ -17,8 +17,7 @@
 			
 			protected function Label_acc_clickHandler(event:MouseEvent):void //Chuyển đến trang YourAccount
 			{
-				AppModel.getInstance().getUser();
-				Alert.show(AppModel.getInstance().getUser().user_id.toString());
+				
 			}
 			
 		]]>

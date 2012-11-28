@@ -3,7 +3,7 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
 			   width="1200" height="620" backgroundAlpha="0"
-			   chromeColor="#FFFFFF" pageTitle="Đăng Nhập">
+			   chromeColor="#FFFFFF" pageTitle="Đăng Nhập" applicationComplete="application1_applicationCompleteHandler(event)">
 	
 	<fx:Script>
 		<![CDATA[
@@ -16,6 +16,7 @@
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
+			import mx.events.FlexEvent;
 			import mx.managers.PopUpManager;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
@@ -45,7 +46,6 @@
 				var user:User = event.result as User
 				if(password.text == user.password)
 				{
-					AppModel.getInstance().setUser(user);
 					var url:URLRequest = new URLRequest();
 					url.url="publicRoom.html";
 					navigateToURL(url,"_self");
@@ -56,6 +56,12 @@
 			{
 				// TODO Auto-generated method stub
 				Message.show("this user is not exist",Message.Error,this,true);
+			}
+			
+			protected function application1_applicationCompleteHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				username.setFocus();
 			}
 			
 		]]>
@@ -75,8 +81,8 @@
 	<s:Label x="502" y="243" text="Username " fontWeight="bold"/>		
 	<s:Label x="501" y="287" text="Password " fontWeight="bold"/>
 	
-	<s:TextInput id="username" x="570" y="237"/>
-	<s:TextInput id="password" x="570" y="281" displayAsPassword="true"/>	
+	<s:TextInput id="username" x="570" y="237" tabIndex="0"/>
+	<s:TextInput id="password" x="570" y="281" displayAsPassword="true" tabIndex="1"/>	
 	
 	<s:Label id="Label_sub" x="543" y="334" width="110" height="30" text="Log In to Flex"
 			 click="Label_sub_clickHandler(event)"
