@@ -3,11 +3,13 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
 			   width="1200" height="620" backgroundAlpha="0"
-			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference">
+			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference" applicationComplete="application1_applicationCompleteHandler(event)">
 	
 	<fx:Script>
 		<![CDATA[
 			import flash.net.navigateToURL;
+			
+			import mx.events.FlexEvent;
 
 			protected function Label_logOut_clickHandler(event:MouseEvent):void //Log out tài khoản và trở về TrangChu
 			{
@@ -22,11 +24,20 @@
 				
 			}
 			
+			protected function application1_applicationCompleteHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				txt_current_user.setFocus();
+			}
+			
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:RemoteObject id="ro" destination="UserService">
+			<s:method name=""/>
+		</s:RemoteObject>
 	</fx:Declarations>
 	
 	<fx:Style source="conferenceSkin.css"/>
@@ -48,12 +59,12 @@
 	<s:RadioButton id="basic" x="661" y="318"/>
 	<s:RadioButton id="gold" x="738" y="318"/>
 	
-	<s:TextInput id="new_pass" x="551" y="180" />
-	<s:TextInput id="current_email" x="551" y="210" />	
-	<s:TextInput id="new_email" x="552" y="240" />
-	<s:TextInput id="current_pass" x="551" y="150" />
-	<s:TextInput id="current_user" x="551" y="90" />
-	<s:TextInput id="new_user" x="551" y="120" />
+	<s:TextInput id="txt_new_pass" x="551" y="180" tabIndex="3"/>
+	<s:TextInput id="txt_current_email" x="551" y="210"  tabIndex="4"/>	
+	<s:TextInput id="txt_new_email" x="552" y="240" tabIndex="5"/>
+	<s:TextInput id="txt_current_pass" x="551" y="150" tabIndex="2"/>
+	<s:TextInput id="txt_current_user" x="551" y="90" tabIndex="0"/>
+	<s:TextInput id="txt_new_user" x="551" y="120" tabIndex="1"/>
 	
 	<s:Image x="553" y="354" width="126" height="126" source="@Embed(source='images/avatar.png')"/>
 	
