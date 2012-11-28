@@ -81,6 +81,15 @@
 		</s:VGroup>
 	</s:HGroup>
 	
+	<s:HGroup>
+		<s:VGroup styleName="div">
+			<Video:VideoContainer id="videoDisplay3" width="320" height="240" />
+			<s:HGroup>
+				<s:Label text="fps:" />
+			</s:HGroup>				
+		</s:VGroup>
+	</s:HGroup>
+	
 	
 	
 </s:Application>
