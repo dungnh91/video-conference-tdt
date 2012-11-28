@@ -27,6 +27,13 @@
 	
 	<fx:Style source="conferenceSkin.css"/>
 	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace Video "component.*";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		.div{borderStyle:solid; borderColor:#000000; backgroundColor:#FFFFFF;}
+	</fx:Style>
+	
 	<!--Slogan and template
 	<s:Label x="0" y="0" width="1200" height="10" backgroundColor="#000000"/>
 	<s:Label id="Label_logOut" x="1120" y="0" width="80" height="30" text="Log Out" click="Label_logOut_clickHandler(event)"/>
@@ -40,6 +47,7 @@
 	<s:Label id="join" x="48" y="557" text="Join" width="50" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
 	<s:Image id="call" x="106" y="557" width="100" height="30" source="@Embed(source='images/call.png')"/>
 	<s:Label id="end" x="214" y="557" text="End" width="50" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>-->
+	
 	<s:HGroup horizontalAlign="center" textAlign="center">
 		<s:Label id="title" text="INPUT TITLE OF CONFERENCE IN HERE" textAlign="center" fontSize="30" fontWeight="bold"/>
 	</s:HGroup>
@@ -72,6 +80,7 @@
 				width="320" height="240"/>
 		</s:VGroup>
 	</s:HGroup>
+	
 	
 	
 </s:Application>
