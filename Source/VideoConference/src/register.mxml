@@ -13,12 +13,14 @@
 			import flash.sampler.NewObjectSample;
 			
 			import mx.controls.Alert;
+			import mx.core.mx_internal;
 			import mx.events.Request;
 			import mx.managers.PopUpManager;
 			import mx.rpc.Fault;
 			import mx.rpc.events.ResultEvent;
 			
-			import object.User;						
+			import object.User;		
+			
 			protected function close_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
@@ -30,16 +32,16 @@
 				// TODO Auto-generated method stub
 				var tmp:checkRegister = new checkRegister();
 				
-				if (tmp.run(username.text, password.text, retype_pass.text, email.text) == true)
+				if (tmp.run(txt_username.text, txt_password.text, txt_retype_pass.text, txt_email.text) == true)
 				{
 					var user:User = new User();
-					user.fullname = fullname.text;
-					user.user_name = username.text;
-					user.password = password.text;
-					user.email = email.text;
-					user.subcriptions = free.selected==true?1:basic.selected==true?2:3;
-					//user.avartar
-					
+					user.fullname = txt_fullname.text;
+					user.user_name = txt_username.text;
+					user.password = txt_password.text;
+					user.email = txt_email.text;
+					user.subcriptions = rd_free.selected==true?1:rd_basic.selected==true?2:3;
+					user.avartar = "test";
+					ro.createUser(user);
 				}
 			}
 			
@@ -61,7 +63,17 @@
 			protected function createUser_resultHandler(event:ResultEvent):void
 			{
 				// TODO Auto-generated method stub
-				
+				var mess:message = new message();
+				mess.body="Adding a new user successfull!";
+				PopUpManager.addPopUp(mess,this,true);
+				PopUpManager.removePopUp(this);
+				txt_fullname.text = null;
+				txt_username.text=null;
+				txt_password.text=null;
+				txt_retype_pass.text = null;
+				txt_email.text = null;
+				rd_free.selected = true;
+				txt_fullname.setFocus();
 			}
 			
 		]]>
@@ -70,6 +82,7 @@
 	<fx:Declarations>
 		<s:RemoteObject id="ro" destination="UserService" showBusyCursor="true">
 			<s:method name="createUser" result="createUser_resultHandler(event)" fault="Alert.show(event.fault.faultString)"/>
+			<s:method name="getUser"/>	
 		</s:RemoteObject>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -88,25 +101,25 @@
 	<s:Label x="551" y="240" text="Free" width="70" height="30" fontSize="16" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
 	<s:Label x="629" y="240" text="Basic" width="70" height="30" fontSize="16" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
 	<s:Label x="707" y="240" text="Gold" width="70" height="30" fontSize="16" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFF00"/>
-	<s:RadioButton styleName="sub_radio" id="free" selected="true" x="581" y="278" value="1"/>
-	<s:RadioButton styleName="sub_radio" id="basic" x="659" y="278" value="2"/>
-	<s:RadioButton styleName="sub_radio" id="gold" x="736" y="278" value="3"/>
+	<s:RadioButton styleName="sub_radio" id="rd_free" selected="true" x="581" y="278" value="1"/>
+	<s:RadioButton styleName="sub_radio" id="rd_basic" x="659" y="278" value="2"/>
+	<s:RadioButton styleName="sub_radio" id="rd_gold" x="736" y="278" value="3"/>
 	
 
-	<s:TextInput id="retype_pass" displayAsPassword="true" x="551" y="167" />
-	<s:TextInput id="email" x="551" y="197" />
-	<s:TextInput id="password" displayAsPassword="true" x="551" y="137" />
-	<s:TextInput id="fullname" x="551" y="77" />
-	<s:TextInput id="username" x="551" y="107" />
+	<s:TextInput id="txt_retype_pass" displayAsPassword="true" x="551" y="167" />
+	<s:TextInput id="txt_email" x="551" y="197" />
+	<s:TextInput id="txt_password" displayAsPassword="true" x="551" y="137" />
+	<s:TextInput id="txt_fullname" x="551" y="77" />
+	<s:TextInput id="txt_username" x="551" y="107" />
 	
 	
 	<s:Image x="551" y="314" width="126" height="126" source="@Embed(source='images/avatar.png')"/>
 	<s:Image id="close" x="798" y="53" width="20" height="20" source="@Embed(source='images/button_close.png')" click="close_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	
-	<s:Button id="computer" x="707" y="332" label="Computer" click="computer_clickHandler(event)"/>
+	<s:Button id="btn_computer" x="707" y="332" label="Computer" click="computer_clickHandler(event)"/>
 <!--	<s:Button id="webcam" x="707" y="366" width="76" label="Webcam" click="webcam_clickHandler(event)"/> -->
 	
 	
-	<s:Label id="signUp" x="565" y="467" text="Sign Up" width="71" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" click="signUp_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
+	<s:Label id="lbl_signUp" x="565" y="467" text="Sign Up" width="71" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" click="signUp_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	
 </s:Application>
