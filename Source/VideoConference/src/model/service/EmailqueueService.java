@@ -75,8 +75,8 @@ public class EmailqueueService {
 		try {
 			String sql = "INSERT INTO tbl_vc_emailqueue ("+ TABLE_FROM + TABLE_TO + TABLE_MESSAGE 
 					+ TABLE_SUBJECT + TABLE_HEADERS + TABLE_CC + TABLE_BCC + TABLE_DESCRIPTIONS ")" +
-					"values (N'" + tmp.getFrom() + "','" + tmp.getTo()  + "','" + tmp.getMessage() + "','" +
-					tmp.getSubject() + "','" + tmp.getHeader() + "','" + tmp.getCc() + "','" + tmp.getBcc()+ "','" + tmp.getDescription() + "')"; 
+					"values ('" + tmp.getFrom() + "','" + tmp.getTo()  + "',N'" + tmp.getMessage() + "',N'" +
+					tmp.getSubject() + "',N'" + tmp.getHeader() + "','" + tmp.getCc() + "','" + tmp.getBcc()+ "',N'" + tmp.getDescription() + "')"; 
 			if(stm.execute(sql))
 				return true;
 		} catch (SQLException e) {
