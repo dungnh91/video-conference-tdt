@@ -51,6 +51,7 @@
 	<s:HGroup horizontalAlign="center" textAlign="center">
 	</s:HGroup>
 	
+	<s:BorderContainer width="200" height="200">
 	<s:HGroup x="40" y="80" width="320" height="269">
 		<s:VGroup x="10" y="86" height="100%" styleName="div">
 			<Video:VideoContainer
@@ -62,6 +63,7 @@
 			</s:HGroup>
 		</s:VGroup>
 	</s:HGroup>
+	</s:BorderContainer>
 	
 	<s:HGroup x="410" y="80" width="320" height="269">
 		<s:VGroup x="10" y="86" height="100%" styleName="div">
@@ -69,7 +71,7 @@
 				id="videoDisplay1"
 				width="320" height="240"/>
 			<s:HGroup>
-				<s:Label text="fps:" />
+				<s:Label x="100" text="fps:" />
 			</s:HGroup>
 		</s:VGroup>
 		
