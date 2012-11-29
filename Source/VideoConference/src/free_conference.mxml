@@ -49,7 +49,6 @@
 	<s:Label id="end" x="214" y="557" text="End" width="50" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>-->
 	
 	<s:HGroup horizontalAlign="center" textAlign="center">
-		<s:Label id="title" text="INPUT TITLE OF CONFERENCE IN HERE" textAlign="center" fontSize="30" fontWeight="bold"/>
 	</s:HGroup>
 	
 	<s:HGroup x="40" y="80" width="320" height="269">
@@ -80,6 +79,8 @@
 				width="320" height="240"/>
 		</s:VGroup>
 	</s:HGroup>
+	<s:Label id="title" x="311" y="20" fontSize="30" fontWeight="bold"
+			 text="INPUT TITLE OF CONFERENCE IN HERE" textAlign="center"/>
 	
 	
 	
