@@ -64,7 +64,7 @@
 			
 			protected function createUser_resultHandler(event:ResultEvent):void
 			{
-				Message.show("Adding a new user successfull",Message.Information,this,true);
+				Message.show("Your account has been created successfully and is ready to use",Message.Information,this,true);
 				PopUpManager.removePopUp(this);
 				txt_fullname.text = null;
 				txt_username.text=null;
