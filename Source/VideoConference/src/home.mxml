@@ -3,12 +3,23 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark"
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   width="1200" height="620" backgroundAlpha="0"
-			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference">
+			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference" initialize="initApp()">
 	
 	<fx:Script>
 		<![CDATA[
+			import model.AppModel;
+			
+			import mx.controls.Alert;
 			import mx.managers.PopUpManager;
-					
+				
+			public var mySO:SharedObject;
+			protected function initApp():void
+			{
+				mySO = SharedObject.getLocal("info","/");
+				if(mySO.data.user!=null)
+					AppModel.getInstance().navigate("publicRoom.html");
+			}
+			
 			//Click Events: đối tượng toàn là Label
 			protected function Label_signUp_clickHandler(event:MouseEvent):void //Click vào label chuyển tới trang DangNhap
 			{

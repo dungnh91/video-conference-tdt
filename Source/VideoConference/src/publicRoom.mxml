@@ -3,23 +3,35 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
 			   width="1200" height="620" backgroundAlpha="0"
-			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference">
+			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference" initialize="initApp()">
 	
 	<fx:Script>
 		<![CDATA[
 			import model.AppModel;
 			
 			import mx.controls.Alert;
+			
+			public var mySO:SharedObject;
+			protected function initApp():void
+			{
+				mySO = SharedObject.getLocal("info","/");
+				if(mySO.data.user == null)
+					AppModel.getInstance().navigate("home.html");
+			}
+			
 			protected function Label_logOut_clickHandler(event:MouseEvent):void //Log out tài khoản và trở về TrangChu
 			{
-				
+				mySO.clear();
 			}
 			
 			protected function Label_acc_clickHandler(event:MouseEvent):void //Chuyển đến trang YourAccount
 			{
-				
 			}
 			
+			protected function getMyConferences():void
+			{
+				
+			}
 		]]>
 	</fx:Script>
 	
