@@ -3,43 +3,126 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
 			   width="1200" height="620" backgroundAlpha="0"
-			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference">
+			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference" initialize="initApp()">
 	
 	<fx:Script>
 		<![CDATA[
-									
-						
+			import component.checkConferences;
+			
+			import model.AppModel;
+			
+			import mx.controls.Alert;
+			import mx.events.ItemClickEvent;
+			import mx.managers.PopUpManager;
+			public var mySO:SharedObject;
+			protected function initApp():void
+			{
+				mySO = SharedObject.getLocal("info","/");
+				if(mySO.data.user == null)
+					AppModel.getInstance().navigate("home.html");
+			}
+		
+			protected function Create(event:MouseEvent):void
+			{
+				var time_start:Date = new Date();
+				var time_end:Date = new Date();
+				time_start.hours= hours_start.value;
+				time_start.minutes= minutes_start.value;
+				time_end.hours= hours_end.value;
+				time_end.minutes= minutes_end.value;
+				if(checkConferences.run(title.text,description.text,dtf_date.selectedDate,time_start,time_end))
+				{
+					
+				}
+			}
+			
+			protected function Cancel(event:MouseEvent):void
+			{
+				
+				PopUpManager.removePopUp(this);
+			}
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:RadioButtonGroup id="rdg_start"/>
+		<s:RadioButtonGroup id="rdg_end"/>
 	</fx:Declarations>
 	
 	<fx:Style source="conferenceSkin.css"/>
-	
-	<s:Image x="406" y="62" width="380" height="500" source="@Embed(source='images/boder10.png')"/>
+	<s:BorderContainer horizontalCenter="1" verticalCenter="1" >
+		<s:borderStroke> 
+			<mx:SolidColorStroke 
+				color="black" 
+				weight="3"/> 
+		</s:borderStroke> 
+		<s:VGroup paddingTop="15" paddingBottom="15" paddingLeft="15" paddingRight="15">
+			<s:HGroup>
+				<s:Label text="Title: " fontWeight="bold" width="100"/>	
+				<s:TextInput id="title" width="239"/>
+			</s:HGroup>
+			<s:HGroup>
+				<s:Label text="Description: " fontWeight="bold" width="100"/>
+				<s:TextInput id="description"  width="239" height="77"/>	
+			</s:HGroup>
+			<s:HGroup>
+				<s:Label  text="Date: " fontWeight="bold" width="100"/>
+				<mx:DateField id="dtf_date"  width="116" showToday="true" />
+			</s:HGroup>
+			<s:HGroup>
+				<s:Label  text="Time Start: " fontWeight="bold" width="100"/>
+				 
+				<s:NumericStepper id="hours_start"  width="40" maximum="23" allowValueWrap="true"/>
+				<s:NumericStepper id="minutes_start" width="40" maximum="60" allowValueWrap="true"/>
+				
+				<s:RadioButton id="am_start"  group="{rdg_start}" label="AM" fontWeight="bold" selected="true"/>
+				<s:RadioButton id="pm_start" group="{rdg_start}" label="PM" fontWeight="bold"/>
+			</s:HGroup>
+			<s:HGroup>
+				<s:Label  text="Time End: " fontWeight="bold" width="100"/>
+				
+				<s:NumericStepper id="hours_end"  width="40" maximum="23" allowValueWrap="true"/>
+				<s:NumericStepper id="minutes_end" width="40" maximum="60" allowValueWrap="true"/>
+					<s:RadioButton id="am_end" group="{rdg_end}" label="AM" fontWeight="bold" selected="true"/>
+					<s:RadioButton id="pm_end" group="{rdg_end}" label="PM" fontWeight="bold"/>	
+				
+			</s:HGroup>
+			<s:HGroup>
+				<s:Label  text="Participants: " fontWeight="bold" width="100"/>
+				<s:List id="participants" width="239" height="210"/>	
+			</s:HGroup>
+			<s:HGroup horizontalAlign="center" width="100%">
+				<s:Label id="create" text="Create" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle" click="Create(event)"/>
+				<s:Label id="cancel"  text="Cancel" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle" click="Cancel(event)"/>
+			</s:HGroup>
+			
+		</s:VGroup>
+	</s:BorderContainer>
+<!--	<s:Image x="406" y="62" width="380" height="500" source="@Embed(source='images/boder10.png')"/>
 	<s:Label x="482" y="97" text="Title: " fontWeight="bold"/>	
 	<s:TextInput id="title" x="522" y="91" width="239"/>
 	<s:Label x="440" y="126" text="Description: " fontWeight="bold"/>
 	<s:TextInput id="description" x="522" y="121" width="239" height="77"/>
 	<s:Label x="479" y="213" text="Date: " fontWeight="bold"/>
-	<s:Label x="686" y="212" text="(dd/mm/yyyy)" fontWeight="bold"/>
 	<s:Label x="478" y="243" text="Time: " fontWeight="bold"/>
-	<s:NumericStepper id="day" x="522" y="206" width="40"/>
-	<s:NumericStepper id="month" x="570" y="206" width="40"/>
+	
+	<s:NumericStepper id="day" x="522" y="206" width="40" value="1"/>
+	<s:NumericStepper id="month" x="570" y="206" width="40" value="1"/>
 	<s:NumericStepper id="year" x="618" y="206" width="60"/>
-	<s:NumericStepper id="hour" x="522" y="237" width="40"/>
-	<s:NumericStepper id="second" x="570" y="237" width="40"/>
+
+	<mx:DateField id="dtf_date" x="522" y="208" width="116"/>
+	<s:NumericStepper id="hours" x="522" y="237" width="40" maximum="23"/>
+	<s:NumericStepper id="minutes" x="570" y="237" width="40" maximum="60"/>
 	<s:RadioButton id="am" x="618" y="242" label="AM" fontWeight="bold" selected="true" value="1"/>
 	<s:RadioButton id="pm" x="662" y="242" label="PM" fontWeight="bold"/>
-	<s:Label x="440" y="268" text="Participants: " fontWeight="bold"/>
-	<s:List id="participants" x="522" y="268" width="239" height="210"/>
-		<s:CheckBox x="531" y="278" label="bap_rang_bo"/>
-		<s:CheckBox x="531" y="304" label="duka_tran"/>
-		<s:CheckBox x="531" y="330" label="hoang_dung"/>	
-	<s:Label id="create" x="534" y="507" text="Create" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle"/>
-	<s:Label id="cancel" x="607" y="507" text="Cancel" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle"/>
+	<s:Label x="440" y="298" text="Participants: " fontWeight="bold"/>
+	<s:List id="participants" x="522" y="298" width="239" height="210"/>
+		<s:CheckBox x="531" y="308" label="bap_rang_bo"/>
+		<s:CheckBox x="531" y="334" label="duka_tran"/>
+		<s:CheckBox x="531" y="360" label="hoang_dung"/>	
+	<s:Label id="create" x="534" y="537" text="Create" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle"/>
+	<s:Label id="cancel" x="607" y="537" text="Cancel" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle"/>
 	
-		
+	-->	
 </s:Application>
