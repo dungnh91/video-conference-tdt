@@ -3,7 +3,7 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
 			   width="1200" height="620" backgroundAlpha="0"
-			   chromeColor="#FFFFFF" pageTitle="Đăng Nhập" applicationComplete="application1_applicationCompleteHandler(event)">
+			   chromeColor="#FFFFFF" pageTitle="Đăng Nhập" applicationComplete="application1_applicationCompleteHandler(event)" initialize="initApp()">
 	
 	<fx:Script>
 		<![CDATA[
@@ -23,14 +23,15 @@
 			
 			import object.User;
 			
-			import spark.components.NavigatorContent;
-			import spark.core.NavigationUnit;
 			
+			public var mySO:SharedObject;
 			protected function Label_sub_clickHandler(event:MouseEvent):void //Click vào label kiểm tra username và password hợp lệ, sau đó chuyển tới TrangChu1
 			{
 				var check:checkLogin= new checkLogin();
 				if(check.run(username.text,password.text))
+				{
 					ro.getUser(username.text);
+				}
 			}
 			
 			// còn mấy cái của textInput tự xử dùm M nha :">
@@ -46,10 +47,17 @@
 				var user:User = event.result as User
 				if(password.text == user.password)
 				{
-					var url:URLRequest = new URLRequest();
-					url.url="publicRoom.html";
-					navigateToURL(url,"_self");
+					mySO.data.user = user;
+					mySO.flush();
+					AppModel.getInstance().navigate("publicRoom.html");
 				}
+			}
+			
+			protected function initApp():void
+			{
+				mySO = SharedObject.getLocal("info","/");
+				if(mySO.data.user !=null)
+					AppModel.getInstance().navigate("publicRoom.html");
 			}
 			
 			protected function method1_faultHandler(event:FaultEvent):void
