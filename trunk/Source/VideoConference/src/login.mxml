@@ -7,6 +7,7 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import component.MD5;
 			import component.Message;
 			import component.checkLogin;
 			
@@ -45,12 +46,14 @@
 			{
 				// TODO Auto-generated method stub
 				var user:User = event.result as User
-				if(password.text == user.password)
+				if(MD5.encrypt(password.text) == user.password)
 				{
-					mySO.data.user = user;
+					mySO.data.user = user.user_id;
 					mySO.flush();
 					AppModel.getInstance().navigate("publicRoom.html");
 				}
+				else
+					Message.show("Password is incorrect",Message.Error,this,true);
 			}
 			
 			protected function initApp():void
