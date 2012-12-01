@@ -5,7 +5,7 @@ package object
 	public class Conference
 	{	
 		public var conference_id:int;
-		public var int user_id:int;
+		public var host_id:int;
 		public var conference_name:String;
 		public var date:Date;
 		public var time_start:Date;
@@ -17,6 +17,7 @@ package object
 		
 		public function Conference()
 		{
+			status = 1;
 		}
 	}
 }

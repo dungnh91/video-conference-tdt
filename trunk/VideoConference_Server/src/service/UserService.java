@@ -58,6 +58,15 @@ public class UserService {
 		return user.get(0);
 	}
 	
+	public User getUserById(int user_id)
+	{
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		User user = (User) session.get(User.class, user_id);
+		session.close();
+		return user;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public String getPassword(String UserName)
 	{		
@@ -92,7 +101,7 @@ public class UserService {
 		ArrayList<User> UserList = new ArrayList<User>();
 		for(int i=0;i<ConferenceList.size();i++)
 		{
-			UserList.add((User)session.get(User.class, ConferenceList.get(i).getUser_id()));
+			UserList.add((User)session.get(User.class, ConferenceList.get(i).getHost_id()));
 		}
 		session.close();
 		return UserList;

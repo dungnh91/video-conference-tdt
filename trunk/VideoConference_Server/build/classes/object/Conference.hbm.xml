@@ -8,8 +8,8 @@
 					<column name="conference_id"/>
 					<generator class="identity"/>
 				</id>
-				<property name="user_id" type="java.lang.Integer">
-				     <column name="user_id"/>
+				<property name="host_id" type="java.lang.Integer">
+				     <column name="host_id"/>
 				</property>
 				<property name="conference_name" type="java.lang.String">
 				    <column name="conference_name"/>

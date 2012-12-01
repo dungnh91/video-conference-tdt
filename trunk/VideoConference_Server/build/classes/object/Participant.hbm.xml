@@ -8,6 +8,9 @@
 					<column name="participant_id"/>
 					<generator class="identity"/>
 				</id>
+				<property name="host_id" type="java.lang.Integer">
+				     <column name="host_id"/>
+				</property>
 				<property name="user_id" type="java.lang.Integer">
 				     <column name="user_id"/>
 				</property>
