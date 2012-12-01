@@ -34,7 +34,7 @@
 				else
 				{
 					this.currentState = "edit";
-					ro.getUserById(mySO.data.user);
+						ro.getUserById(mySO.data.user);
 				}
 			}
 			
@@ -58,7 +58,7 @@
 				else
 					if(checkRegister.checkCurrentPassword(txt_full_name.text, txt_username.text, txt_current_pass.text, txt_new_pass.text, txt_confirm_pass.text, txt_email.text,this))
 					{
-						if(user.password == txt_current_pass.text)
+						if(user.password == MD5.encrypt(txt_current_pass.text))
 							ro.updateInfo(getUserFromForm());
 						else
 							Message.show("Current Password incorrect",Message.Error,this);
@@ -166,7 +166,7 @@
 			</s:HGroup>
 			
 			<s:HGroup verticalAlign="middle">
-				<s:Label width="130" fontWeight="bold" text.edit="Username:"/>
+				<s:Label width="130" fontWeight="bold" text="Username:"/>
 				<s:TextInput id="txt_username" tabIndex="2"/>
 			</s:HGroup>
 			
@@ -175,20 +175,19 @@
 				<s:TextInput id="txt_current_pass" tabIndex="3" displayAsPassword="true"/>
 			</s:HGroup>
 			
-			<s:HGroup verticalAlign="middle"> 
+			<s:HGroup verticalAlign="middle" excludeFrom="view"> 
 				<s:Label text="New Password: " fontWeight="bold" width="130" includeIn="edit"/>
 				<s:Label text="Password: " fontWeight="bold" width="130" includeIn="register"/>
 				<s:TextInput id="txt_new_pass" tabIndex="4" displayAsPassword="true"/>
 			</s:HGroup>
 			
-			<s:HGroup verticalAlign="middle"> 
+			<s:HGroup verticalAlign="middle" excludeFrom="view"> 
 				<s:Label text="Re-type Password: " fontWeight="bold" width="130"/>
 				<s:TextInput id="txt_confirm_pass" tabIndex="5" displayAsPassword="true"/>
 			</s:HGroup>
 			
 			<s:HGroup verticalAlign="middle">
 				<s:Label text="Email: " fontWeight="bold"  width="130"/>
-				<s:Label text="Email: " fontWeight="bold"  width="130" includeIn="register"/>
 				<s:TextInput id="txt_email"  tabIndex="6"/>
 			</s:HGroup>
 			

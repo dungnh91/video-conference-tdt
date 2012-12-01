@@ -5,22 +5,44 @@
 				autoDrawBackground="true">
 	<fx:Script>
 		<![CDATA[
+			import component.Message;
+			
 			import mx.controls.Alert;
-			import mx.events.FlexEvent;
-			import mx.formatters.DateFormatter;
-			private var time:String = new String();
-			private var date:String = new String();
-			protected function initItem():void
+			import mx.managers.PopUpManager;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import object.Conference;
+			
+			import spark.skins.spark.ImageSkin;
+			private var mySO:SharedObject;
+			private function edit(event:MouseEvent):void
 			{
-				var dateformatter:DateFormatter = new DateFormatter();
-				dateformatter.formatString = "NN:SS";
-				time = "time";
-				date = "date";
-				
-				//dateformatter.formatString = "MM/DD/YYYY";
-				//date = dateformatter.format(data.date.toString()) ;
+				mySO = SharedObject.getLocal("info","/");
+				mySO.data.conf = data.conference_id;
+				if(mySO.flush()=="flushed")
+				{
+					var editConference:createConference = new createConference();
+					PopUpManager.addPopUp(editConference,this.parent,true);
+					PopUpManager.centerPopUp(editConference);
+				}
+			}
+			private function remove(event:MouseEvent):void
+			{
+				var conference:Conference = new Conference();
+				conference.conference_id = data.conference_id;
+				ro.deleteConferene(conference);
 			}
 			
+			private function deleteConference_result(event:ResultEvent):void
+			{
+				Message.show("Deleting successfull",Message.Information,this);
+			}
+			
+			private function error(event:FaultEvent):void
+			{
+				Message.show(event.fault.faultString,Message.Error,this);
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -30,16 +52,21 @@
 		<s:DateTimeFormatter id="dateFormatterForDate">
 			<s:dateTimePattern>MM/dd/yyyy</s:dateTimePattern>
 		</s:DateTimeFormatter>
+		
+		<s:RemoteObject id="ro" destination="ConferenceService">
+			<s:method name="deleteConferene" result="deleteConference_result(event)" fault="error(event)"/>
+			
+		</s:RemoteObject>
 	</fx:Declarations>
-	<s:HGroup verticalAlign="middle">
+	<s:HGroup verticalAlign="middle" paddingTop="10">
 		<s:HGroup textAlign="left" paddingLeft="15" verticalAlign="middle">
 			<s:Label width="35" color="#00d550" text="{dateFormatterForTime.format(data.time_start)}"/>
 			<s:Label text="{dateFormatterForDate.format(data.date)}" color="#00bbff" width="80"/>
-			<s:Label text="{data.conference_name}" color="#ff6600" minWidth="95"/>
+			<s:Label text="{data.conference_name}" color="#ff6600" minWidth="150"/>
 		</s:HGroup>
 		<s:HGroup textAlign="right" paddingRight="15" width="100%" horizontalAlign="right" verticalAlign="middle">
-			<s:Image  width="20" height="20" source="@Embed(source='images/edit.png')"/>
-			<s:Image  width="20" height="20" source="@Embed(source='images/recycle.png')"/>
+			<s:Image width="20" height="20" source="@Embed(source='images/edit.png')" click="edit(event)"/>
+			<s:Image  width="20" height="20" source="@Embed(source='images/recycle.png')" click="remove(event)"/>
 		</s:HGroup>
 	</s:HGroup>
 </s:ItemRenderer>

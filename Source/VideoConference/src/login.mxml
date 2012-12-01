@@ -17,6 +17,7 @@
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
+			import mx.core.INavigatorContent;
 			import mx.events.FlexEvent;
 			import mx.managers.PopUpManager;
 			import mx.rpc.events.FaultEvent;
@@ -49,8 +50,8 @@
 				if(MD5.encrypt(password.text) == user.password)
 				{
 					mySO.data.user = user.user_id;
-					mySO.flush();
-					AppModel.getInstance().navigate("publicRoom.html");
+					if(mySO.flush() == "flushed")
+						AppModel.getInstance().navigate("publicRoom.html");
 				}
 				else
 					Message.show("Password is incorrect",Message.Error,this,true);

@@ -27,6 +27,7 @@
 			import object.User;
 			
 			import spark.components.CheckBox;
+			import spark.components.PopUpAnchor;
 			public var mySO:SharedObject;
 			public var user:User;
 			private var conference:Conference = new Conference();
@@ -45,6 +46,11 @@
 					this.currentState = "edit";
 					conference_id = mySO.data.conf;
 				}
+				
+				ro_user.getUser();
+				ro_user.getUserById(mySO.data.user);
+				if(this.currentState== "edit")
+					ro_conference.getConferencesById(conference_id);
 			}
 		
 			protected function checkValid():Boolean
@@ -93,7 +99,9 @@
 			{
 				if(checkValid())
 					if(createConf())
+					{
 						ro_conference.createConference(conference);
+					}
 			}
 			
 			protected function Update(event:MouseEvent):void
@@ -161,10 +169,7 @@
 			protected function application1_applicationCompleteHandler(event:FlexEvent):void
 			{
 				// TODO Auto-generated method stub
-				ro_user.getUser();
-				ro_user.getUserById(mySO.data.user);
-				if(this.currentState== "edit")
-					ro_conference.getConferencesById(conference_id);
+				
 			}
 			protected function getUser_result(event:ResultEvent):void
 			{
@@ -219,7 +224,8 @@
 			
 			protected function CreateParticipant_result(event:ResultEvent):void
 			{
-				Message.show("Your conference was created",Message.Information,this);		
+				Message.show("Your conference was created",Message.Information,this);
+				PopUpManager.removePopUp(this);
 			}
 			
 			
@@ -284,6 +290,7 @@
 			protected function UpdateParticipants_result(event:ResultEvent):void
 			{
 				Message.show("Your conference was updated",Message.Information,this);
+				PopUpManager.removePopUp(this);
 			}
 		]]>
 	</fx:Script>
@@ -313,7 +320,7 @@
 		<s:State name="view"/>
 	</s:states>
 	<fx:Style source="conferenceSkin.css"/>
-	<s:BorderContainer horizontalCenter="1" verticalCenter="1" >
+	<s:BorderContainer>
 		<s:borderStroke> 
 			<mx:SolidColorStroke 
 				color="black" 
