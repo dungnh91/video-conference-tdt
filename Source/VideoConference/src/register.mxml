@@ -3,7 +3,7 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
 			   width="1200" height="620" backgroundAlpha="0"
-			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference" applicationComplete="application1_applicationCompleteHandler(event)">
+			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference" applicationComplete="application1_applicationCompleteHandler(event)" initialize="initApp()">
 	
 	<fx:Script>
 		<![CDATA[
@@ -20,9 +20,23 @@
 			import mx.events.Request;
 			import mx.managers.PopUpManager;
 			import mx.rpc.Fault;
+			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
 			import object.User;		
+			public var user:User;
+			public var mySO:SharedObject;
+			protected function initApp():void
+			{
+				mySO = SharedObject.getLocal("info","/");
+				if(mySO.data.user==null)
+					this.currentState = "register";
+				else
+				{
+					this.currentState = "edit";
+					ro.getUserById(mySO.data.user);
+				}
+			}
 			
 			protected function close_clickHandler(event:MouseEvent):void
 			{
@@ -33,19 +47,35 @@
 			protected function signUp_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
-				var tmp:checkRegister = new checkRegister();
-				
-				if (tmp.run(txt_username.text, txt_password.text, txt_retype_pass.text, txt_email.text,this) == true)
+				if(this.currentState == "register")
 				{
-					var user:User = new User();
-					user.fullname = txt_fullname.text;
-					user.user_name = txt_username.text;
-					user.password = MD5.encrypt(txt_password.text);
-					user.email = txt_email.text;
-					user.subcriptions = rd_free.selected==true?1:rd_basic.selected==true?2:3;
-					user.avartar = "test";
-					ro.createUser(user);
+					if (checkRegister.run(txt_full_name.text, txt_username.text, txt_new_pass.text, txt_confirm_pass.text, txt_email.text,this))
+					{
+						
+						ro.createUser(getUserFromForm());
+					}
 				}
+				else
+					if(checkRegister.checkCurrentPassword(txt_full_name.text, txt_username.text, txt_current_pass.text, txt_new_pass.text, txt_confirm_pass.text, txt_email.text,this))
+					{
+						if(user.password == txt_current_pass.text)
+							ro.updateInfo(getUserFromForm());
+						else
+							Message.show("Current Password incorrect",Message.Error,this);
+					}
+				
+			}
+			
+			protected function getUserFromForm():User
+			{
+				var user:User = new User();
+				user.fullname = txt_full_name.text;
+				user.user_name = txt_username.text;
+				user.password = MD5.encrypt(txt_new_pass.text);
+				user.email = txt_email.text;
+				user.subcriptions = rd_free.selected==true?1:rd_basic.selected==true?2:3;
+				user.avartar = "test";
+				return user;
 			}
 			
 			protected function computer_clickHandler(event:MouseEvent):void
@@ -66,19 +96,39 @@
 			{
 				Message.show("Your account has been created successfully",Message.Information,this,true);
 				PopUpManager.removePopUp(this);
-				txt_fullname.text = null;
+				txt_full_name.text = null;
 				txt_username.text=null;
-				txt_password.text=null;
-				txt_retype_pass.text = null;
+				txt_new_pass.text=null;
+				txt_confirm_pass.text = null;
 				txt_email.text = null;
 				rd_free.selected = true;
-				txt_fullname.setFocus();
+				txt_full_name.setFocus();
 			}
 			
 			protected function application1_applicationCompleteHandler(event:FlexEvent):void
 			{
 				// TODO Auto-generated method stub
-				txt_fullname.setFocus();
+				txt_full_name.setFocus();
+			}
+			
+			protected function UpdateInfo_result(event:ResultEvent):void
+			{
+				Message.show("Your information was updated",Message.Information,this);
+			}
+			protected function error(event:FaultEvent):void
+			{
+				Message.show(event.fault.faultString,Message.Error,this);
+			}
+			
+			protected function getUserById_result(event:ResultEvent):void
+			{
+				user = event.result as User;
+				txt_username.text = user.user_name;
+				txt_email.text = user.email;
+				txt_full_name.text = user.fullname;
+				rd_free.selected = user.subcriptions == 1;
+				rd_basic.selected = user.subcriptions == 2;
+				rd_gold.selected = user.subcriptions == 3;
 			}
 			
 		]]>
@@ -86,15 +136,93 @@
 	
 	<fx:Declarations>
 		<s:RemoteObject id="ro" destination="UserService" showBusyCursor="true">
-			<s:method name="createUser" result="createUser_resultHandler(event)" fault="Alert.show(event.fault.faultString)"/>
-			<s:method name="getUser"/>	
+			<s:method name="createUser" result="createUser_resultHandler(event)" fault="error(event)"/>
+			<s:method name="getUserById" result="getUserById_result(event)" fault="error(event)"/>
+			<s:method name="updateInfo" result="UpdateInfo_result(event)" fault="error(event)"/>
+
 		</s:RemoteObject>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
 	<fx:Style source="conferenceSkin.css"/>
 	
-	<s:Image x="375" y="47" width="450" height="480" source="@Embed(source='images/boder3.png')"/>
+	<s:states>
+		<s:State name="register"/>
+		<s:State name="edit" />
+		<s:State name="view" />
+	</s:states>
+	<s:BorderContainer verticalCenter="1" horizontalCenter="1"> 
+		<s:borderStroke> 
+			<mx:SolidColorStroke 
+				color="black" 
+				weight="3"/> 
+		</s:borderStroke>
+		
+		<s:VGroup paddingBottom="20" paddingLeft="20" paddingRight="20" paddingTop="20">
+			
+			<s:HGroup verticalAlign="middle">
+				<s:Label text="Full name :"  width="130" fontWeight="bold"/>
+				<s:TextInput id="txt_full_name" tabIndex="1"/>
+			</s:HGroup>
+			
+			<s:HGroup verticalAlign="middle">
+				<s:Label width="130" fontWeight="bold" text.edit="Username:"/>
+				<s:TextInput id="txt_username" tabIndex="2"/>
+			</s:HGroup>
+			
+			<s:HGroup verticalAlign="middle" includeIn="edit">
+				<s:Label text="Current Password: "  fontWeight="bold" width="130"/>
+				<s:TextInput id="txt_current_pass" tabIndex="3" displayAsPassword="true"/>
+			</s:HGroup>
+			
+			<s:HGroup verticalAlign="middle"> 
+				<s:Label text="New Password: " fontWeight="bold" width="130" includeIn="edit"/>
+				<s:Label text="Password: " fontWeight="bold" width="130" includeIn="register"/>
+				<s:TextInput id="txt_new_pass" tabIndex="4" displayAsPassword="true"/>
+			</s:HGroup>
+			
+			<s:HGroup verticalAlign="middle"> 
+				<s:Label text="Re-type Password: " fontWeight="bold" width="130"/>
+				<s:TextInput id="txt_confirm_pass" tabIndex="5" displayAsPassword="true"/>
+			</s:HGroup>
+			
+			<s:HGroup verticalAlign="middle">
+				<s:Label text="Email: " fontWeight="bold"  width="130"/>
+				<s:Label text="Email: " fontWeight="bold"  width="130" includeIn="register"/>
+				<s:TextInput id="txt_email"  tabIndex="6"/>
+			</s:HGroup>
+			
+			<s:HGroup verticalAlign="middle">
+				<s:Label text="Subscriptions: "  fontWeight="bold"  width="130"/>
+				<s:VGroup horizontalAlign="center">
+					<s:Label text="Free" width="70" height="30" fontSize="16" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
+					<s:RadioButton id="rd_free" selected="true" value="1"/>
+				</s:VGroup>
+				<s:VGroup horizontalAlign="center">
+					<s:Label text="Basic" width="70" height="30" fontSize="16" fontWeight="bold"  backgroundColor="#000000" color="#FFFFFF" textAlign="center" verticalAlign="middle"/>
+					<s:RadioButton id="rd_basic"/>
+				</s:VGroup>
+				<s:VGroup horizontalAlign="center">
+					<s:Label text="Gold" width="70" height="30" fontSize="16" fontWeight="bold"  backgroundColor="#000000" color="#FFFF00" textAlign="center" verticalAlign="middle"/>
+					<s:RadioButton id="rd_gold"/>
+				</s:VGroup>
+			</s:HGroup>
+			
+			<s:HGroup verticalAlign="middle">
+				<s:Label text="Avatar "  fontWeight="bold" width="130"/>
+				<s:Image source="@Embed(source='images/avatar.png')" />
+				<s:Button id="computer"  label="Computer"/>
+			</s:HGroup>
+			
+			<s:HGroup verticalAlign="middle" horizontalAlign="center" width="100%">
+				<s:Label id="save" text="Save Changes" width="103" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" useHandCursor="true" buttonMode="true" mouseChildren="false" click="signUp_clickHandler(event)" includeIn="edit"/>
+				<s:Label id="lbl_signUp" x="565" y="467" text="Sign Up" width="71" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" click="signUp_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false" includeIn="register"/>
+				<s:Label id="cancel" text="Cancel" width="60" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" useHandCursor="true" buttonMode="true" mouseChildren="false" click="close_clickHandler(event)"/>	
+			</s:HGroup>
+		</s:VGroup>
+	</s:BorderContainer> 
+	
+<!--	<s:Image x="375" y="47" width="450" height="480" source="@Embed(source='images/boder3.png')"/>
 	
 	<s:Label x="468" y="77" text="Fullname: " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
 	<s:Label x="460" y="107" text="Username: " height="22" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
@@ -122,9 +250,9 @@
 	<s:Image id="close" x="798" y="53" width="20" height="20" source="@Embed(source='images/button_close.png')" click="close_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	
 	<s:Button id="btn_computer" x="707" y="332" label="Computer" click="computer_clickHandler(event)"/>
-<!--	<s:Button id="webcam" x="707" y="366" width="76" label="Webcam" click="webcam_clickHandler(event)"/> -->
+	<s:Button id="webcam" x="707" y="366" width="76" label="Webcam" click="webcam_clickHandler(event)"/> 
 	
 	
 	<s:Label id="lbl_signUp" x="565" y="467" text="Sign Up" width="71" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" click="signUp_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
-	
+	-->
 </s:Application>

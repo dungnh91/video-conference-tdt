@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.formatters.DateFormatter;
+			private var time:String = new String();
+			private var date:String = new String();
+			protected function initItem():void
+			{
+				var dateformatter:DateFormatter = new DateFormatter();
+				dateformatter.formatString = "NN:SS";
+				time = "time";
+				date = "date";
+				
+				//dateformatter.formatString = "MM/DD/YYYY";
+				//date = dateformatter.format(data.date.toString()) ;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:HGroup>
+		<s:HGroup textAlign="left" paddingLeft="15" paddingTop="15">
+			<s:Label width="70" color="#00d550" text="{data.time_start}"/>
+			<s:Label text="{data.date}" color="#00bbff" width="100"/>
+			<s:Label text="{data.conference_name}" color="#ff6600" minWidth="95"/>
+		</s:HGroup>
+		<s:HGroup textAlign="right" paddingRight="15">
+			<s:Image  width="20" height="20" source="@Embed(source='images/edit.png')"/>
+			<s:Image  width="20" height="20" source="@Embed(source='images/recycle.png')"/>
+		</s:HGroup>
+	</s:HGroup>
+</s:ItemRenderer>

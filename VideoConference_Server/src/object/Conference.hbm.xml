@@ -14,13 +14,13 @@
 				<property name="conference_name" type="java.lang.String">
 				    <column name="conference_name"/>
 				</property>
-				<property name="date" type="java.util.Date">
+				<property name="date" type="java.sql.Date">
 				    <column name="date"/>
 				</property>
-				<property name="time_start" type="java.util.Date">
+				<property name="time_start" type="java.sql.Time">
 				    <column name="time_start"></column>
 				</property>
-				<property name="time_end" type="java.util.Date">
+				<property name="time_end" type="java.sql.Time">
 				    <column name="time_end"></column>
 				</property>
 				<property name="description" type="java.lang.String">
