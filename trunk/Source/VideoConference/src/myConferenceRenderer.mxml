@@ -23,14 +23,21 @@
 			
 		]]>
 	</fx:Script>
-	
-	<s:HGroup>
-		<s:HGroup textAlign="left" paddingLeft="15" paddingTop="15">
-			<s:Label width="70" color="#00d550" text="{data.time_start}"/>
-			<s:Label text="{data.date}" color="#00bbff" width="100"/>
+	<fx:Declarations>
+		<s:DateTimeFormatter id="dateFormatterForTime">
+			<s:dateTimePattern>HH:mm</s:dateTimePattern>
+		</s:DateTimeFormatter>
+		<s:DateTimeFormatter id="dateFormatterForDate">
+			<s:dateTimePattern>MM/dd/yyyy</s:dateTimePattern>
+		</s:DateTimeFormatter>
+	</fx:Declarations>
+	<s:HGroup verticalAlign="middle">
+		<s:HGroup textAlign="left" paddingLeft="15" verticalAlign="middle">
+			<s:Label width="35" color="#00d550" text="{dateFormatterForTime.format(data.time_start)}"/>
+			<s:Label text="{dateFormatterForDate.format(data.date)}" color="#00bbff" width="80"/>
 			<s:Label text="{data.conference_name}" color="#ff6600" minWidth="95"/>
 		</s:HGroup>
-		<s:HGroup textAlign="right" paddingRight="15">
+		<s:HGroup textAlign="right" paddingRight="15" width="100%" horizontalAlign="right" verticalAlign="middle">
 			<s:Image  width="20" height="20" source="@Embed(source='images/edit.png')"/>
 			<s:Image  width="20" height="20" source="@Embed(source='images/recycle.png')"/>
 		</s:HGroup>
