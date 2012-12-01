@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true" initialize="initRenderer()">
+	
+	<fx:Declarations>
+		
+		<s:DateTimeFormatter id="dateFormatterForTime">
+			<s:dateTimePattern>HH:mm</s:dateTimePattern>
+		</s:DateTimeFormatter>
+		<s:DateTimeFormatter id="dateFormatterForDate">
+			<s:dateTimePattern>MM/dd/yyyy</s:dateTimePattern>
+		</s:DateTimeFormatter>
+		
+		<s:RemoteObject id="ro" destination="ConferenceService">
+			
+		</s:RemoteObject>
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import component.Message;
+			
+			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import object.Conference;
+			
+			import spark.skins.spark.ImageSkin;
+			private var mySO:SharedObject;
+			
+			private function initRenderer():void
+			{
+				
+			}
+			
+			private function edit(event:MouseEvent):void
+			{
+				mySO = SharedObject.getLocal("info","/");
+				mySO.data.conf = data.conference_id;
+				if(mySO.flush()=="flushed")
+				{
+					var viewConference:createConference = new createConference();
+					PopUpManager.addPopUp(viewConference,this.parent,true);
+					PopUpManager.centerPopUp(viewConference);
+					viewConference.currentState = "view";
+				}
+			}
+			
+			
+			private function error(event:FaultEvent):void
+			{
+				Message.show(event.fault.faultString,Message.Error,this);
+			}
+		]]>
+	</fx:Script>
+	
+	<s:HGroup verticalAlign="middle" paddingTop="10">
+		<s:HGroup textAlign="left" paddingLeft="15" verticalAlign="middle">
+			<s:Label width="35" color="#00d550" text="{dateFormatterForTime.format(data.time_start)}"/>
+			<s:Label text="{dateFormatterForDate.format(data.date)}" color="#00bbff" width="80"/>
+			<s:Label text="{data.conference_name}" color="#ff6600" minWidth="150"/>
+		</s:HGroup>
+	</s:HGroup>
+</s:ItemRenderer>

@@ -26,7 +26,7 @@
 	
 	<fx:Style source="conferenceSkin.css"/>
 	
-	<s:BorderContainer  width="300" height="130" horizontalCenter="1" verticalCenter="1" backgroundImage="@Embed('../images/boder.png')">
+	<s:BorderContainer  width="300" height="130" backgroundImage="@Embed('../images/boder.png')">
 		<s:VGroup height="100%" width="100%">
 			<s:HGroup height="34" paddingLeft="5" paddingTop="10" paddingBottom="5" verticalAlign="middle" width="100%">
 				<s:Image width="32" height="32"/>
