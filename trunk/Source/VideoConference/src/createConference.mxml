@@ -15,23 +15,39 @@
 			import mx.controls.Alert;
 			import mx.events.FlexEvent;
 			import mx.events.ItemClickEvent;
+			import mx.formatters.DateFormatter;
 			import mx.managers.PopUpManager;
+			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
+			import mx.utils.ObjectUtil;
+			import mx.utils.StringUtil;
 			
 			import object.Conference;
+			import object.Participant;
 			import object.User;
 			
 			import spark.components.CheckBox;
 			public var mySO:SharedObject;
 			public var user:User;
+			private var conference:Conference = new Conference();
+			public var conference_id:int;
+			public var ListParticipant:ArrayCollection = new ArrayCollection;
+			
 			protected function initApp():void
 			{
 				mySO = SharedObject.getLocal("info","/");
 				if(mySO.data.user == null)
 					AppModel.getInstance().navigate("home.html");
+				if(mySO.data.conf==null)
+					this.currentState = "create";
+				else
+				{
+					this.currentState = "edit";
+					conference_id = mySO.data.conf;
+				}
 			}
 		
-			protected function Create(event:MouseEvent):void
+			protected function checkValid():Boolean
 			{
 				var time_start:Date = new Date();
 				var time_end:Date = new Date();
@@ -39,36 +55,59 @@
 				time_start.minutes= minutes_start.value;
 				time_end.hours= hours_end.value;
 				time_end.minutes= minutes_end.value;
+				
+				var today:Date = new Date();
+				if(dtf_date.selectedDate < today)
+				{
+					Message.show("Please choose a day after today",Message.Error,this,true);
+					dtf_date.setFocus();
+					return false;
+				}
 				
 				if(title.text==null || title.text == '')
 				{
 					Message.show("Please input title",Message.Error,this,true);
 					title.setFocus();
-					return;
+					return false;
 				}
 				if(description.text == null || description.text == '')
 				{
 					Message.show("Please input Description",Message.Error,this,true);
 					description.setFocus();
-					return;
+					return false;
 				}
 				if(dtf_date.selectedDate == null)
 				{
 					Message.show("Please input Date",Message.Error,this,true);
-					return;
+					return false;
 				}
 				if(time_start.time <= time_end.time)
 				{
 					Message.show("Time incorrect",Message.Error,this,true);
-					return;
+					return false;
 				}
-				
-				createConf(participants);
+				return true;
 			}
 			
-			private function createConf(list:List):void
+			protected function Create(event:MouseEvent):void
 			{
-				var listConference:ArrayCollection = new ArrayCollection;
+				if(checkValid())
+					if(createConf())
+						ro_conference.createConference(conference);
+			}
+			
+			protected function Update(event:MouseEvent):void
+			{
+				if(checkValid())
+					if(createConf())
+					{
+						conference.conference_id = conference_id;
+						ro_conference.updateInfo(conference);
+					}
+			}
+			
+			private function createConf():Boolean
+			{
 				var time_start:Date = new Date();
 				var time_end:Date = new Date();
 				time_start.hours= hours_start.value;
@@ -76,31 +115,41 @@
 				time_end.hours= hours_end.value;
 				time_end.minutes= minutes_end.value;
 				
-				if (list.dataGroup.numElements > 0)
-				{
-					for (var i:int = 0; i < list.dataGroup.numElements; i++)
-					{
-						var obj:Object = list.dataGroup.getElementAt(i) as Object;
-						 if(obj.cb.selected && obj.data.user_id != mySO.data.user)
-						 {
-							 var conference:Conference = new Conference();
-							 conference.conference_name = title.text;
-							 conference.description = description.text;
-							 conference.date = dtf_date.selectedDate;
-							 conference.time_start = time_start;
-							 conference.time_end = time_end;
-							 conference.host_id = mySO.data.user;
-							 conference.participant = obj.data.user_id;
-							 listConference.addItem(conference);
-						 }
-					}
-				}
+				
 				var sub:String =user.subcriptions==1?"free":user.subcriptions==2?"basic":"gold";
+				var count:String = user.subcriptions==1?"4":user.subcriptions==2?"10":"20";
 				if(checkSubcriptions())
-					ro_conference.createConference(listConference);
-				else
-					Message.show("Your subcriptions is " + sub + ". Limited Participant",Message.Error,this);
+				{
+					//var conference:Conference = new Conference();
+					conference.conference_name = title.text;
+					conference.description = description.text;
+					conference.date = dtf_date.selectedDate;
+					conference.time_start = time_start;
+					conference.time_end = time_end;
+					conference.host_id = mySO.data.user;
+					conference.participant = CountParticipant();
+					//ro_conference.createConference(conference);
+					return true;
+				}
 					
+				else
+				{
+					Message.show("Your subcriptions is " + sub + ". Max Participant:" + count,Message.Error,this);
+					return false;
+				}
+					
+			}
+			
+			protected function CountParticipant():int
+			{
+				var count:int = 0;
+				for(var i:int=0;i<participants.dataGroup.numElements;i++)
+				{
+					var obj:Object = participants.dataGroup.getElementAt(i);
+					if(obj.cb.selected)
+						count++;
+				}
+				return count;
 			}
 			
 			protected function Cancel(event:MouseEvent):void
@@ -114,6 +163,8 @@
 				// TODO Auto-generated method stub
 				ro_user.getUser();
 				ro_user.getUserById(mySO.data.user);
+				if(this.currentState== "edit")
+					ro_conference.getConferencesById(conference_id);
 			}
 			protected function getUser_result(event:ResultEvent):void
 			{
@@ -131,16 +182,52 @@
 				user= event.result as User;
 			}
 			
+			protected function Update_result(event:ResultEvent):void
+			{
+				getParticipants();
+				for each(var Part:Participant in ListParticipant)
+				{
+					Part.conference_id = conference_id;
+				}
+				ro_participant.updateParticipants(ListParticipant);
+			}
+			
 			protected function CreateConference_result(event:ResultEvent):void
 			{
-				Message.show("Your conference was created",Message.Information,this);
+				getParticipants();
+				ro_participant.createParticipant(ListParticipant);
 			}
+			
+			protected function getParticipants():void
+			{
+				ListParticipant = new ArrayCollection;
+				if (participants.dataGroup.numElements > 0)
+				{
+					for (var i:int = 0; i < participants.dataGroup.numElements; i++)
+					{
+						var obj:Object = participants.dataGroup.getElementAt(i) as Object;
+						if(obj.cb.selected && obj.data.user_id != mySO.data.user)
+						{
+							var participant:Participant = new Participant();
+							participant.host_id = mySO.data.user;
+							participant.user_id = obj.data.user_id;
+							ListParticipant.addItem(participant);
+						}
+					}
+				}
+			}
+			
+			protected function CreateParticipant_result(event:ResultEvent):void
+			{
+				Message.show("Your conference was created",Message.Information,this);		
+			}
+			
 			
 			protected function checkSubcriptions():Boolean
 			{
 				if(participants.dataGroup.numElements>0)
 				{
-					var count:int=0;
+					var count:int = 0;
 					var obj:Object;
 					for(var i:int=0;i<participants.dataGroup.numElements;i++)
 					{
@@ -161,6 +248,43 @@
 						return null;
 				}
 			}
+			protected function error(event:FaultEvent):void
+			{
+				Message.show(event.fault.faultString,Message.Error,this);
+				Alert.show(event.fault.faultString);
+			}
+			
+			protected function getConferenceById_result(event:ResultEvent):void
+			{
+				conference = event.result as Conference;
+				title.text = conference.conference_name;
+				description.text = conference.description;
+				dtf_date.selectedDate = conference.date;
+				hours_start.value = conference.time_start.hours;
+				minutes_start.value = conference.time_start.minutes;
+				hours_end.value = conference.time_end.hours;
+				minutes_end.value = conference.time_end.minutes;
+				ro_participant.getParticipantByConferenceId(conference_id);
+			}
+			
+			protected function getParticipantByConferenceId_result(event:ResultEvent):void
+			{
+				var ListParticipant:ArrayCollection = event.result as ArrayCollection;
+				for(var i:int=0;i<participants.dataGroup.numElements;i++)
+				{
+					var obj:Object = participants.dataGroup.getElementAt(i);
+					for each(var participant:Participant in ListParticipant)
+					{
+						if(obj.data.user_id == participant.user_id)
+							obj.cb.selected = true;
+					}
+				}
+			}
+			
+			protected function UpdateParticipants_result(event:ResultEvent):void
+			{
+				Message.show("Your conference was updated",Message.Information,this);
+			}
 		]]>
 	</fx:Script>
 	
@@ -169,14 +293,25 @@
 <!--		<s:RadioButtonGroup id="rdg_start"/>
 		<s:RadioButtonGroup id="rdg_end"/> -->
 		<s:RemoteObject id="ro_user" destination="UserService" showBusyCursor="true">
-			<s:method name="getUser" result="getUser_result(event)" fault="Message.show(event.fault.faultString,Message.Error,this,true)"/>
-			<s:method name="getUserById" result="getUserById_result(event)"  fault="Message.show(event.fault.faultString,Message.Error,this,true)"/>
+			<s:method name="getUser" result="getUser_result(event)" fault="error(event)"/>
+			<s:method name="getUserById" result="getUserById_result(event)"  fault="error(event) "/>
 		</s:RemoteObject>
 		<s:RemoteObject id="ro_conference" destination="ConferenceService" showBusyCursor="true">
-			<s:method name = "createConference" result="CreateConference_result(event)" fault="Message.show(event.fault.faultString,Message.Error,this,true)"/>
+			<s:method name = "createConference" result="CreateConference_result(event)" fault="error(event)"/>
+			<s:method name="getConferencesById" result="getConferenceById_result(event)" fault="error(event)"/>
+			<s:method name="updateInfo" result="Update_result(event)" fault="error(event)"/>
+		</s:RemoteObject>
+		<s:RemoteObject id="ro_participant" destination="ParticipantService" showBusyCursor="true">
+			<s:method name="createParticipant" result="CreateParticipant_result(event)" fault="error(event)"/>
+			<s:method name="getParticipantByConferenceId" result="getParticipantByConferenceId_result(event)" fault="error(event)"/>
+			<s:method name="updateParticipants" result="UpdateParticipants_result(event)" fault="error(event)"/>
 		</s:RemoteObject>
 	</fx:Declarations>
-	
+	<s:states>
+		<s:State name="create"/>
+		<s:State name="edit"/>
+		<s:State name="view"/>
+	</s:states>
 	<fx:Style source="conferenceSkin.css"/>
 	<s:BorderContainer horizontalCenter="1" verticalCenter="1" >
 		<s:borderStroke> 
@@ -221,7 +356,8 @@
 				<s:List id="participants" width="239" height="210" itemRenderer="listParticipant"/>	
 			</s:HGroup>
 			<s:HGroup horizontalAlign="center" width="100%" verticalAlign="middle">
-				<s:Label id="create" text="Create" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle" click="Create(event)"/>
+				<s:Label id="create" text="Create" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle" click.create="Create(event)" includeIn="create"/>
+				<s:Label id="save"  text="Save Changes" width="100" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle" includeIn="edit" click.edit="Update(event)"/>
 				<s:Label id="cancel"  text="Cancel" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle" click="Cancel(event)"/>
 			</s:HGroup>
 			

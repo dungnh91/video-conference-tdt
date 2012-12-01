@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import object.Conference;
@@ -39,6 +40,18 @@ public class ConferenceService {
 		return ConferencesList;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public ArrayList<Conference> getConferencesByHostId(int host_id)
+	{
+		session = sessionFactory.openSession();
+	    ArrayList<Conference> ConferencesList = (ArrayList<Conference>)session.createCriteria(Conference.class)
+	    		.add(Restrictions.eq("host_id", host_id))
+	    		.add(Restrictions.eq(TABLE_STATUS, 1))
+	    		.list();
+	    session.close();
+		return ConferencesList;
+	}
+	
 	public Boolean createConference(Conference tmp)
 	{
 		Session session = sessionFactory.openSession();
@@ -49,12 +62,11 @@ public class ConferenceService {
 		return ts.wasCommitted();
 	}
 	
-	public Boolean createConference(ArrayList<Conference> tmp)
+	public Boolean createListConference(ArrayList<Conference> tmp)
 	{
 		Session session = sessionFactory.openSession();
 		Transaction ts = session.beginTransaction();
-		for (Conference conference : tmp) {
-			System.out.println(conference);
+		for(Conference conference : tmp) {
 			session.save(conference);
 		}
 		ts.commit();
@@ -63,15 +75,27 @@ public class ConferenceService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Conference> getConferences(int host_id)
+	public int getLastConferenceId(int host_id)
 	{
 		Session session = sessionFactory.openSession();
-		List<Conference> result = session.createCriteria(Conference.class)
+		ArrayList<Conference> conferences = (ArrayList<Conference>)session.createCriteria(Conference.class)
 				.add(Restrictions.eq("host_id", host_id))
+				.addOrder(Order.desc(TABLE_CONFERENCE_ID))
+				.list();
+		System.out.println(conferences.get(0).getConference_id());
+		return conferences.get(0).getConference_id();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Conference getConferencesById(int conference_id)
+	{
+		Session session = sessionFactory.openSession();
+		ArrayList<Conference> result = (ArrayList<Conference>)session.createCriteria(Conference.class)
+				.add(Restrictions.eq(TABLE_CONFERENCE_ID, conference_id))
 				.add(Restrictions.eq("status", 1))
 				.list();
 		session.close();
-		return result;
+		return result.get(0);
 	}
 	
 	@SuppressWarnings({ "unchecked" })
