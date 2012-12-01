@@ -18,7 +18,7 @@ package component
 		public function Message()
 		{
 		}
-		public static function show(text:String,type:int,parent:DisplayObject,modal:Boolean):void
+		public static function show(text:String,type:int,parent:DisplayObject,modal:Boolean = true):void
 		{
 			var mess:message = new message();
 			mess.body = text;

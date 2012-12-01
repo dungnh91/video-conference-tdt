@@ -3,18 +3,27 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
 			   width="1200" height="620" backgroundAlpha="0"
-			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference" initialize="initApp()">
+			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference" initialize="initApp()" applicationComplete="application1_applicationCompleteHandler(event)">
 	
 	<fx:Script>
 		<![CDATA[
-			import component.checkConferences;
+			import component.Message;
 			
 			import model.AppModel;
 			
+			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
+			import mx.events.FlexEvent;
 			import mx.events.ItemClickEvent;
 			import mx.managers.PopUpManager;
+			import mx.rpc.events.ResultEvent;
+			
+			import object.Conference;
+			import object.User;
+			
+			import spark.components.CheckBox;
 			public var mySO:SharedObject;
+			public var user:User;
 			protected function initApp():void
 			{
 				mySO = SharedObject.getLocal("info","/");
@@ -30,10 +39,68 @@
 				time_start.minutes= minutes_start.value;
 				time_end.hours= hours_end.value;
 				time_end.minutes= minutes_end.value;
-				if(checkConferences.run(title.text,description.text,dtf_date.selectedDate,time_start,time_end))
+				
+				if(title.text==null || title.text == '')
 				{
-					
+					Message.show("Please input title",Message.Error,this,true);
+					title.setFocus();
+					return;
 				}
+				if(description.text == null || description.text == '')
+				{
+					Message.show("Please input Description",Message.Error,this,true);
+					description.setFocus();
+					return;
+				}
+				if(dtf_date.selectedDate == null)
+				{
+					Message.show("Please input Date",Message.Error,this,true);
+					return;
+				}
+				if(time_start.time <= time_end.time)
+				{
+					Message.show("Time incorrect",Message.Error,this,true);
+					return;
+				}
+				
+				createConf(participants);
+			}
+			
+			private function createConf(list:List):void
+			{
+				var listConference:ArrayCollection = new ArrayCollection;
+				var time_start:Date = new Date();
+				var time_end:Date = new Date();
+				time_start.hours= hours_start.value;
+				time_start.minutes= minutes_start.value;
+				time_end.hours= hours_end.value;
+				time_end.minutes= minutes_end.value;
+				
+				if (list.dataGroup.numElements > 0)
+				{
+					for (var i:int = 0; i < list.dataGroup.numElements; i++)
+					{
+						var obj:Object = list.dataGroup.getElementAt(i) as Object;
+						 if(obj.cb.selected && obj.data.user_id != mySO.data.user)
+						 {
+							 var conference:Conference = new Conference();
+							 conference.conference_name = title.text;
+							 conference.description = description.text;
+							 conference.date = dtf_date.selectedDate;
+							 conference.time_start = time_start;
+							 conference.time_end = time_end;
+							 conference.host_id = mySO.data.user;
+							 conference.participant = obj.data.user_id;
+							 listConference.addItem(conference);
+						 }
+					}
+				}
+				var sub:String =user.subcriptions==1?"free":user.subcriptions==2?"basic":"gold";
+				if(checkSubcriptions())
+					ro_conference.createConference(listConference);
+				else
+					Message.show("Your subcriptions is " + sub + ". Limited Participant",Message.Error,this);
+					
 			}
 			
 			protected function Cancel(event:MouseEvent):void
@@ -41,13 +108,73 @@
 				
 				PopUpManager.removePopUp(this);
 			}
+			
+			protected function application1_applicationCompleteHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				ro_user.getUser();
+				ro_user.getUserById(mySO.data.user);
+			}
+			protected function getUser_result(event:ResultEvent):void
+			{
+				var arr:ArrayCollection= event.result as ArrayCollection;
+				for(var i:int;i<arr.length;i++)
+				{
+					if(arr.getItemAt(i).user_id==mySO.data.user)
+						arr.removeItemAt(i);
+				}
+				participants.dataProvider = arr;
+			}
+			
+			protected function getUserById_result(event:ResultEvent):void
+			{
+				user= event.result as User;
+			}
+			
+			protected function CreateConference_result(event:ResultEvent):void
+			{
+				Message.show("Your conference was created",Message.Information,this);
+			}
+			
+			protected function checkSubcriptions():Boolean
+			{
+				if(participants.dataGroup.numElements>0)
+				{
+					var count:int=0;
+					var obj:Object;
+					for(var i:int=0;i<participants.dataGroup.numElements;i++)
+					{
+						obj=participants.dataGroup.getElementAt(i) as Object;
+						if(obj.cb.selected)
+							count++;
+					}
+				}
+				switch(user.subcriptions)
+				{
+					case 1:
+						return count<=4?true:false;
+					case 2:
+						return count<=10?true:false;
+					case 3:
+						return count<=20?true:false;
+					default:
+						return null;
+				}
+			}
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
-		<s:RadioButtonGroup id="rdg_start"/>
-		<s:RadioButtonGroup id="rdg_end"/>
+<!--		<s:RadioButtonGroup id="rdg_start"/>
+		<s:RadioButtonGroup id="rdg_end"/> -->
+		<s:RemoteObject id="ro_user" destination="UserService" showBusyCursor="true">
+			<s:method name="getUser" result="getUser_result(event)" fault="Message.show(event.fault.faultString,Message.Error,this,true)"/>
+			<s:method name="getUserById" result="getUserById_result(event)"  fault="Message.show(event.fault.faultString,Message.Error,this,true)"/>
+		</s:RemoteObject>
+		<s:RemoteObject id="ro_conference" destination="ConferenceService" showBusyCursor="true">
+			<s:method name = "createConference" result="CreateConference_result(event)" fault="Message.show(event.fault.faultString,Message.Error,this,true)"/>
+		</s:RemoteObject>
 	</fx:Declarations>
 	
 	<fx:Style source="conferenceSkin.css"/>
@@ -58,41 +185,42 @@
 				weight="3"/> 
 		</s:borderStroke> 
 		<s:VGroup paddingTop="15" paddingBottom="15" paddingLeft="15" paddingRight="15">
-			<s:HGroup>
+			<s:HGroup verticalAlign="middle">
 				<s:Label text="Title: " fontWeight="bold" width="100"/>	
 				<s:TextInput id="title" width="239"/>
 			</s:HGroup>
-			<s:HGroup>
+			<s:HGroup verticalAlign="middle">
 				<s:Label text="Description: " fontWeight="bold" width="100"/>
-				<s:TextInput id="description"  width="239" height="77"/>	
+				<s:TextArea id="description"  width="239" height="77" />	
 			</s:HGroup>
-			<s:HGroup>
+			<s:HGroup verticalAlign="middle">
 				<s:Label  text="Date: " fontWeight="bold" width="100"/>
 				<mx:DateField id="dtf_date"  width="116" showToday="true" />
 			</s:HGroup>
-			<s:HGroup>
+			<s:HGroup verticalAlign="middle">
 				<s:Label  text="Time Start: " fontWeight="bold" width="100"/>
 				 
 				<s:NumericStepper id="hours_start"  width="40" maximum="23" allowValueWrap="true"/>
 				<s:NumericStepper id="minutes_start" width="40" maximum="60" allowValueWrap="true"/>
 				
-				<s:RadioButton id="am_start"  group="{rdg_start}" label="AM" fontWeight="bold" selected="true"/>
+<!--				<s:RadioButton id="am_start"  group="{rdg_start}" label="AM" fontWeight="bold" selected="true"/>
 				<s:RadioButton id="pm_start" group="{rdg_start}" label="PM" fontWeight="bold"/>
+-->
 			</s:HGroup>
-			<s:HGroup>
+			<s:HGroup verticalAlign="middle">
 				<s:Label  text="Time End: " fontWeight="bold" width="100"/>
 				
 				<s:NumericStepper id="hours_end"  width="40" maximum="23" allowValueWrap="true"/>
 				<s:NumericStepper id="minutes_end" width="40" maximum="60" allowValueWrap="true"/>
-					<s:RadioButton id="am_end" group="{rdg_end}" label="AM" fontWeight="bold" selected="true"/>
+<!--					<s:RadioButton id="am_end" group="{rdg_end}" label="AM" fontWeight="bold" selected="true"/>
 					<s:RadioButton id="pm_end" group="{rdg_end}" label="PM" fontWeight="bold"/>	
-				
+-->				
 			</s:HGroup>
-			<s:HGroup>
+			<s:HGroup verticalAlign="middle">
 				<s:Label  text="Participants: " fontWeight="bold" width="100"/>
-				<s:List id="participants" width="239" height="210"/>	
+				<s:List id="participants" width="239" height="210" itemRenderer="listParticipant"/>	
 			</s:HGroup>
-			<s:HGroup horizontalAlign="center" width="100%">
+			<s:HGroup horizontalAlign="center" width="100%" verticalAlign="middle">
 				<s:Label id="create" text="Create" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle" click="Create(event)"/>
 				<s:Label id="cancel"  text="Cancel" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle" click="Cancel(event)"/>
 			</s:HGroup>

@@ -39,21 +39,35 @@ public class ConferenceService {
 		return ConferencesList;
 	}
 	
-	public void createConference(Conference tmp)
+	public Boolean createConference(Conference tmp)
 	{
 		Session session = sessionFactory.openSession();
 		Transaction ts = session.beginTransaction();
-		session.saveOrUpdate(tmp);
+		session.save(tmp);
 		ts.commit();
 		session.close();
+		return ts.wasCommitted();
+	}
+	
+	public Boolean createConference(ArrayList<Conference> tmp)
+	{
+		Session session = sessionFactory.openSession();
+		Transaction ts = session.beginTransaction();
+		for (Conference conference : tmp) {
+			System.out.println(conference);
+			session.save(conference);
+		}
+		ts.commit();
+		session.close();
+		return ts.wasCommitted();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Conference> getConferences(int user_id)
+	public List<Conference> getConferences(int host_id)
 	{
 		Session session = sessionFactory.openSession();
 		List<Conference> result = session.createCriteria(Conference.class)
-				.add(Restrictions.eq("user_id", user_id))
+				.add(Restrictions.eq("host_id", host_id))
 				.add(Restrictions.eq("status", 1))
 				.list();
 		session.close();
@@ -72,7 +86,7 @@ public class ConferenceService {
 		for(int i=0;i<listOfParticipant.size();i++)
 		{
 			ArrayList<Conference> listOfConference = (ArrayList<Conference>)session.createCriteria(Conference.class)
-				.add(Restrictions.eq("user_id", listOfParticipant.get(i).getUser_id()))
+				.add(Restrictions.eq("conference_id", listOfParticipant.get(i).getConference_id()))
 				.add(Restrictions.eq("status", 1))
 				.list();
 			result.addAll(listOfConference);
