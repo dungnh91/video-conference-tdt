@@ -162,8 +162,9 @@
 			
 			protected function Cancel(event:MouseEvent):void
 			{
-				
-				PopUpManager.removePopUp(this);
+				mySO.data.conf = null;
+				if(mySO.flush() == "flushed")
+					PopUpManager.removePopUp(this);
 			}
 			
 			protected function application1_applicationCompleteHandler(event:FlexEvent):void
@@ -225,6 +226,7 @@
 			protected function CreateParticipant_result(event:ResultEvent):void
 			{
 				Message.show("Your conference was created",Message.Information,this);
+				publicRoom.Refresh = !publicRoom.Refresh;
 				PopUpManager.removePopUp(this);
 			}
 			
@@ -290,7 +292,9 @@
 			protected function UpdateParticipants_result(event:ResultEvent):void
 			{
 				Message.show("Your conference was updated",Message.Information,this);
-				PopUpManager.removePopUp(this);
+				mySO.data.conf =null;
+				if(mySO.flush() == "flushed")
+					PopUpManager.removePopUp(this);
 			}
 		]]>
 	</fx:Script>
