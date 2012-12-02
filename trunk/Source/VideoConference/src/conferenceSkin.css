@@ -101,9 +101,24 @@
 	text-align: center;
 }
 
-Label, Button {font-size:14; font-weight:bold}
-.logo {font-size:22; font-weight:bold;}
-.div {border-style:solid; borderColor:#000000; background-color:#FFFFFF}
+/*Label, Button 
+{
+	font-size:14; 
+	font-weight:bold
+}*/
+
+.logo 
+{
+	font-size:22; 
+	font-weight:bold;
+}
+
+.div 
+{
+	border-style:solid; 
+	borderColor:#000000; 
+	background-color:#FFFFFF;
+}
 
 
 
