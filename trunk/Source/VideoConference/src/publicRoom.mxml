@@ -119,6 +119,7 @@
 			
 			protected function details_click(event:MouseEvent):void
 			{
+				mySO.data.view = user_name.text;
 				var detail:register = new register();
 				PopUpManager.addPopUp(detail,this,true);
 				PopUpManager.centerPopUp(detail);
@@ -182,7 +183,7 @@
 	<s:Label x="154" y="137" text="Email:" fontWeight="bold"/>
 	<s:Label x="154" y="167" text="Subscription:" fontWeight="bold"/>
 	<s:Label x="245" y="109" id="user_name" fontWeight="bold"/>
-	<s:Label x="245" y="129" id="email" fontWeight="bold"/>
+	<s:Label id="email" x="245" y="137" fontWeight="bold"/>
 	<s:Label x="245" y="159" id="free" fontWeight="bold" text="Free" width="70" height="30" fontSize="16" textAlign="center" verticalAlign="middle"/>
 	<s:Label text="Basic" x="245" id="basic" y="159" width="70" height="30" fontSize="16" fontWeight="bold"  backgroundColor="#000000" color="#FFFFFF" textAlign="center" verticalAlign="middle"/>
 	<s:Label text="Gold" x="245" id="gold" y="159" width="70" height="30" fontSize="16" fontWeight="bold"  backgroundColor="#000000" color="#FFFF00" textAlign="center" verticalAlign="middle"/>
