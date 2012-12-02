@@ -14,6 +14,7 @@
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.managers.PopUpManager;
+			import mx.rpc.Fault;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
@@ -21,6 +22,8 @@
 			
 			public var mySO:SharedObject;
 			private var subscipt:String;
+			
+			public static var Refresh:Boolean = false;
 			protected function initApp():void
 			{
 				mySO = SharedObject.getLocal("info","/");
@@ -30,22 +33,36 @@
 					ro_user.getUserById(mySO.data.user);
 				ro_conference.getConferencesByHostId(mySO.data.user);
 				ro_conference.getInvitedConferences(mySO.data.user);
-				
-				
-				
+				ro_user.getUser();
+				timerRefresh();
+			}
+			
+			private function timerRefresh():void
+			{
+				var timer:Timer = new Timer(1000)
+				timer.addEventListener(TimerEvent.TIMER,runTimer);
+				timer.start();
+			}
+			
+			private function runTimer(event:Event):void
+			{
+				if(Refresh)
+				{
+					ro_conference.getConferencesByHostId(mySO.data.user);
+					Refresh = false;
+				}
+			}
+			
+			protected function getUser_result(event:ResultEvent):void
+			{
+				friends.dataProvider = event.result as ArrayCollection;
 			}
 			
 			protected function Label_logOut_clickHandler(event:MouseEvent):void //Log out tài khoản và trở về TrangChu
 			{
 				mySO.clear();
 				AppModel.getInstance().navigate("home.html");
-			}
-			
-			protected function Label_acc_clickHandler(event:MouseEvent):void //Chuyển đến trang YourAccount
-			{
-				
-			}
-			
+			}			
 			
 			protected function getConferencesByHostId_result(event:ResultEvent):void
 			{
@@ -121,6 +138,7 @@
 		</s:RemoteObject>
 		<s:RemoteObject id="ro_user" destination="UserService">
 			<s:method name="getUserById" result="getUserById_result(event)" fault="error(event)"/>
+			<s:method name="getUser" result="getUser_result(event)" fault="error(event)"/>
 		</s:RemoteObject>
 		
 	</fx:Declarations>
@@ -130,7 +148,7 @@
 	<!--Slogan and template-->
 	<s:Label x="0" y="0" width="1200" height="10" backgroundColor="#000000"/>
 	<s:Label id="Label_logOut" x="1120" y="0" width="80" height="30" text="Log Out" click="Label_logOut_clickHandler(event)"/>
-	<s:Label id="Label_acc" x="1021" y="0" width="100" height="30" text="Your Account" click="Label_acc_clickHandler(event)"/>
+	<s:Label id="Label_acc" x="1021" y="0" width="100" height="30" text="Your Account" click="details_click(event)"/>
 	<s:Label id="Label_copyr" x="0" y="595" width="1200" height="25" text="Copyright © 2012 by [BRB]. All rights reserved"/>	
 	<s:Image x="340" y="34" width="519" height="35" source="@Embed(source='images/slogan.png')"/>
 			
