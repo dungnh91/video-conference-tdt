@@ -66,7 +66,7 @@
 		</s:HGroup>
 		<s:HGroup textAlign="right" paddingRight="15" width="100%" horizontalAlign="right" verticalAlign="middle">
 			<s:Image width="20" height="20" source="@Embed(source='images/edit.png')" click="edit(event)"/>
-			<s:Image  width="20" height="20" source="@Embed(source='images/recycle.png')" click="remove(event)"/>
+			<s:Image width="20" height="20" source="@Embed(source='images/recycle.png')" click="remove(event)"/>
 		</s:HGroup>
 	</s:HGroup>
 </s:ItemRenderer>
