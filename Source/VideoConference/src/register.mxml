@@ -140,8 +140,8 @@
 			protected function getUser_resultHandler(event:ResultEvent):void
 			{
 				// TODO Auto-generated method stub
-				user = event.result as User;
-				if (txt_username.text == user.user_name)
+				var usercheck:User = event.result as User;
+				if (usercheck != null)
 				{
 					Message.show("Username exist! ",Message.Error,this);
 				}
