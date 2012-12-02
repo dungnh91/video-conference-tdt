@@ -32,10 +32,7 @@
 				ro_conference.getInvitedConferences(mySO.data.user);
 				
 				
-				for(var i:int=0;i<my_conference.dataGroup.numElements;i))
-				{
-					
-				}
+				
 			}
 			
 			protected function Label_logOut_clickHandler(event:MouseEvent):void //Log out tài khoản và trở về TrangChu
