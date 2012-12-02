@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AVChatApp horizontalAlign="center" xmlns="*" layout="vertical" xmlns:mx="http://www.adobe.com/2006/mxml" width="1200" height="630">
+	<mx:HBox horizontalAlign="left" horizontalGap="1200">
+		<!--<mx:Image width="20" height="20" source="@Embed('../images/vclogo.jpg')"/>-->
+		<mx:Text text="VideoChat" styleName="logo"/>	
+	</mx:HBox>
+	
+	<mx:HBox horizontalAlign="left">
+		<mx:Text id="prompt" text="Not Connected&#xa;" fontWeight="bold" fontSize="12" />		
+	</mx:HBox>
+	
+	<mx:HBox>
+		<mx:VBox>
+			<mx:VBox styleName="div" height="100%">
+				<VideoContainer id="videoDisplay" width="320" height="240" video="{videoCamera}"/>
+				<mx:HBox>				
+					<mx:Label id="publishName" text="tta1"/>
+				</mx:HBox>
+			</mx:VBox>
+			<mx:HBox>
+				<mx:Button label="Publish" id="doPublish"/>
+				<mx:Button label="Call To Speak" id="calltospeak"/>
+			</mx:HBox>
+			<mx:HBox height="100%">
+				<mx:Label text="Connected Users"/>
+				<mx:List width="150" height="200" labelField="label" id="streams" dataProvider="{streamList}"/>
+			</mx:HBox>
+		</mx:VBox>
+		
+		<mx:VBox styleName="div" height="100%">			
+			<VideoContainer id="videoDisplay2" video="{videoRemote}" width="640" height="480" />	
+			<!--<mx:TextInput text="test" id="subscribeName"/>-->
+			<mx:HBox width="100%" horizontalGap="30">			
+				<mx:Text id="fpsText" fontSize="10"/>
+			</mx:HBox>			
+		</mx:VBox>
+	</mx:HBox>
+	
+	<mx:Style source="conferenceSkin.css">
+		@namespace s "library://ns.adobe.com/flex/spark";
+	</mx:Style>
+	
+	
+</AVChatApp>

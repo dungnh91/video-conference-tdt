@@ -1,4 +1,4 @@
-package component  
+package  
 {
 	import flash.media.Video;
 	
