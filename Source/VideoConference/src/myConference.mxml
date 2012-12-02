@@ -27,19 +27,10 @@
 				{
 					PopUpManager.addPopUp(editConference,this.parent,true);
 					PopUpManager.centerPopUp(editConference);
-					timer.addEventListener(TimerEvent.TIMER,runTimer);
-					timer.start();
 				}
 			}
 			
-			private function runTimer(event:Event):void
-			{
-					if(editConference.isPopUp ==false)
-					{
-						publicRoom.Refresh = !publicRoom.Refresh;
-						timer.stop();
-					}
-			}
+			
 			private function remove(event:MouseEvent):void
 			{
 				var conference:Conference = new Conference();
@@ -50,6 +41,7 @@
 			private function deleteConference_result(event:ResultEvent):void
 			{
 				Message.show("Deleting successfull",Message.Information,this);
+				publicRoom.Refresh = !publicRoom.Refresh;
 			}
 			
 			private function error(event:FaultEvent):void

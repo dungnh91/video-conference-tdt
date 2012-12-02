@@ -292,6 +292,7 @@
 			protected function UpdateParticipants_result(event:ResultEvent):void
 			{
 				Message.show("Your conference was updated",Message.Information,this);
+				publicRoom.Refresh = !publicRoom.Refresh;
 				mySO.data.conf =null;
 				if(mySO.flush() == "flushed")
 					PopUpManager.removePopUp(this);

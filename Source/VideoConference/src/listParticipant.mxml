@@ -3,8 +3,8 @@
 				xmlns:s="library://ns.adobe.com/flex/spark" 
 				xmlns:mx="library://ns.adobe.com/flex/mx" 
 				autoDrawBackground="true">
-	<s:HGroup verticalAlign="middle" horizontalAlign="center" paddingLeft="15" paddingTop="10" click="cb.selected = !cb.selected;">
+	<s:HGroup verticalAlign="middle" horizontalAlign="center" paddingLeft="15" paddingTop="10">
 		<s:CheckBox id="cb" name="checkbox"/>
-		<s:Label text="{data.user_name}"/>		
+		<s:Label text="{data.user_name}" click="cb.selected = !cb.selected;"/>		
 	</s:HGroup>
 </s:ItemRenderer>
