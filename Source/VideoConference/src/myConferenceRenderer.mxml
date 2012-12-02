@@ -8,6 +8,7 @@
 			import component.Message;
 			
 			import mx.controls.Alert;
+			import mx.events.FlexEvent;
 			import mx.managers.PopUpManager;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
@@ -16,16 +17,28 @@
 			
 			import spark.skins.spark.ImageSkin;
 			private var mySO:SharedObject;
+			private var editConference:createConference = new createConference();
+			private var timer:Timer = new Timer(1000);
 			private function edit(event:MouseEvent):void
 			{
 				mySO = SharedObject.getLocal("info","/");
 				mySO.data.conf = data.conference_id;
 				if(mySO.flush()=="flushed")
 				{
-					var editConference:createConference = new createConference();
 					PopUpManager.addPopUp(editConference,this.parent,true);
 					PopUpManager.centerPopUp(editConference);
+					timer.addEventListener(TimerEvent.TIMER,test);
+					timer.start();
 				}
+			}
+			
+			private function test(event:Event):void
+			{
+					if(editConference.isPopUp ==false)
+					{
+						publicRoom.Refresh = !publicRoom.Refresh;
+						timer.stop();
+					}
 			}
 			private function remove(event:MouseEvent):void
 			{
