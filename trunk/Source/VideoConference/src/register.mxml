@@ -58,8 +58,7 @@
 				{
 					if (checkRegister.run(txt_full_name.text, txt_username.text, txt_new_pass.text, txt_confirm_pass.text, txt_email.text,this))
 					{
-						
-						ro.createUser(getUserFromForm());
+						ro.getUser(txt_username.text)
 					}
 				}
 				else
@@ -138,6 +137,20 @@
 				rd_gold.selected = user.subcriptions == 3;
 			}
 			
+			protected function getUser_resultHandler(event:ResultEvent):void
+			{
+				// TODO Auto-generated method stub
+				user = event.result as User;
+				if (txt_username.text == user.user_name)
+				{
+					Message.show("Username exist! ",Message.Error,this);
+				}
+				else
+				{
+					ro.createUser(getUserFromForm());		
+				}
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -146,7 +159,7 @@
 			<s:method name="createUser" result="createUser_resultHandler(event)" fault="error(event)"/>
 			<s:method name="getUserById" result="getUserById_result(event)" fault="error(event)"/>
 			<s:method name="updateInfo" result="UpdateInfo_result(event)" fault="error(event)"/>
-			<s:method name="getUser" result="getUserById_result(event)" fault="error(event)"/>
+			<s:method name="getUser" result="getUser_resultHandler(event)" fault="error(event)"/>
 		</s:RemoteObject>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>

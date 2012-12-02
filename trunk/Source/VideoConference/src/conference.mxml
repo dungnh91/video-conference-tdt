@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AVChatApp horizontalAlign="center" xmlns="*" layout="vertical" xmlns:mx="http://www.adobe.com/2006/mxml" 
-		   width="1200" height="620">
+		   width="1200" height="630">
 
 	<mx:HBox horizontalAlign="left" horizontalGap="1200">
 		<!--<mx:Image width="20" height="20" source="@Embed('../images/vclogo.jpg')"/>-->
