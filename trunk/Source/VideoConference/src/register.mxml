@@ -29,9 +29,16 @@
 			protected function initApp():void
 			{
 				mySO = SharedObject.getLocal("info","/");
+				
+				if(mySO.data.view !=null)
+				{
+					ro.getUser(mySO.data.view);
+					this.currentState = "view";
+					return;
+				}
 				if(mySO.data.user==null)
 					this.currentState = "register";
-				else
+				else 
 				{
 					this.currentState = "edit";
 						ro.getUserById(mySO.data.user);
@@ -139,7 +146,7 @@
 			<s:method name="createUser" result="createUser_resultHandler(event)" fault="error(event)"/>
 			<s:method name="getUserById" result="getUserById_result(event)" fault="error(event)"/>
 			<s:method name="updateInfo" result="UpdateInfo_result(event)" fault="error(event)"/>
-
+			<s:method name="getUser" result="getUserById_result(event)" fault="error(event)"/>
 		</s:RemoteObject>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -151,7 +158,7 @@
 		<s:State name="edit" />
 		<s:State name="view" />
 	</s:states>
-	<s:BorderContainer verticalCenter="1" horizontalCenter="1"> 
+	<s:BorderContainer> 
 		<s:borderStroke> 
 			<mx:SolidColorStroke 
 				color="black" 

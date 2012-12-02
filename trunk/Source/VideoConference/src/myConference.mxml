@@ -27,12 +27,12 @@
 				{
 					PopUpManager.addPopUp(editConference,this.parent,true);
 					PopUpManager.centerPopUp(editConference);
-					timer.addEventListener(TimerEvent.TIMER,test);
+					timer.addEventListener(TimerEvent.TIMER,runTimer);
 					timer.start();
 				}
 			}
 			
-			private function test(event:Event):void
+			private function runTimer(event:Event):void
 			{
 					if(editConference.isPopUp ==false)
 					{
@@ -56,6 +56,19 @@
 			{
 				Message.show(event.fault.faultString,Message.Error,this);
 			}
+			
+			private function view(event:MouseEvent):void
+			{
+				mySO = SharedObject.getLocal("info","/");
+				mySO.data.conf = data.conference_id;
+				if(mySO.flush()=="flushed")
+				{
+					var viewConference:createConference = new createConference();
+					PopUpManager.addPopUp(viewConference,this.parent,true);
+					PopUpManager.centerPopUp(viewConference);
+					viewConference.currentState = "view";
+				}
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -72,7 +85,7 @@
 		</s:RemoteObject>
 	</fx:Declarations>
 	<s:HGroup verticalAlign="middle" paddingTop="10">
-		<s:HGroup textAlign="left" paddingLeft="15" verticalAlign="middle">
+		<s:HGroup textAlign="left" paddingLeft="15" verticalAlign="middle" click="view(event)">
 			<s:Label width="35" color="#00d550" text="{dateFormatterForTime.format(data.time_start)}"/>
 			<s:Label text="{dateFormatterForDate.format(data.date)}" color="#00bbff" width="80"/>
 			<s:Label text="{data.conference_name}" color="#ff6600" minWidth="150"/>

@@ -4,6 +4,29 @@
 				xmlns:mx="library://ns.adobe.com/flex/mx" 
 				autoDrawBackground="true">
 	
-	<s:Label text="{data.user_name}" color="#00d550"/>
+	<fx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			private var mySO:SharedObject;
+			
+			private function view(event:MouseEvent):void
+			{
+				mySO = SharedObject.getLocal("info","/");
+				mySO.data.view = data.user_name;
+				if(mySO.flush() == "flushed")
+				{
+					var reg:register =new register();
+					PopUpManager.addPopUp(reg,this.parent.parent,true);
+					PopUpManager.centerPopUp(reg);
+				}
+			}
+		]]>
+	</fx:Script>
+	<s:HGroup paddingTop="15" paddingLeft="15" click="view(event)">
+		<s:Label text="{data.user_name}" color="#00d550"/>
+	</s:HGroup>
 	
 </s:ItemRenderer>

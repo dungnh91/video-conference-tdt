@@ -37,7 +37,7 @@
 				
 			}
 			
-			private function edit(event:MouseEvent):void
+			private function view(event:MouseEvent):void
 			{
 				mySO = SharedObject.getLocal("info","/");
 				mySO.data.conf = data.conference_id;
@@ -58,11 +58,9 @@
 		]]>
 	</fx:Script>
 	
-	<s:HGroup verticalAlign="middle" paddingTop="10">
-		<s:HGroup textAlign="left" paddingLeft="15" verticalAlign="middle">
-			<s:Label width="35" color="#00d550" text="{dateFormatterForTime.format(data.time_start)}"/>
-			<s:Label text="{dateFormatterForDate.format(data.date)}" color="#00bbff" width="80"/>
-			<s:Label text="{data.conference_name}" color="#ff6600" minWidth="150"/>
-		</s:HGroup>
+	<s:HGroup verticalAlign="middle" paddingTop="10" textAlign="left" paddingLeft="15" click="view(event)">
+		<s:Label width="35" color="#00d550" text="{dateFormatterForTime.format(data.time_start)}"/>
+		<s:Label text="{dateFormatterForDate.format(data.date)}" color="#00bbff" width="80"/>
+		<s:Label text="{data.conference_name}" color="#ff6600" minWidth="150"/>
 	</s:HGroup>
 </s:ItemRenderer>
