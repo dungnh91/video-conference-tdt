@@ -155,9 +155,9 @@
 			
 	<!--Left Column-->
 	<s:Image x="10" y="87" width="126" height="126" source="@Embed(source='images/avatar.png')"/>
-	<s:List id="my_conference" x="418" y="121" width="364" height="428" itemRenderer="myConference" />
-	<s:List id="friends" x="10" y="254" width="364" height="333" itemRenderer="listfriends"/>
-	<s:List id="conference_about_me" x="826" y="121" width="364" height="428" click="conference_about_me_clickHandler(event)" itemRenderer="invitedConference"></s:List>
+	<s:List id="my_conference" x="418" y="121" width="364" height="428" itemRenderer="Renderers.myConference" />
+	<s:List id="friends" x="10" y="254" width="364" height="333" itemRenderer="Renderers.listfriends"/>
+	<s:List id="conference_about_me" x="826" y="121" width="364" height="428" click="conference_about_me_clickHandler(event)" itemRenderer="Renderers.invitedConference"></s:List>
 	
 	<s:Label x="418" y="88" text="My Conferences" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
 	<s:Label x="10" y="221" text="Friends List" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>

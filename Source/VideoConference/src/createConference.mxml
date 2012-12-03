@@ -365,7 +365,7 @@
 			</s:HGroup>
 			<s:HGroup verticalAlign="middle">
 				<s:Label  text="Participants: " fontWeight="bold" width="100"/>
-				<s:List id="participants" width="239" height="210" itemRenderer="listParticipant"/>	
+				<s:List id="participants" width="239" height="210" itemRenderer="Renderers.listParticipant"/>	
 			</s:HGroup>
 			<s:HGroup horizontalAlign="center" width="100%" verticalAlign="middle">
 				<s:Label id="create" text="Create" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle" click.create="Create(event)" includeIn="create"/>
