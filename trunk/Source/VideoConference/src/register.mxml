@@ -60,7 +60,7 @@
 				{
 					if (checkRegister.run(txt_full_name.text, txt_username.text, txt_new_pass.text, txt_confirm_pass.text, txt_email.text,this))
 					{
-						ro.getUser(txt_username.text)
+						ro.getUser(txt_username.text);
 					}
 				}
 				else
@@ -133,13 +133,6 @@
 			{
 				Message.show("Your account has been created successfully",Message.Information,this,true);
 				PopUpManager.removePopUp(this);
-				txt_full_name.text = null;
-				txt_username.text=null;
-				txt_new_pass.text=null;
-				txt_confirm_pass.text = null;
-				txt_email.text = null;
-				rd_free.selected = true;
-				txt_full_name.setFocus();
 			}
 			
 			protected function application1_applicationCompleteHandler(event:FlexEvent):void
@@ -154,12 +147,22 @@
 			}
 			protected function error(event:FaultEvent):void
 			{
-				Message.show(event.fault.faultString,Message.Error,this);
+				if (event.fault.faultCode == "Server.Processing")
+				{
+					ro.createUser(getUserFromForm());
+				}
+				else
+					Message.show(event.fault.faultString,Message.Error,this);
 			}
 			
 			protected function getUserById_result(event:ResultEvent):void
 			{
 				user = event.result as User;
+				loadUser();
+			}
+			
+			protected function loadUser():void
+			{
 				txt_username.text = user.user_name;
 				txt_email.text = user.email;
 				txt_full_name.text = user.fullname;
@@ -171,15 +174,14 @@
 			protected function getUser_resultHandler(event:ResultEvent):void
 			{
 				// TODO Auto-generated method stub
-				var usercheck:User = event.result as User;
-				if (usercheck != null)
+				user = event.result as User;
+				if(this.currentState == "register")
 				{
 					Message.show("Username exist! ",Message.Error,this);
+					txt_username.setFocus();
 				}
 				else
-				{
-					ro.createUser(getUserFromForm());		
-				}
+					loadUser();		
 			}
 			
 		]]>
