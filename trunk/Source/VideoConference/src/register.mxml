@@ -12,6 +12,7 @@
 			import component.checkRegister;
 			import component.upload;
 			
+			import flash.net.FileReference;
 			import flash.sampler.NewObjectSample;
 			
 			import mx.controls.Alert;
@@ -23,7 +24,8 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
-			import object.User;		
+			import object.User;
+			
 			public var user:User;
 			public var mySO:SharedObject;
 			protected function initApp():void
@@ -88,9 +90,38 @@
 				
 			{
 				// TODO Auto-generated method stub
-//				var request:URLRequest = new URLRequest;
-//				request.url = upload;
-				
+				var imageTypes:FileFilter = new FileFilter("Images (*.jpg, *.jpeg, *.gif, *.png)", "*.jpg; *.jpeg; *.gif; *.png");
+				var textTypes:FileFilter = new FileFilter("Text Files (*.txt, *.rtf)", "*.txt; *.rtf");
+				var allTypes:Array = new Array(imageTypes, textTypes);
+				var fileRef:FileReference = new FileReference();
+				fileRef.browse(allTypes);
+				fileRef.addEventListener(Event.SELECT, selectHandler);
+				fileRef.addEventListener(Event.COMPLETE, completeHandler);
+				try
+				{
+					var success:Boolean = fileRef.browse();
+				}
+				catch (error:Error)
+				{
+					trace("Unable to browse for files.");
+				}
+				function selectHandler(event:Event):void
+				{
+					var request:URLRequest = new URLRequest("http://www.[yourdomain].com/fileUploadScript.cfm")
+					try
+					{
+						fileRef.upload(request);
+					}
+					catch (error:Error)
+					{
+						trace("Unable to upload file.");
+					}
+				}
+				function completeHandler(event:Event):void
+				{
+					trace("uploaded");
+				}
+
 			}
 			
 			protected function webcam_clickHandler(event:MouseEvent):void
@@ -230,7 +261,7 @@
 			<s:HGroup verticalAlign="middle">
 				<s:Label text="Avatar "  fontWeight="bold" width="130"/>
 				<s:Image source="@Embed(source='images/avatar.png')" />
-				<s:Button id="computer"  label="Computer"/>
+				<s:Button id="computer"  label="Computer" click="computer_clickHandler(event)"/>
 			</s:HGroup>
 			
 			<s:HGroup verticalAlign="middle" horizontalAlign="center" width="100%">
