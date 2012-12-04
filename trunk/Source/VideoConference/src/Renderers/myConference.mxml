@@ -8,6 +8,7 @@
 			import component.Message;
 			
 			import mx.controls.Alert;
+			import mx.events.CloseEvent;
 			import mx.events.FlexEvent;
 			import mx.managers.PopUpManager;
 			import mx.rpc.events.FaultEvent;
@@ -30,12 +31,21 @@
 				}
 			}
 			
+			private function confirmDelete(event:CloseEvent):void
+			{
+				if(event.detail == Alert.YES)
+				{
+					var conference:Conference = new Conference();
+					conference.conference_id = data.conference_id;
+					ro.deleteConferene(conference);
+				}							
+				else
+					return;
+			}
 			
 			private function remove(event:MouseEvent):void
 			{
-				var conference:Conference = new Conference();
-				conference.conference_id = data.conference_id;
-				ro.deleteConferene(conference);
+				Alert.show("Are you sure ?","Confirm",Alert.YES | Alert.NO,this,confirmDelete);
 			}
 			
 			private function deleteConference_result(event:ResultEvent):void
@@ -83,8 +93,8 @@
 			<s:Label text="{data.conference_name}" color="#ff6600" minWidth="150"/>
 		</s:HGroup>
 		<s:HGroup textAlign="right" paddingRight="15" width="100%" horizontalAlign="right" verticalAlign="middle">
-			<s:Image width="20" height="20" source="@Embed(source='images/edit.png')" click="edit(event)"/>
-			<s:Image width="20" height="20" source="@Embed(source='images/recycle.png')" click="remove(event)"/>
+			<s:Image width="20" height="20" source="@Embed(source='images/edit.png')" click="edit(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
+			<s:Image width="20" height="20" source="@Embed(source='images/recycle.png')" click="remove(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 		</s:HGroup>
 	</s:HGroup>
 </s:ItemRenderer>

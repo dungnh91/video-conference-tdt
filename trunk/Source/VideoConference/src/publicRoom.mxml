@@ -13,6 +13,7 @@
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
+			import mx.events.CloseEvent;
 			import mx.managers.PopUpManager;
 			import mx.rpc.Fault;
 			import mx.rpc.events.FaultEvent;
@@ -58,10 +59,22 @@
 				friends.dataProvider = event.result as ArrayCollection;
 			}
 			
+			private function confirmLogout(event:CloseEvent):void
+			{
+				if(event.detail == Alert.YES)
+				{
+					mySO.clear();
+					AppModel.getInstance().navigate("home.html");
+				}							
+				else
+					return;
+			}
+			
 			protected function Label_logOut_clickHandler(event:MouseEvent):void //Log out tài khoản và trở về TrangChu
 			{
-				mySO.clear();
-				AppModel.getInstance().navigate("home.html");
+				Alert.show("Do you want to log out?","Confirm",Alert.YES | Alert.NO,this,confirmLogout);
+//				mySO.clear();
+//				AppModel.getInstance().navigate("home.html");
 			}			
 			
 			protected function getConferencesByHostId_result(event:ResultEvent):void
@@ -96,6 +109,7 @@
 			{
 				var user:User = event.result as User;
 				user_name.text = user.user_name;
+				fullname.text = user.fullname;
 				email.text = user.email;
 				switch(user.subcriptions)
 				{
@@ -125,6 +139,17 @@
 				PopUpManager.centerPopUp(detail);
 				detail.currentState = "view";
 			}
+			
+			protected function Label_acc_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				mySO.data.view = user_name.text;
+				var detail:register = new register();
+				PopUpManager.addPopUp(detail,this,true);
+				PopUpManager.centerPopUp(detail);
+				detail.currentState = "edit";
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -148,8 +173,8 @@
 	
 	<!--Slogan and template-->
 	<s:Label x="0" y="0" width="1200" height="10" backgroundColor="#000000"/>
-	<s:Label id="Label_logOut" x="1120" y="0" width="80" height="30" text="Log Out" click="Label_logOut_clickHandler(event)"/>
-	<s:Label id="Label_acc" x="1021" y="0" width="100" height="30" text="Your Account" click="details_click(event)"/>
+	<s:Label id="Label_logOut" x="1120" y="0" width="80" height="30" text="Log Out" click="Label_logOut_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
+	<s:Label id="Label_acc" x="1021" y="0" width="100" height="30" text="Your Account" click="Label_acc_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	<s:Label id="Label_copyr" x="0" y="595" width="1200" height="25" text="Copyright © 2012 by [BRB]. All rights reserved"/>	
 	<s:Image x="340" y="34" width="519" height="35" source="@Embed(source='images/slogan.png')"/>
 			
@@ -161,7 +186,8 @@
 	
 	<s:Label x="418" y="88" text="My Conferences" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
 	<s:Label x="10" y="221" text="Users List" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
-	<s:Label x="525" y="557" text="Create New Conference" width="170" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" click="CreateConference(event)"/>
+	<s:Label x="525" y="557" text="Create New Conference" width="170" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" click="CreateConference(event)"
+			 	useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 <!--	<s:Label x="703" y="557" text="See More" width="80" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/> -->
 <!--	<s:Label x="1110" y="557" text="See More" width="80" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>-->
 	<s:Label x="825" y="88" text="Invited Conferences" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
@@ -178,11 +204,13 @@
 	<s:Label x="53" y="301" text="duka_tran" fontWeight="bold" color="#00d550"/>
 	<s:Label x="52" y="329" text="hoang_dung" fontWeight="bold" color="#00d550"/>
 	-->
-	<s:Label id="details" x="323" y="201" text="Details" fontStyle="italic" fontWeight="bold" click="details_click(event)"/>
+	<s:Label id="details" x="323" y="201" text="Details" fontStyle="italic" fontWeight="bold" click="details_click(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
+	<s:Label x="154" y="83" text="Hello, " fontWeight="bold"/>
 	<s:Label x="154" y="109" text="User Name:" fontWeight="bold"/>
 	<s:Label x="154" y="137" text="Email:" fontWeight="bold"/>
 	<s:Label x="154" y="167" text="Subscription:" fontWeight="bold"/>
 	<s:Label x="245" y="109" id="user_name" fontWeight="bold"/>
+	<s:Label x="193" y="84" id="fullname" fontWeight="bold"/>
 	<s:Label id="email" x="245" y="137" fontWeight="bold"/>
 	<s:Label x="245" y="159" id="free" fontWeight="bold" text="Free" width="70" height="30" fontSize="16" textAlign="center" verticalAlign="middle"/>
 	<s:Label text="Basic" x="245" id="basic" y="159" width="70" height="30" fontSize="16" fontWeight="bold"  backgroundColor="#000000" color="#FFFFFF" textAlign="center" verticalAlign="middle"/>

@@ -248,15 +248,15 @@
 				<s:Label text="Subscriptions: "  fontWeight="bold"  width="130"/>
 				<s:VGroup horizontalAlign="center">
 					<s:Label text="Free" width="70" height="30" fontSize="16" fontWeight="bold" textAlign="center" verticalAlign="middle"/>
-					<s:RadioButton id="rd_free" selected="true" value="1"/>
+					<s:RadioButton id="rd_free" selected="true" value="1" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 				</s:VGroup>
 				<s:VGroup horizontalAlign="center">
 					<s:Label text="Basic" width="70" height="30" fontSize="16" fontWeight="bold"  backgroundColor="#000000" color="#FFFFFF" textAlign="center" verticalAlign="middle"/>
-					<s:RadioButton id="rd_basic"/>
+					<s:RadioButton id="rd_basic" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 				</s:VGroup>
 				<s:VGroup horizontalAlign="center">
 					<s:Label text="Gold" width="70" height="30" fontSize="16" fontWeight="bold"  backgroundColor="#000000" color="#FFFF00" textAlign="center" verticalAlign="middle"/>
-					<s:RadioButton id="rd_gold"/>
+					<s:RadioButton id="rd_gold" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 				</s:VGroup>
 			</s:HGroup>
 			
