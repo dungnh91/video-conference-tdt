@@ -87,7 +87,7 @@
 					Message.show("Please input Date",Message.Error,this,true);
 					return false;
 				}
-				if(time_start.time <= time_end.time)
+				if(time_start.time >= time_end.time)
 				{
 					Message.show("Time incorrect",Message.Error,this,true);
 					return false;
@@ -342,7 +342,7 @@
 			</s:HGroup>
 			<s:HGroup verticalAlign="middle">
 				<s:Label  text="Date: " fontWeight="bold" width="100"/>
-				<mx:DateField id="dtf_date"  width="116" showToday="true" />
+				<mx:DateField formatString="DD/MM/YYYY" id="dtf_date"  width="116" showToday="true" />
 			</s:HGroup>
 			<s:HGroup verticalAlign="middle">
 				<s:Label  text="Time Start: " fontWeight="bold" width="100"/>
@@ -368,9 +368,9 @@
 				<s:List id="participants" width="239" height="210" itemRenderer="Renderers.listParticipant"/>	
 			</s:HGroup>
 			<s:HGroup horizontalAlign="center" width="100%" verticalAlign="middle">
-				<s:Label id="create" text="Create" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle" click.create="Create(event)" includeIn="create"/>
-				<s:Label id="save"  text="Save Changes" width="100" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle" includeIn="edit" click.edit="Update(event)"/>
-				<s:Label id="cancel"  text="Cancel" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle" click="Cancel(event)"/>
+				<s:Label id="create" text="Create" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle" click.create="Create(event)" includeIn="create" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
+				<s:Label id="save"  text="Save Changes" width="100" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle" includeIn="edit" click.edit="Update(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
+				<s:Label id="cancel"  text="Cancel" width="60" height="30" fontWeight="bold" color="#ffffff" backgroundColor="#000000" textAlign="center" verticalAlign="middle" click="Cancel(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 			</s:HGroup>
 			
 		</s:VGroup>
