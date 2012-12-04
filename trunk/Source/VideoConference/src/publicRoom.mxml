@@ -164,7 +164,7 @@
 	<s:Label x="525" y="557" text="Create New Conference" width="170" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" click="CreateConference(event)"/>
 <!--	<s:Label x="703" y="557" text="See More" width="80" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/> -->
 <!--	<s:Label x="1110" y="557" text="See More" width="80" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>-->
-	<s:Label x="825" y="88" text="Conferences about Me" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
+	<s:Label x="825" y="88" text="Invited Conferences" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
 	
 <!--	<s:Image x="750" y="130" width="20" height="20" source="@Embed(source='images/recycle.png')"/>
 	<s:Image x="722" y="131" width="20" height="20" source="@Embed(source='images/edit.png')"/>
