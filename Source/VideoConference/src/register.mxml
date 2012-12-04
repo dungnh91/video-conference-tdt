@@ -214,33 +214,33 @@
 		<s:VGroup paddingBottom="20" paddingLeft="20" paddingRight="20" paddingTop="20">
 			
 			<s:HGroup verticalAlign="middle">
-				<s:Label text="Full name :"  width="130" fontWeight="bold"/>
+				<s:Label text="Full name(*) :"  width="130" fontWeight="bold"/>
 				<s:TextInput id="txt_full_name" tabIndex="1"/>
 			</s:HGroup>
 			
 			<s:HGroup verticalAlign="middle">
-				<s:Label width="130" fontWeight="bold" text="Username:"/>
+				<s:Label width="130" fontWeight="bold" text="Username (*):"/>
 				<s:TextInput id="txt_username" tabIndex="2"/>
 			</s:HGroup>
 			
 			<s:HGroup verticalAlign="middle" includeIn="edit">
-				<s:Label text="Current Password: "  fontWeight="bold" width="130"/>
+				<s:Label text="Current Password (*): "  fontWeight="bold" width="130"/>
 				<s:TextInput id="txt_current_pass" tabIndex="3" displayAsPassword="true"/>
 			</s:HGroup>
 			
 			<s:HGroup verticalAlign="middle" excludeFrom="view"> 
-				<s:Label text="New Password: " fontWeight="bold" width="130" includeIn="edit"/>
-				<s:Label text="Password: " fontWeight="bold" width="130" includeIn="register"/>
+				<s:Label text="New Password (*): " fontWeight="bold" width="130" includeIn="edit"/>
+				<s:Label text="Password (*): " fontWeight="bold" width="130" includeIn="register"/>
 				<s:TextInput id="txt_new_pass" tabIndex="4" displayAsPassword="true"/>
 			</s:HGroup>
 			
 			<s:HGroup verticalAlign="middle" excludeFrom="view"> 
-				<s:Label text="Re-type Password: " fontWeight="bold" width="130"/>
+				<s:Label text="Re-type Password (*): " fontWeight="bold" width="130"/>
 				<s:TextInput id="txt_confirm_pass" tabIndex="5" displayAsPassword="true"/>
 			</s:HGroup>
 			
 			<s:HGroup verticalAlign="middle">
-				<s:Label text="Email: " fontWeight="bold"  width="130"/>
+				<s:Label text="Email(*): " fontWeight="bold"  width="130"/>
 				<s:TextInput id="txt_email"  tabIndex="6"/>
 			</s:HGroup>
 			
