@@ -14,8 +14,6 @@ package
 	import flash.system.Security;
 	import flash.utils.Timer;
 	
-	import flex.lang.reflect.Method;
-	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
 	import mx.controls.Button;
@@ -29,6 +27,7 @@ package
 	import mx.events.ListEvent;
 	import mx.rpc.AsyncResponder;
 	import mx.rpc.AsyncToken;
+	import mx.rpc.Fault;
 	import mx.rpc.Responder;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
@@ -50,6 +49,7 @@ package
 		
 		private var streamsSo:SharedObject;
 		private var connectedUsersSo:SharedObject;
+		[Bindable]
 		private var getcallSO:SharedObject;
 		private var mySO:SharedObject;
 		
@@ -91,8 +91,10 @@ package
 			ro_user.showBusyCursor = true;
 			ro_user.getUserById.addEventListener(ResultEvent.RESULT,getUserById_result);
 			ro_user.getInvitedUsersByConferenceId.addEventListener(ResultEvent.RESULT,getInvitedUsersByConferenceId_result);
-			ro_user.getUserById(mySO.data.user);
+			ro_user.getInvitedUsersByConferenceId.addEventListener(FaultEvent.FAULT,error);
 			ro_user.getInvitedUsersByConferenceId(mySO.data.conf);
+			ro_user.getUserById(mySO.data.user);
+			
 			
 			ro_conference = new RemoteObject();
 			ro_conference.destination = "ConferenceService";
@@ -102,10 +104,15 @@ package
 			addEventListener(FlexEvent.CREATION_COMPLETE,init);
 		}
 		
+		
+		private function error(event:FaultEvent):void
+		{
+			Alert.show(event.fault.faultString);
+		}
 		private function init(event:FlexEvent):void
 		{
 			
-			connectionStr = "rtmp://192.168.100.101/avchat";
+			connectionStr = "rtmp://192.168.1.10/avchat";
 			doPublish.addEventListener(MouseEvent.CLICK,publish);
 			calltospeak.addEventListener(MouseEvent.CLICK,getcall);
 			streams.addEventListener(ListEvent.CHANGE,stopFirst);
@@ -314,17 +321,30 @@ package
 		
 		private function getcallSynch(event:SyncEvent):void
 		{
-			if(streamList!=null)
+			if(event.target.data.call !=null)
 			{
+				if(streamList!=null)
+				{
+					for(var i:int =0;i<streamList.length;i++)
+					{
+						if(streamList.getItemAt(i).user.user_id == event.target.data.call)
+						{
+							streamList.getItemAt(i).image = "../images/Sound.png";
+						}
+					}
+					getcallSO.setProperty("call",null);
+					getcallSO.data.call = null;
+				}
+			}
+			if(getcallSO.data.speak !=null)
 				for(var i:int =0;i<streamList.length;i++)
 				{
 					if(streamList.getItemAt(i).user.user_id == event.target.data.call)
 					{
-						streamList.getItemAt(i).image = "../images/Sound.png";
+						streamList.getItemAt(i).image = "../images/silent.png";
 					}
 				}
-				streamList.refresh();	
-			}
+			streamList.refresh();
 		}
 		
 		private function enablePlayControls(isEnable:Boolean):void 
