@@ -30,12 +30,12 @@
 			public var mySO:SharedObject;
 			protected function initApp():void
 			{
-				Security.loadPolicyFile("http://192.168.100.101:8080/VideoConference_Server/crossdomain.xml");
+				Security.loadPolicyFile("http://192.168.1.10:8080/VideoConference_Server/crossdomain.xml");
 				mySO = SharedObject.getLocal("info","/");
 				
 				if(mySO.data.view !=null)
 				{
-					ro.getUser(mySO.data.view);
+					ro_user.getUser(mySO.data.view);
 					this.currentState = "view";
 					return;
 				}
@@ -44,7 +44,7 @@
 				else 
 				{
 					this.currentState = "edit";
-						ro.getUserById(mySO.data.user);
+						ro_user.getUserById(mySO.data.user);
 				}
 			}
 			
@@ -61,7 +61,7 @@
 				{
 					if (checkRegister.run(txt_full_name.text, txt_username.text, txt_new_pass.text, txt_confirm_pass.text, txt_email.text,this))
 					{
-						ro.getUser(txt_username.text);
+						ro_user.getUser(txt_username.text);
 					}
 				}
 				else
@@ -71,8 +71,7 @@
 						{
 							var tmp:User = getUserFromForm();
 							tmp.user_id = mySO.data.user;
-							Alert.show(tmp.user_id.toString());
-							ro.updateInfo(tmp);
+							ro_user.updateInfo(tmp);
 						}
 						else
 							Message.show("Current Password incorrect",Message.Error,this);
@@ -88,47 +87,17 @@
 				user.password = MD5.encrypt(txt_new_pass.text);
 				user.email = txt_email.text;
 				user.subcriptions = rd_free.selected==true?1:rd_basic.selected==true?2:3;
-				user.avartar = "test";
+				user.avartar = "assets/" + txt_username.text +"/" +fileReference.name;
 				return user;
 			}
-			
 			protected function computer_clickHandler(event:MouseEvent):void
-				
 			{
 				// TODO Auto-generated method stub
 				var imageTypes:FileFilter = new FileFilter("Images (*.jpg, *.jpeg, *.gif, *.png)", "*.jpg; *.jpeg; *.gif; *.png");
-				var textTypes:FileFilter = new FileFilter("Text Files (*.txt, *.rtf)", "*.txt; *.rtf");
-				var allTypes:Array = new Array(imageTypes, textTypes);
-				var fileRef:FileReference = new FileReference();
-				fileRef.browse(allTypes);
-				fileRef.addEventListener(Event.SELECT, selectHandler);
-				fileRef.addEventListener(Event.COMPLETE, completeHandler);
-				try
-				{
-					var success:Boolean = fileRef.browse();
-				}
-				catch (error:Error)
-				{
-					trace("Unable to browse for files.");
-				}
-				function selectHandler(event:Event):void
-				{
-					var request:URLRequest = new URLRequest("http://www.[yourdomain].com/fileUploadScript.cfm")
-					try
-					{
-						fileRef.upload(request);
-					}
-					catch (error:Error)
-					{
-						trace("Unable to upload file.");
-					}
-				}
-				function completeHandler(event:Event):void
-				{
-					trace("uploaded");
-				}
-
+				var allTypes:Array = new Array(imageTypes);
+				fileReference.browse(allTypes);
 			}
+			
 			
 			protected function webcam_clickHandler(event:MouseEvent):void
 			{
@@ -140,11 +109,28 @@
 				Message.show("Your account has been created successfully",Message.Information,this,true);
 				PopUpManager.removePopUp(this);
 			}
-			
+			private var fileReference:FileReference;
 			protected function application1_applicationCompleteHandler(event:FlexEvent):void
 			{
 				// TODO Auto-generated method stub
 				txt_full_name.setFocus();
+				fileReference = new FileReference();
+				fileReference.addEventListener(Event.SELECT, fileReference_selectHandler);
+				fileReference.addEventListener(Event.COMPLETE,fileReference_uploadHandler);
+			}
+			
+			private function fileReference_uploadHandler(event:Event):void
+			{
+				var name:String = fileReference.name;
+				var directory:String = "C:/wamp/www/video_conference/VideoConference/assets/" + txt_username.text;
+				var content:ByteArray = new ByteArray();
+				fileReference.data.readBytes(content, 0, fileReference.data.length);
+				ro_file.uploadFile(name, directory, content);
+			}
+			
+			private function fileReference_selectHandler(event:Event):void
+			{
+				fileReference.load();
 			}
 			
 			protected function UpdateInfo_result(event:ResultEvent):void
@@ -156,7 +142,7 @@
 			{
 				if (event.fault.faultCode == "Server.Processing")
 				{
-					ro.createUser(getUserFromForm());
+					ro_user.createUser(getUserFromForm());
 				}
 				else
 					Message.show(event.fault.faultString,Message.Error,this);
@@ -173,6 +159,7 @@
 				txt_username.text = user.user_name;
 				txt_email.text = user.email;
 				txt_full_name.text = user.fullname;
+				img_avatar.source = user.avartar;
 				rd_free.selected = user.subcriptions == 1;
 				rd_basic.selected = user.subcriptions == 2;
 				rd_gold.selected = user.subcriptions == 3;
@@ -191,15 +178,23 @@
 					loadUser();		
 			}
 			
+			private function uploadFile_result(event:ResultEvent):void
+			{
+				//img_avatar.source = event.
+				img_avatar.source= "assets/" +txt_username.text +"/"+ fileReference.name;
+			}
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
-		<s:RemoteObject id="ro" destination="UserService" showBusyCursor="true">
+		<s:RemoteObject id="ro_user" destination="UserService" showBusyCursor="true">
 			<s:method name="createUser" result="createUser_resultHandler(event)" fault="error(event)"/>
 			<s:method name="getUserById" result="getUserById_result(event)" fault="error(event)"/>
 			<s:method name="updateInfo" result="UpdateInfo_result(event)" fault="error(event)"/>
 			<s:method name="getUser" result="getUser_resultHandler(event)" fault="error(event)"/>
+		</s:RemoteObject>
+		<s:RemoteObject id="ro_file" destination="FileUtilsService" showBusyCursor="true">
+			<s:method name="uploadFile" result="uploadFile_result(event)"/>
 		</s:RemoteObject>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -269,7 +264,7 @@
 			
 			<s:HGroup verticalAlign="middle">
 				<s:Label text="Avatar "  fontWeight="bold" width="130"/>
-				<s:Image source="@Embed(source='images/avatar.png')" />
+				<s:Image source="@Embed(source='images/avatar.png')" id="img_avatar" width="126" height="126"/>
 				<s:Button id="computer"  label="Computer" click="computer_clickHandler(event)"/>
 			</s:HGroup>
 			
