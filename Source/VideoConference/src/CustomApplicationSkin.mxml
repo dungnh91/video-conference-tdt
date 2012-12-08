@@ -17,7 +17,7 @@
 	
 	<!-- fill -->
 	<s:BitmapImage id="img"
-				   source="@Embed('../images/bg.png')"
+				   source="@Embed('../images/BG1.png')"
 				   smooth="true"
 				   left="0" right="0"
 				   top="0" bottom="0" />

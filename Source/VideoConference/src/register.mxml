@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
-			   xmlns:s="library://ns.adobe.com/flex/spark" 
-			   xmlns:mx="library://ns.adobe.com/flex/mx" 
-			   width="1200" height="620" backgroundAlpha="0" 
-			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference" applicationComplete="application1_applicationCompleteHandler(event)" initialize="initApp()">
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   width="700" height="500" chromeColor="#FFFFFF"
+			   close="titlewindow1_closeHandler(event)"
+			   creationComplete="application1_applicationCompleteHandler(event)" backgroundColor="#EEEEEE"
+			   initialize="initApp()" pageTitle="DMC Flex Conference" title="Register"
+			   width.register="400" height.register="430">
 	
 	<fx:Script>
 		<![CDATA[
@@ -17,6 +20,7 @@
 			
 			import mx.controls.Alert;
 			import mx.core.mx_internal;
+			import mx.events.CloseEvent;
 			import mx.events.FlexEvent;
 			import mx.events.Request;
 			import mx.managers.PopUpManager;
@@ -46,12 +50,6 @@
 					this.currentState = "edit";
 						ro_user.getUserById(mySO.data.user);
 				}
-			}
-			
-			protected function close_clickHandler(event:MouseEvent):void
-			{
-				// TODO Auto-generated method stub
-				PopUpManager.removePopUp(this);			
 			}
 			
 			protected function signUp_clickHandler(event:MouseEvent):void
@@ -183,6 +181,13 @@
 				//img_avatar.source = event.
 				img_avatar.source= "assets/" +txt_username.text +"/"+ fileReference.name;
 			}
+			
+			protected function titlewindow1_closeHandler(event:CloseEvent):void
+			{
+				// TODO Auto-generated method stub
+				PopUpManager.removePopUp(this);		
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -206,12 +211,12 @@
 		<s:State name="edit" />
 		<s:State name="view" />
 	</s:states>
-	<s:BorderContainer> 
+	<!--<s:BorderContainer> 
 		<s:borderStroke> 
 			<mx:SolidColorStroke 
 				color="black" 
 				weight="3"/> 
-		</s:borderStroke>
+		</s:borderStroke>-->
 		
 		<s:VGroup paddingBottom="20" paddingLeft="20" paddingRight="20" paddingTop="20">
 			
@@ -271,10 +276,8 @@
 			<s:HGroup verticalAlign="middle" horizontalAlign="center" width="100%">
 				<s:Label id="save" text="Save Changes" width="103" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" useHandCursor="true" buttonMode="true" mouseChildren="false" click="signUp_clickHandler(event)" includeIn="edit"/>
 				<s:Label id="lbl_signUp" x="565" y="467" text="Sign Up" width="71" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" click="signUp_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false" includeIn="register"/>
-				<s:Label id="cancel" text="Cancel" width="60" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" useHandCursor="true" buttonMode="true" mouseChildren="false" click="close_clickHandler(event)"/>	
 			</s:HGroup>
 		</s:VGroup>
-	</s:BorderContainer> 
 	
 <!--	<s:Image x="375" y="47" width="450" height="480" source="@Embed(source='images/boder3.png')"/>
 	
@@ -309,4 +312,4 @@
 	
 	<s:Label id="lbl_signUp" x="565" y="467" text="Sign Up" width="71" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" click="signUp_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	-->
-</s:Application>
+</s:TitleWindow>

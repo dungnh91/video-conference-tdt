@@ -118,7 +118,13 @@
 	borderColor:#000000; 
 	background-color:#FFFFFF;
 }
-
+.whitefont
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	fontWeight: bold;
+	verticalAlign: middle;	
+}
 
 
 

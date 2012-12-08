@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
-			   width="230" height="190" backgroundAlpha="0"
-			   chromeColor="#FFFFFF" pageTitle="Đăng Nhập" applicationComplete="application1_applicationCompleteHandler(event)" initialize="initApp()">
+			   width="230" height="190" backgroundColor="#EEEEEE" title="Log In"
+			   chromeColor="#FFFFFF" pageTitle="Đăng Nhập" creationComplete="application1_applicationCompleteHandler(event)" 
+			   initialize="initApp()" close="titlewindow1_closeHandler(event)">
 	
 	<fx:Script>
 		<![CDATA[
@@ -18,6 +19,7 @@
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.core.INavigatorContent;
+			import mx.events.CloseEvent;
 			import mx.events.FlexEvent;
 			import mx.managers.PopUpManager;
 			import mx.rpc.events.FaultEvent;
@@ -37,11 +39,6 @@
 			}
 			
 			// còn mấy cái của textInput tự xử dùm M nha :">
-			
-			protected function close_clickHandler(event:MouseEvent):void
-			{
-				PopUpManager.removePopUp(this);				
-			}
 			
 			protected function getUserResult(event:ResultEvent):void
 			{
@@ -79,6 +76,12 @@
 				username.setFocus();
 			}
 			
+			protected function titlewindow1_closeHandler(event:CloseEvent):void
+			{
+				// TODO Auto-generated method stub
+				PopUpManager.removePopUp(this);
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -91,18 +94,18 @@
 	
 	<fx:Style source="conferenceSkin.css"/>
 	
-	<s:Image width="230" height="190" source="@Embed(source='images/boder.png')"/>
+	<!--<s:Image width="230" height="190" source="@Embed(source='images/boder.png')"/>-->
 	
-	<s:Label x="18" y="56" text="Username " fontWeight="bold"/>		
-	<s:Label x="21" y="94" text="Password " fontWeight="bold"/>
+	<s:Label x="18" y="33" text="Username " fontWeight="bold"/>		
+	<s:Label x="21" y="71" text="Password " fontWeight="bold"/>
 	
-	<s:TextInput id="username" x="88" y="51" tabIndex="0"/>
-	<s:TextInput id="password" x="88" y="88" displayAsPassword="true" tabIndex="1"/>	
+	<s:TextInput id="username" x="88" y="26" tabIndex="0"/>
+	<s:TextInput id="password" x="88" y="67" displayAsPassword="true" tabIndex="1"/>	
 	
-	<s:Label id="Label_sub" x="63" y="144" width="110" height="30" text="Log In to Flex"
+	<s:Label id="Label_sub" x="62" y="109" width="110" height="30" text="Log In to Flex"
 			 click="Label_sub_clickHandler(event)"
 			 useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	
-	<s:Image id="close" x="209" y="2" width="20" height="20" source="@Embed(source='images/button_close.png')" click="close_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
+	<!--<s:Image id="close" x="209" y="2" width="20" height="20" source="@Embed(source='images/button_close.png')" click="close_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>-->
 	
-</s:Application>
+</s:TitleWindow>
