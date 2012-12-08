@@ -2,8 +2,6 @@
 <AVChatApp horizontalAlign="center" xmlns="*" layout="vertical" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" 
 		   width="1200" height="630">
 
-	
-	
 	<mx:HBox horizontalAlign="center" >
 		<!--<mx:Image width="20" height="20" source="@Embed('../images/vclogo.jpg')"/>-->
 		<mx:Label fontSize="22" fontWeight="bold" styleName="logo" text="VideoChat" id="title"/>	
@@ -43,5 +41,4 @@
 	<!--<mx:Style source="conferenceSkin.css">
 		@namespace s "library://ns.adobe.com/flex/spark";
 	</mx:Style>-->
-	
 </AVChatApp>
