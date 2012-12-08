@@ -192,7 +192,7 @@
 	<s:List id="conference_about_me" x="917" y="121" width="364" height="428" click="conference_about_me_clickHandler(event)" itemRenderer="Renderers.invitedConference"></s:List>
 	
 	<s:Label x="497" y="88" text="My Conferences" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#999" color="#FFFFFF"/>
-	<s:Label x="64" y="221" text="Users List" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#999999" color="#000000"/>
+	<s:Label x="64" y="221" text="Users List" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#CCCCCC" color="#000000"/>
 	<s:Label x="590" y="557" text="Create New Conference" width="170" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" click="CreateConference(event)"
 			 useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	<!--	<s:Label x="703" y="557" text="See More" width="80" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/> -->
@@ -209,7 +209,7 @@
 	<s:Label styleName="whitefont" id="email" x="260" y="137" fontWeight="bold"/>
 	<s:Label x="290" y="159" id="free" fontWeight="bold" text="Free" width="70" height="30" fontSize="16" textAlign="center" verticalAlign="middle"/>
 	<s:Label text="Basic" x="290" id="basic" y="159" width="70" height="30" fontSize="16" fontWeight="bold"  backgroundColor="#000000" color="#FFFFFF" textAlign="center" verticalAlign="middle"/>
-	<s:Label text="Gold" x="290" id="gold" y="159" width="70" height="30" fontSize="16" fontWeight="bold"  backgroundColor="#000000" color="#FFFF00" textAlign="center" verticalAlign="middle"/>
+	<s:Label text="Gold" x="290" id="gold" y="159" width="70" height="30" fontSize="16" fontWeight="bold" color="#FFFF00" textAlign="center" verticalAlign="middle"/>
 	
 	
 	
