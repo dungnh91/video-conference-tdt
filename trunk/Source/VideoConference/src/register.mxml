@@ -30,6 +30,7 @@
 			public var mySO:SharedObject;
 			protected function initApp():void
 			{
+				Security.loadPolicyFile("http://192.168.100.101:8080/VideoConference_Server/crossdomain.xml");
 				mySO = SharedObject.getLocal("info","/");
 				
 				if(mySO.data.view !=null)
@@ -67,7 +68,12 @@
 					if(checkRegister.checkCurrentPassword(txt_full_name.text, txt_username.text, txt_current_pass.text, txt_new_pass.text, txt_confirm_pass.text, txt_email.text,this))
 					{
 						if(user.password == MD5.encrypt(txt_current_pass.text))
-							ro.updateInfo(getUserFromForm());
+						{
+							var tmp:User = getUserFromForm();
+							tmp.user_id = mySO.data.user;
+							Alert.show(tmp.user_id.toString());
+							ro.updateInfo(tmp);
+						}
 						else
 							Message.show("Current Password incorrect",Message.Error,this);
 					}
@@ -144,6 +150,7 @@
 			protected function UpdateInfo_result(event:ResultEvent):void
 			{
 				Message.show("Your information was updated",Message.Information,this);
+				PopUpManager.removePopUp(this);
 			}
 			protected function error(event:FaultEvent):void
 			{

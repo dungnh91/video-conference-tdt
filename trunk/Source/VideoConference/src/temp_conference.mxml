@@ -1,8 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AVChatApp horizontalAlign="center" xmlns="*" layout="vertical" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" 
-		   width="1200" height="630">
+		   width="1200" height="630" initialize="initApp()">
 
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			
+			import object.Conference;
+			import object.User;
+			private var mySO:SharedObject;
+			private function initApp():void
+			{
+				Security.loadPolicyFile("http://192.168.100.101:8080/VideoConference_Server/crossdomain.xml");
+				mySO = SharedObject.getLocal("info","/");
+				//ro_user.getUserById(mySO.data.user);
+				ro_conference.getConferencesById(mySO.data.conf);
+			}
+			
+			
+			private function getConferencesById_result(event:ResultEvent):void
+			{
+				var conference:Conference = event.result as Conference;
+				if(conference.host_id == mySO.data.user)
+				{
+					calltospeak.enabled = false;
+					streams.enabled = true;
+				}
+				else
+				{
+					calltospeak.enabled = true;
+					streams.enabled = false;
+				}
+				title.text = conference.conference_name;
+			}
+			
+		]]>
+	</mx:Script>
 	
+	
+	<mx:RemoteObject id="ro_conference" destination="ConferenceService" showBusyCursor="true">
+		<mx:method name="getConferencesById" result="getConferencesById_result(event)"/>
+	</mx:RemoteObject>
 	
 	<mx:HBox horizontalAlign="center" >
 		<!--<mx:Image width="20" height="20" source="@Embed('../images/vclogo.jpg')"/>-->
@@ -27,7 +66,7 @@
 			</mx:HBox>
 			<mx:HBox height="100%">
 				<mx:Label text="Connected Users" fontWeight="bold"/>
-			<mx:List width="210" height="206" labelField="label" id="streams" dataProvider="{AVChatApp.streamList}" itemRenderer="Renderers.render"/>
+				<mx:List width="210" height="206" labelField="label" id="streams" dataProvider="{AVChatApp.streamList}" itemRenderer="Renderers.render"/>
 			</mx:HBox>
 		</mx:VBox>
 		

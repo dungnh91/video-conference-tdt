@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.controls.List;
+			[Bindable]
+			private var getcallSO:SharedObject;
+			private var nc:NetConnection;
+			private function setcall(event:MouseEvent):void
+			{
+				nc = new NetConnection();
+				nc.connect("rtmp://192.168.100.101/avchat");
+				getcallSO = SharedObject.getRemote("getcallSO",nc.uri,false);
+				getcallSO.addEventListener(SyncEvent.SYNC,getcallSync);
+				getcallSO.connect(nc);
+				
+				if(data.image == "../images/Sound.png")
+				{
+					getcallSO.setProperty("call",null);
+					AVChatApp.streamList.refresh();
+				}
+			}
+			private function getcallSync(event:SyncEvent):void
+			{
+				if(getcallSO.data.call !=null)
+					getcallSO.data.call = null;
+				
+				AVChatApp.streamList.refresh();
+			}
+		]]>
+	</fx:Script>
+	
+	<mx:Label text="{data.user.fullname}" id="lbl" width="85%"/>
+	<mx:Image source="{data.image}" width="20" height="20" click="setcall(event)" id="image"/>
+	
+</mx:HBox>

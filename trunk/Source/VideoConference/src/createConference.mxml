@@ -36,6 +36,7 @@
 			
 			protected function initApp():void
 			{
+				Security.loadPolicyFile("http://192.168.100.101:8080/VideoConference_Server/crossdomain.xml");
 				mySO = SharedObject.getLocal("info","/");
 				if(mySO.data.user == null)
 					AppModel.getInstance().navigate("home.html");
@@ -241,7 +242,9 @@
 					{
 						obj=participants.dataGroup.getElementAt(i) as Object;
 						if(obj.cb.selected)
+						{
 							count++;
+						}
 					}
 				}
 				switch(user.subcriptions)
