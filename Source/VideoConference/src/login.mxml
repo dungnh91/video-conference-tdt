@@ -2,7 +2,7 @@
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
-			   width="1200" height="620" backgroundAlpha="0"
+			   width="230" height="190" backgroundAlpha="0"
 			   chromeColor="#FFFFFF" pageTitle="Đăng Nhập" applicationComplete="application1_applicationCompleteHandler(event)" initialize="initApp()">
 	
 	<fx:Script>
@@ -91,18 +91,18 @@
 	
 	<fx:Style source="conferenceSkin.css"/>
 	
-	<s:Image x="485" y="192" width="230" height="190" source="@Embed(source='images/boder.png')"/>
+	<s:Image width="230" height="190" source="@Embed(source='images/boder.png')"/>
 	
-	<s:Label x="502" y="243" text="Username " fontWeight="bold"/>		
-	<s:Label x="501" y="287" text="Password " fontWeight="bold"/>
+	<s:Label x="18" y="56" text="Username " fontWeight="bold"/>		
+	<s:Label x="21" y="94" text="Password " fontWeight="bold"/>
 	
-	<s:TextInput id="username" x="570" y="237" tabIndex="0"/>
-	<s:TextInput id="password" x="570" y="281" displayAsPassword="true" tabIndex="1"/>	
+	<s:TextInput id="username" x="88" y="51" tabIndex="0"/>
+	<s:TextInput id="password" x="88" y="88" displayAsPassword="true" tabIndex="1"/>	
 	
-	<s:Label id="Label_sub" x="543" y="334" width="110" height="30" text="Log In to Flex"
+	<s:Label id="Label_sub" x="63" y="144" width="110" height="30" text="Log In to Flex"
 			 click="Label_sub_clickHandler(event)"
 			 useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	
-	<s:Image id="close" x="689" y="198" width="20" height="20" source="@Embed(source='images/button_close.png')" click="close_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
+	<s:Image id="close" x="209" y="2" width="20" height="20" source="@Embed(source='images/button_close.png')" click="close_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	
 </s:Application>

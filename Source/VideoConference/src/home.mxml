@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
 			   xmlns:s="library://ns.adobe.com/flex/spark"
-			   xmlns:mx="library://ns.adobe.com/flex/mx"
-			   width="1200" height="620" backgroundAlpha="0"
+			   xmlns:mx="library://ns.adobe.com/flex/halo"
+			   width="1366" height="653" backgroundAlpha="0"
 			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference" initialize="initApp()">
 	
 	<fx:Script>
@@ -38,7 +38,7 @@
 			
 			protected function Label_ab_clickHandler(event:MouseEvent):void //Click vào label chuyển tới trang About Us
 			{
-				var ab:AboutUs = new AboutUs;
+				var ab:AboutUs = new AboutUs();
 				PopUpManager.addPopUp(ab,this,true);
 				PopUpManager.centerPopUp(ab);
 			}
@@ -80,32 +80,41 @@
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here-->
+		<s:AnimateTransform3D id="glow" />
 	</fx:Declarations>
 	
 	<fx:Style source="conferenceSkin.css"/>
-	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/halo";
+		
+		s|Application {
+			skinClass: ClassReference("CustomApplicationSkin");
+		}
+	</fx:Style>
 	<!--Label-->
-	<s:Label id="Label_signUp" x="597" y="457" width="80" height="30" text="Sign Up" 
-			 click="Label_signUp_clickHandler(event)" 
-			 focusIn="Label_signUp_focusInHandler(event)" 
-			 focusOut="Label_signUp_focusOutHandler(event)" 
-			 useHandCursor="true" buttonMode="true" mouseChildren="false"/>
-	<s:Label id="Label_logIn" x="507" y="457" width="80" height="30"
+	<!--<s:Label id="Label_signUp" x="698" y="457" width="80" height="30" buttonMode="true"
+			 click="Label_signUp_clickHandler(event)" color="#F8F2F2"
+			 focusIn="Label_signUp_focusInHandler(event)"
+			 focusOut="Label_signUp_focusOutHandler(event)" mouseChildren="false" text="Sign Up"
+			 useHandCursor="true"/>-->
+	<s:Button x="698" y="457" label="Sign Up" filters="{[glow]}" color="#000000" />
+	<s:Label id="Label_logIn" x="596" y="457" width="80" height="30"
 			 text="Log In" click="Label2_clickHandler(event)" 
 			 focusIn="Label_logIn_focusInHandler(event)"
 			 focusOut="Label_logIn_focusOutHandler(event)"
 			 useHandCursor="true" buttonMode="true" mouseChildren="false"/>
-	<s:Label id="Label_copyr" x="0" y="595" width="1200" height="25" text="Copyright © 2012 by [BRB]. All rights reserved"/>
-	<s:Label x="0" y="0" width="1200" height="10" backgroundColor="#000000"/>
-	<s:Label id="Label_ab" x="1120" y="0" width="80" height="30" text="About Us" 
+	<s:Label id="Label_copyr" x="87" y="595" width="1200" height="25" text="Copyright © 2012 by [BRB]. All rights reserved"/>
+	<!--<s:Label x="0" y="0" width="1200" height="10" backgroundColor="#000000"/>-->
+	<s:Label id="Label_ab" x="1251" y="0" width="80" height="30" text="About Us" 
 			 click="Label_ab_clickHandler(event)" 
 			 focusIn="Label_ab_focusInHandler(event)" 
 			 focusOut="Label_ab_focusOutHandler(event)"
 			 useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	
 	<!--Images-->
-	<s:Image x="400" y="39" width="400" height="400" source="@Embed('../images/logo.png')"/>
-	<s:Image x="809" y="219" width="382" height="54" source="@Embed('../images/1.png')"/>
-	<s:Image x="10" y="220" width="382" height="54" source="@Embed('../images/2.png')"/>
+	<!--<s:Image x="0" y="7" width="1200" height="600" source="@Embed('../images/bg.png')"/>-->
+	<!--<s:Image x="809" y="219" width="382" height="54" source="@Embed('../images/1.png')"/>
+	<s:Image x="10" y="220" width="382" height="54" source="@Embed('../images/2.png')"/>-->
 	
 </s:Application>

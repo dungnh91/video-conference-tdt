@@ -2,7 +2,7 @@
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
-			   width="1200" height="620" backgroundAlpha="0"
+			   width="1366" height="653" backgroundAlpha="0"
 			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference" initialize="initApp()">
 	
 	<fx:Script>
@@ -172,7 +172,14 @@
 	</fx:Declarations>
 	
 	<fx:Style source="conferenceSkin.css"/>
-	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/halo";
+		
+		s|Application {
+			skinClass: ClassReference("CustomApplicationSkin");
+		}
+	</fx:Style>
 	<!--Slogan and template-->
 	<s:Label x="0" y="0" width="1200" height="10" backgroundColor="#000000"/>
 	<s:Label id="Label_logOut" x="1120" y="0" width="80" height="30" text="Log Out" click="Label_logOut_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
