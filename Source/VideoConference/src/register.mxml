@@ -2,11 +2,12 @@
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
 			   xmlns:s="library://ns.adobe.com/flex/spark"
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
-			   width="700" height="500" chromeColor="#FFFFFF"
+			   width="400" height="430" backgroundColor="#EEEEEE" chromeColor="#FFFFFF"
 			   close="titlewindow1_closeHandler(event)"
-			   creationComplete="application1_applicationCompleteHandler(event)" backgroundColor="#EEEEEE"
+			   creationComplete="application1_applicationCompleteHandler(event)"
 			   initialize="initApp()" pageTitle="DMC Flex Conference" title="Register"
-			   width.register="400" height.register="430">
+			   height.edit="460"
+			   height.view="350">
 	
 	<fx:Script>
 		<![CDATA[
@@ -267,7 +268,8 @@
 				</s:VGroup>
 			</s:HGroup>
 			
-			<s:HGroup verticalAlign="middle">
+			<s:HGroup verticalAlign="middle"
+					  width.edit="352">
 				<s:Label text="Avatar "  fontWeight="bold" width="130"/>
 				<s:Image source="@Embed(source='images/avatar.png')" id="img_avatar" width="126" height="126"/>
 				<s:Button id="computer"  label="Computer" click="computer_clickHandler(event)"/>
