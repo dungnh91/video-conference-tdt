@@ -9,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
 import object.Conference;
+import object.Participant;
 import object.User;
 
 public class UserService {
@@ -102,6 +103,23 @@ public class UserService {
 		for(int i=0;i<ConferenceList.size();i++)
 		{
 			UserList.add((User)session.get(User.class, ConferenceList.get(i).getHost_id()));
+		}
+		session.close();
+		return UserList;
+	}
+	
+	public ArrayList<User> getInvitedUsersByConferenceId(int conference_id)
+	{
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		ParticipantService service = new ParticipantService();
+		ArrayList<Participant> ParticipantList = service.getParticipantByConferenceId(conference_id);
+		ArrayList<User> UserList = new ArrayList<User>();
+		UserService userService = new UserService();
+		UserList.add(userService.getUserById(ParticipantList.get(0).getHost_id()));
+		for(int i=0;i<ParticipantList.size();i++)
+		{
+			UserList.add((User)session.get(User.class, ParticipantList.get(i).getUser_id()));
 		}
 		session.close();
 		return UserList;
