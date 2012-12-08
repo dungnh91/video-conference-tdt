@@ -22,6 +22,8 @@
 		<![CDATA[
 			import component.Message;
 			
+			import model.AppModel;
+			
 			import mx.controls.Alert;
 			import mx.managers.PopUpManager;
 			import mx.rpc.events.FaultEvent;
@@ -43,10 +45,7 @@
 				mySO.data.conf = data.conference_id;
 				if(mySO.flush()=="flushed")
 				{
-					var viewConference:createConference = new createConference();
-					PopUpManager.addPopUp(viewConference,this.parent,true);
-					PopUpManager.centerPopUp(viewConference);
-					viewConference.currentState = "view";
+					AppModel.getInstance().navigate("conference.html");
 				}
 			}
 			

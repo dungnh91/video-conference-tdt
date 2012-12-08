@@ -27,6 +27,7 @@
 			public static var Refresh:Boolean = false;
 			protected function initApp():void
 			{
+				Security.loadPolicyFile("http://192.168.100.101:8080/VideoConference_Server/crossdomain.xml");
 				mySO = SharedObject.getLocal("info","/");
 				if(mySO.data.user == null)
 					AppModel.getInstance().navigate("home.html");
@@ -98,6 +99,7 @@
 				var cc:createConference = new createConference();
 				PopUpManager.addPopUp(cc,this,true);
 				PopUpManager.centerPopUp(cc);
+				cc.currentState = "create";
 			}
 			
 			protected function error(event:FaultEvent):void
