@@ -14,24 +14,23 @@
 			private function setcall(event:MouseEvent):void
 			{
 				nc = new NetConnection();
-				nc.connect("rtmp://192.168.100.101/avchat");
+				nc.connect("rtmp://192.168.1.10/avchat");
 				getcallSO = SharedObject.getRemote("getcallSO",nc.uri,false);
-				getcallSO.addEventListener(SyncEvent.SYNC,getcallSync);
 				getcallSO.connect(nc);
 				
 				if(data.image == "../images/Sound.png")
 				{
-					getcallSO.setProperty("call",null);
+					//data.image = "../images/silent.png";
+					//image.source = "../images/silent.png";
+					getcallSO.data.speak = getcallSO.data.call;
+					getcallSO.setProperty("speak",getcallSO.data.call);
+					getcallSO.data.speak = getcallSO.data.call;
+					getcallSO.data.call = null;
+					//getcallSO.setProperty("call",null);
 					AVChatApp.streamList.refresh();
 				}
 			}
-			private function getcallSync(event:SyncEvent):void
-			{
-				if(getcallSO.data.call !=null)
-					getcallSO.data.call = null;
-				
-				AVChatApp.streamList.refresh();
-			}
+			
 		]]>
 	</fx:Script>
 	
