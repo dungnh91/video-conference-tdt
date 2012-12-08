@@ -80,7 +80,7 @@
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here-->
-		<s:AnimateTransform3D id="glow" />
+		<s:GlowFilter id="glow" />
 	</fx:Declarations>
 	
 	<fx:Style source="conferenceSkin.css"/>
@@ -93,13 +93,13 @@
 		}
 	</fx:Style>
 	<!--Label-->
-	<!--<s:Label id="Label_signUp" x="698" y="457" width="80" height="30" buttonMode="true"
+	<s:Label filters="{[glow]}" id="Label_signUp" x="711" y="500" width="80" height="30" buttonMode="true"
 			 click="Label_signUp_clickHandler(event)" color="#F8F2F2"
 			 focusIn="Label_signUp_focusInHandler(event)"
 			 focusOut="Label_signUp_focusOutHandler(event)" mouseChildren="false" text="Sign Up"
-			 useHandCursor="true"/>-->
-	<s:Button x="698" y="457" label="Sign Up" filters="{[glow]}" color="#000000" />
-	<s:Label id="Label_logIn" x="596" y="457" width="80" height="30"
+			 useHandCursor="true"/>
+	<!--<s:Button x="698" y="457" label="Sign Up" filters="{[glow]}" color="#000000" />-->
+	<s:Label filters="{[glow]}" id="Label_logIn" x="590" y="500" width="80" height="30"
 			 text="Log In" click="Label2_clickHandler(event)" 
 			 focusIn="Label_logIn_focusInHandler(event)"
 			 focusOut="Label_logIn_focusOutHandler(event)"
