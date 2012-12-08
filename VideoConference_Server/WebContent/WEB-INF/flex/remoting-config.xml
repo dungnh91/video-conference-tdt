@@ -28,4 +28,10 @@
     	</properties>
     </destination>
     
+    <destination id="FileUtilsService">
+    	<properties>
+    		<source>service.FileUtils</source>
+    	</properties>
+    </destination>
+    
 </service>
