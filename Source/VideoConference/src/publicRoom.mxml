@@ -169,6 +169,9 @@
 			<s:method name="getUser" result="getUser_result(event)" fault="error(event)"/>
 		</s:RemoteObject>
 		
+		<!-- Style -->
+		
+		<s:ShaderFilter id="shade"/>		
 	</fx:Declarations>
 	
 	<fx:Style source="conferenceSkin.css"/>
@@ -187,29 +190,38 @@
 	
 	<!--Left Column-->
 	<s:Image x="68" y="87" width="126" height="126" source="@Embed(source='images/avatar.png')"/>
-	<s:List id="my_conference" x="498" y="121" width="364" height="428" itemRenderer="Renderers.myConference" />
-	<s:List id="friends" x="64" y="254" width="364" height="333" itemRenderer="Renderers.listfriends"/>
-	<s:List id="conference_about_me" x="917" y="121" width="364" height="428" click="conference_about_me_clickHandler(event)" itemRenderer="Renderers.invitedConference"></s:List>
 	
-	<s:Label x="497" y="88" text="My Conferences" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#999" color="#FFFFFF"/>
-	<s:Label x="64" y="221" text="Users List" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#CCCCCC" color="#000000"/>
+	<s:TitleWindow x="498" y="121" width="365" height="428" title="My Conference" filters="{[shade]}">
+		<s:List id="my_conference" width="364" height="400" itemRenderer="Renderers.myConference" />	
+	</s:TitleWindow>
+	
+	<s:TitleWindow x="64" y="220" height="333" width="366" title="Users list">
+		<s:List id="friends" width="364" height="333" itemRenderer="Renderers.listfriends"/>	
+	</s:TitleWindow>
+	
+	<s:TitleWindow x="917" y="121" width="365" height="428" title="Invited Conference">
+		<s:List id="conference_about_me" width="364" height="400" click="conference_about_me_clickHandler(event)" itemRenderer="Renderers.invitedConference"></s:List>
+	</s:TitleWindow>
+	
+	<!--<s:Label x="497" y="88" text="My Conferences" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#999" color="#FFFFFF"/>-->
+	<!--<s:Label x="64" y="221" text="Users List" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#CCCCCC" color="#000000"/>-->
 	<s:Label x="590" y="557" text="Create New Conference" width="170" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF" click="CreateConference(event)"
 			 useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	<!--	<s:Label x="703" y="557" text="See More" width="80" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/> -->
 	<!--	<s:Label x="1110" y="557" text="See More" width="80" height="30" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>-->
-	<s:Label x="915" y="88" text="Invited Conferences" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>
+	<!--<s:Label x="915" y="88" text="Invited Conferences" width="364" height="25" fontWeight="bold" textAlign="center" verticalAlign="middle" backgroundColor="#000000" color="#FFFFFF"/>-->
 	
 	<s:Label id="details" x="379" y="201" text="Details" fontStyle="italic" fontWeight="bold" click="details_click(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
-	<s:Label styleName="whitefont" x="220" y="83" text="Hello, " fontWeight="bold"/>
-	<s:Label styleName="whitefont" x="220" y="109" text="User Name:" fontWeight="bold"/>
-	<s:Label styleName="whitefont" x="220" y="137" text="Email:" fontWeight="bold"/>
-	<s:Label styleName="whitefont" x="220" y="167" text="Subscription:" fontWeight="bold"/>
-	<s:Label styleName="whitefont" x="290" y="109" id="user_name" fontWeight="bold"/>
-	<s:Label styleName="whitefont" x="255" y="84" id="fullname" fontWeight="bold"/>
-	<s:Label styleName="whitefont" id="email" x="260" y="137" fontWeight="bold"/>
-	<s:Label x="290" y="159" id="free" fontWeight="bold" text="Free" width="70" height="30" fontSize="16" textAlign="center" verticalAlign="middle"/>
-	<s:Label text="Basic" x="290" id="basic" y="159" width="70" height="30" fontSize="16" fontWeight="bold"  backgroundColor="#000000" color="#FFFFFF" textAlign="center" verticalAlign="middle"/>
-	<s:Label text="Gold" x="290" id="gold" y="159" width="70" height="30" fontSize="16" fontWeight="bold" color="#FFFF00" textAlign="center" verticalAlign="middle"/>
+	<s:Label styleName="whitefont" x="220" y="93" text="Hello, " fontWeight="bold"/>
+	<s:Label styleName="whitefont" x="220" y="119" text="User Name:" fontWeight="bold"/>
+	<s:Label styleName="whitefont" x="220" y="147" text="Email:" fontWeight="bold"/>
+	<s:Label styleName="whitefont" x="220" y="177" text="Subscription:" fontWeight="bold"/>
+	<s:Label styleName="whitefont" x="290" y="119" id="user_name" fontWeight="bold"/>
+	<s:Label styleName="whitefont" x="255" y="94" id="fullname" fontWeight="bold"/>
+	<s:Label styleName="whitefont" id="email" x="260" y="147" fontWeight="bold"/>
+	<s:Label x="290" y="169" id="free" fontWeight="bold" text="Free" width="70" height="30" fontSize="16" textAlign="center" verticalAlign="middle"/>
+	<s:Label text="Basic" x="290" id="basic" y="169" width="70" height="30" fontSize="16" fontWeight="bold"  backgroundColor="#000000" color="#FFFFFF" textAlign="center" verticalAlign="middle"/>
+	<s:Label text="Gold" x="290" id="gold" y="169" width="70" height="30" fontSize="16" fontWeight="bold" color="#FFFF00" textAlign="center" verticalAlign="middle"/>
 	
 	
 	
