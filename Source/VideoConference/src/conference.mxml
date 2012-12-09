@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AVChatApp horizontalAlign="center" xmlns="*" layout="vertical" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:s="library://ns.adobe.com/flex/spark" 
-		   width="1366" height="650" backgroundColor="#EEEEEE">
+		   width="1366" height="650" backgroundColor="#888888">
 
 	<mx:HBox horizontalAlign="center" >
 		<!--<mx:Image width="20" height="20" source="@Embed('../images/vclogo.jpg')"/>-->
@@ -23,8 +23,8 @@
 			</mx:TitleWindow>
 			
 			<mx:HBox>
-				<mx:Button label="Publish" id="doPublish"/>
-				<mx:Button label="Call To Speak" id="calltospeak"/>
+				<mx:Button height="30" icon="@Embed(source='../images/webcam.png')" label="Publish" id="doPublish"/>
+				<mx:Button height="30" icon="@Embed(source='../images/microphone.png')" label="Call To Speak" id="calltospeak"/>
 			</mx:HBox>
 			<mx:HBox height="100%">
 				<mx:Label text="Connected Users" fontWeight="bold"/>
@@ -50,14 +50,3 @@
 	
 </AVChatApp>
 
-<mx:Style>
-	@namespace local "*";
-	local|AVChatApp{
-		s|SkinnableContainer
-			{
-			skinClass: ClassReference("CustomApplicationSkin");
-		
-	}
-	
-	}
-</mx:Style>
