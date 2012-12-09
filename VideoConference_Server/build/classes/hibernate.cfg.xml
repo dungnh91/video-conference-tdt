@@ -35,7 +35,8 @@
         <mapping resource="object/Conference.hbm.xml"/>
         <mapping resource="object/Participant.hbm.xml"/>
         <mapping resource="object/User.hbm.xml"/>
-    
+    	<mapping resource="object/EmailQueue.hbm.xml"/>
+        
     </session-factory>
 
 </hibernate-configuration>
