@@ -3,7 +3,7 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" 
 			   width="1366" height="653" backgroundAlpha="0"
-			   chromeColor="#FFFFFF" pageTitle="DMC Flex Conference" initialize="initApp()">
+			   chromeColor="#FFFFFF" pageTitle="Video Conference" initialize="initApp()">
 	
 	<fx:Script>
 		<![CDATA[
