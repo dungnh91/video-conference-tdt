@@ -47,4 +47,17 @@
 	<!--<mx:Style source="conferenceSkin.css">
 		@namespace s "library://ns.adobe.com/flex/spark";
 	</mx:Style>-->
+	
 </AVChatApp>
+
+<mx:Style>
+	@namespace local "*";
+	local|AVChatApp{
+		s|SkinnableContainer
+			{
+			skinClass: ClassReference("CustomApplicationSkin");
+		
+	}
+	
+	}
+</mx:Style>
