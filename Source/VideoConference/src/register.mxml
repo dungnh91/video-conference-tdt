@@ -29,6 +29,7 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
+			import object.EmailQueue;
 			import object.User;
 			
 			public var user:User;
@@ -105,8 +106,12 @@
 			
 			protected function createUser_resultHandler(event:ResultEvent):void
 			{
-				Message.show("Your account has been created successfully",Message.Information,this,true);
-				PopUpManager.removePopUp(this);
+				var email:EmailQueue= new EmailQueue();
+				email.to = txt_email.text;
+				email.from = "assmin@videoconference.com";
+				email.subject = "register sucessfully";
+				email.message = "you 've just register sucessfully an account in website videoconferen.com";
+				ro_emailqueue.createEmailQueue(email);
 			}
 			private var fileReference:FileReference;
 			protected function application1_applicationCompleteHandler(event:FlexEvent):void
@@ -189,6 +194,11 @@
 				PopUpManager.removePopUp(this);		
 			}
 			
+			private function createEmailQueue_result(event:ResultEvent):void
+			{
+				Message.show("Your account has been created successfully",Message.Information,this,true);
+				PopUpManager.removePopUp(this);
+			}
 		]]>
 	</fx:Script>
 	
@@ -201,6 +211,9 @@
 		</s:RemoteObject>
 		<s:RemoteObject id="ro_file" destination="FileUtilsService" showBusyCursor="true">
 			<s:method name="uploadFile" result="uploadFile_result(event)"/>
+		</s:RemoteObject>
+		<s:RemoteObject id="ro_emailqueue" destination="EmailQueueService" showBusyCursor="true">
+			<s:method name="createEmailQueue" result="createEmailQueue_result(event)" fault="error(event)"/>
 		</s:RemoteObject>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>

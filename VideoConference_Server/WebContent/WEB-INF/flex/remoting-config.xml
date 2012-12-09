@@ -34,4 +34,9 @@
     	</properties>
     </destination>
     
+    <destination id="EmailQueueService">
+    	<properties>
+    		<source>service.EmailQueueService</source>
+    	</properties>
+    </destination>
 </service>
