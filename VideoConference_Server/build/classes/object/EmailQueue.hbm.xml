@@ -3,7 +3,7 @@
               "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                      "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">       
 <hibernate-mapping>
-           <class name="object.Conference" table="tbl_vc_conference">
+           <class name="object.EmailQueue" table="tbl_vc_emailqueue">
 				<id name="email_queue_id" type="java.lang.Integer">
 					<column name="email_queue_id"/>
 					<generator class="identity"/>
