@@ -87,13 +87,13 @@
 	</fx:Declarations>
 	<s:HGroup verticalAlign="middle" paddingTop="10">
 		<s:HGroup textAlign="left" paddingLeft="15" verticalAlign="middle" click="view(event)">
-			<s:Label width="35" color="#00d550" text="{dateFormatterForTime.format(data.time_start)}"/>
-			<s:Label text="{dateFormatterForDate.format(data.date)}" color="#00bbff" width="80"/>
-			<s:Label text="{data.conference_name}" color="#ff6600" minWidth="150"/>
+			<s:Label width="35" color="#000000" text="{dateFormatterForTime.format(data.time_start)}" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
+			<s:Label text="{dateFormatterForDate.format(data.date)}" color="#000000" width="80" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
+			<s:Label text="{data.conference_name}" color="#000000" minWidth="150" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 		</s:HGroup>
 		<s:HGroup textAlign="right" paddingRight="15" width="100%" horizontalAlign="right" verticalAlign="middle">
 			<s:Image width="20" height="20" source="@Embed(source='images/edit.png')" click="edit(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
-			<s:Image width="20" height="20" source="@Embed(source='images/recycle.png')" click="remove(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
+			<s:Image width="20" height="20" source="@Embed(source='images/edit_trash.png')" click="remove(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 		</s:HGroup>
 	</s:HGroup>
 </s:ItemRenderer>

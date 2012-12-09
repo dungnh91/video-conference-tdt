@@ -26,7 +26,7 @@
 		]]>
 	</fx:Script>
 	<s:HGroup paddingTop="15" paddingLeft="15" click="view(event)">
-		<s:Label text="{data.fullname}" color="#00d550"/>
+		<s:Label text="{data.fullname}" color="#000000" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	</s:HGroup>
 	
 </s:ItemRenderer>
