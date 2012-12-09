@@ -1,7 +1,10 @@
 package
 {
+	import Renderers.render;
+	
 	import com.wowza.encryptionAS3.TEA;
 	
+	import flash.events.DataEvent;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.NetStatusEvent;
@@ -14,8 +17,6 @@ package
 	import flash.system.Security;
 	import flash.utils.Timer;
 	
-	import flex.lang.reflect.Method;
-	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
 	import mx.controls.Button;
@@ -25,10 +26,12 @@ package
 	import mx.controls.TextArea;
 	import mx.controls.TextInput;
 	import mx.core.Application;
+	import mx.events.CollectionEvent;
 	import mx.events.FlexEvent;
 	import mx.events.ListEvent;
 	import mx.rpc.AsyncResponder;
 	import mx.rpc.AsyncToken;
+	import mx.rpc.Fault;
 	import mx.rpc.Responder;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
@@ -37,6 +40,8 @@ package
 	
 	import object.Conference;
 	import object.User;
+	
+	import org.osmf.net.NetClient;
 	
 	
 	public class AVChatApp extends Application
@@ -50,11 +55,12 @@ package
 		
 		private var streamsSo:SharedObject;
 		private var connectedUsersSo:SharedObject;
+		private var startStreamSO:SharedObject;
 		private var getcallSO:SharedObject;
 		private var mySO:SharedObject;
 		
 		[Bindable]
-		public static var streamList:ArrayCollection;
+		public static var streamList:ArrayCollection =new ArrayCollection;
 		
 		[Bindable]
 		public var connectedUsersList:ArrayCollection;
@@ -82,7 +88,7 @@ package
 		public var ro_conference:RemoteObject;
 		
 		public var invitedUsers:ArrayCollection;
-		
+
 		public function AVChatApp()
 		{
 			mySO = SharedObject.getLocal("info","/");
@@ -91,8 +97,9 @@ package
 			ro_user.showBusyCursor = true;
 			ro_user.getUserById.addEventListener(ResultEvent.RESULT,getUserById_result);
 			ro_user.getInvitedUsersByConferenceId.addEventListener(ResultEvent.RESULT,getInvitedUsersByConferenceId_result);
-			ro_user.getUserById(mySO.data.user);
 			ro_user.getInvitedUsersByConferenceId(mySO.data.conf);
+			ro_user.getUserById(mySO.data.user);
+			
 			
 			ro_conference = new RemoteObject();
 			ro_conference.destination = "ConferenceService";
@@ -100,16 +107,16 @@ package
 			ro_conference.getConferencesById.addEventListener(ResultEvent.RESULT,getConferencesById_result);
 			ro_conference.getConferencesById(mySO.data.conf);
 			addEventListener(FlexEvent.CREATION_COMPLETE,init);
+			addEventListener(CustomEvent.Streams,test);
 		}
-		
+		private var myEvent:Event;
 		private function init(event:FlexEvent):void
 		{
 			
-			connectionStr = "rtmp://192.168.100.101/avchat";
+			connectionStr = "rtmp://192.168.1.10/avchat/" + mySO.data.conf;
 			doPublish.addEventListener(MouseEvent.CLICK,publish);
 			calltospeak.addEventListener(MouseEvent.CLICK,getcall);
 			streams.addEventListener(ListEvent.CHANGE,stopFirst);
-			
 			doConnect();
 			//connectStr.addEventListener(FlexEvent.ENTER,doConnect);			
 			
@@ -122,7 +129,6 @@ package
 			myTimer.addEventListener("timer", updateStreamValues);
 			myTimer.start();
 		}
-		
 		
 		private function getInvitedUsersByConferenceId_result(event:ResultEvent):void
 		{
@@ -246,6 +252,9 @@ package
 					getcallSO.addEventListener(SyncEvent.SYNC,getcallSynch);
 					getcallSO.connect(nc);
 					
+					startStreamSO = SharedObject.getRemote("startStreamSO",nc.uri,false);
+					startStreamSO.addEventListener(SyncEvent.SYNC, startStreamSynch);
+					startStreamSO.connect(nc);
 				}
 					
 				else if (infoObject.info.code == "NetConnection.Connect.Closed") {
@@ -256,7 +265,7 @@ package
 		private function streamSynch(event:SyncEvent):void
 		{
 			//ro_user.getUserById();
-			streamList = new ArrayCollection;
+			streamList.removeAll();
 			var results:Object = event.target.data;
 			array= new Array();
 			for( var item:String in results ) {
@@ -280,14 +289,6 @@ package
 		
 		private var array:Array;
 		private var obj:Object;
-		/*		private function extResult( event:ResultEvent) : void
-		{
-		//the token is now accessed from the paremeter
-		obj.user = event.result as User;
-		//array.push(obj);
-		streamList.addItem(obj);
-		}
-		*/		
 		private function connectedUsersSynch(event:SyncEvent):void
 		{
 			var results:Object = event.target.data;
@@ -314,17 +315,46 @@ package
 		
 		private function getcallSynch(event:SyncEvent):void
 		{
-			if(streamList!=null)
+			if(event.target.data.call !=null && event.target.data.speak == null)
+			{
+				if(streamList!=null)
+				{
+					for(var i:int =0;i<streamList.length;i++)
+					{
+						if(streamList.getItemAt(i).user.user_id == event.target.data.call)
+						{
+							streamList.getItemAt(i).image = "../images/Sound.png";
+						}
+					}
+				}
+			}
+			if(getcallSO.data.speak >0)
 			{
 				for(var i:int =0;i<streamList.length;i++)
 				{
-					if(streamList.getItemAt(i).user.user_id == event.target.data.call)
+					if(streamList.getItemAt(i).user.user_id == getcallSO.data.speak)
 					{
-						streamList.getItemAt(i).image = "../images/Sound.png";
+						streamList.getItemAt(i).image = "../images/silent.png";
 					}
 				}
-				streamList.refresh();	
 			}
+			streamList.refresh();
+		}
+		
+		private function startStreamSynch(event:SyncEvent):void
+		{
+			if(event.target.data.stream!=null)
+			{
+				doSubscribe=true;
+				subscribe();
+				//startStreamSO.setProperty("stream",null);
+			}
+		}
+		
+		private function test(event:CustomEvent):void
+		{
+			doSubscribe=true;
+			subscribe();
 		}
 		
 		private function enablePlayControls(isEnable:Boolean):void 
@@ -348,8 +378,8 @@ package
 		
 		private function stopFirst(event:Event = null):void
 		{
-			doSubscribe=true;
-			subscribe();
+			startStreamSO.setProperty("stream",true);
+			//dispatchEvent(new CustomEvent(CustomEvent.Streams));
 		}
 		
 		private function subscribe(event:Event = null):void {
@@ -438,12 +468,13 @@ package
 				doPublish.label = 'Publish';
 			}
 		}
-		
 		private function getcall(event:MouseEvent):void
 		{
 			if(getcallSO.data.call!=null)
 				getcallSO.data.call = null;
 			getcallSO.setProperty("call",mySO.data.user);
+			if(getcallSO.data.speak != null)
+				getcallSO.setProperty("speak",null);
 		}
 		
 	}

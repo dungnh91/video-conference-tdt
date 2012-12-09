@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				xmlns:s="library://ns.adobe.com/flex/spark" 
-				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" initialize="initHBox(event)"
 				>
 	
 	<fx:Script>
@@ -10,32 +10,42 @@
 			import mx.controls.List;
 			[Bindable]
 			private var getcallSO:SharedObject;
-			private var nc:NetConnection;
+			private var nc:NetConnection=null;
+			private var mySO:SharedObject;
+			private function initHBox(event:Event):void
+			{
+				mySO = SharedObject.getLocal("info","/");
+				nc = new NetConnection();				
+				nc.addEventListener(NetStatusEvent.NET_STATUS,netStatus_Handler);
+				
+			}
 			private function setcall(event:MouseEvent):void
 			{
-				nc = new NetConnection();
-				nc.connect("rtmp://192.168.100.101/avchat");
-				getcallSO = SharedObject.getRemote("getcallSO",nc.uri,false);
-				getcallSO.addEventListener(SyncEvent.SYNC,getcallSync);
-				getcallSO.connect(nc);
-				
 				if(data.image == "../images/Sound.png")
 				{
-					getcallSO.setProperty("call",null);
-					AVChatApp.streamList.refresh();
+					nc.connect("rtmp://192.168.1.10/avchat/" + mySO.data.conf);
 				}
 			}
-			private function getcallSync(event:SyncEvent):void
+			private function getcallSO_Synch(event:SyncEvent):void
 			{
-				if(getcallSO.data.call !=null)
-					getcallSO.data.call = null;
-				
-				AVChatApp.streamList.refresh();
+				getcallSO.setProperty("speak",data.user.user_id);
+				getcallSO.removeEventListener(SyncEvent.SYNC,getcallSO_Synch);
+				//getcallSO.setDirty("speak");
+			}
+			private function netStatus_Handler(event:NetStatusEvent):void
+			{
+				if(event.info.code== "NetConnection.Connect.Success")
+				{
+					getcallSO = SharedObject.getRemote("getcallSO",nc.uri,false);
+					getcallSO.addEventListener(SyncEvent.SYNC,getcallSO_Synch);
+					getcallSO.connect(nc);		
+					
+				}
 			}
 		]]>
 	</fx:Script>
 	
 	<mx:Label text="{data.user.fullname}" id="lbl" width="85%"/>
-	<mx:Image source="{data.image}" width="20" height="20" click="setcall(event)" id="image"/>
+	<mx:Image source="{data.image}" width="20" height="20" click="setcall(event)" id="image" />
 	
 </mx:HBox>
