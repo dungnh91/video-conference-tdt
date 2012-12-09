@@ -98,13 +98,20 @@
 			 focusIn="Label_signUp_focusInHandler(event)"
 			 focusOut="Label_signUp_focusOutHandler(event)" mouseChildren="false" text="Sign Up"
 			 useHandCursor="true" />-->
-	<s:Button x="703" y="500" height="30" width="102" icon="@Embed(source='../images/register.png')" label="Sign Up" color="#000000" 
+	<s:Button x="575" y="500" height="30" width="102" icon="@Embed(source='../images/register.png')" label="Sign Up" color="#000000" 
 			  focusOut="Label_signUp_focusOutHandler(event)" mouseChildren="false"  click="Label_signUp_clickHandler(event)"
 			  useHandCursor="true"/>
 	
-	<s:Button x="569" y="500" height="30" width="97" icon="@Embed(source='../images/log_in.png')" label="Log In" color="#000000" 
+	<s:Button x="703" y="500" height="30" width="97" icon="@Embed(source='../images/log_in.png')" label="Log In" color="#000000" 
 			  focusOut="Label_signUp_focusOutHandler(event)" mouseChildren="false"  click="Label2_clickHandler(event)"
 			  useHandCursor="true"/>
+	
+	<!--<s:Button x="768" y="500" height="30" width="97" icon="@Embed(source='../images/get_info.png')" label="About Us" color="#000000" 
+			  focusOut="Label_signUp_focusOutHandler(event)" mouseChildren="false"   click="Label_ab_clickHandler(event)" 
+			  useHandCursor="true"/>-->
+	<s:Image  x="814" y="500" width="20" height="20" source="@Embed('../images/get_info.png')"
+			  click="Label_ab_clickHandler(event)"  useHandCursor="true" buttonMode="true" mouseChildren="false" />
+	
 	<!--<s:Label filters="{[glow]}" id="Label_logIn" x="590" y="500" width="80" height="30"
 			 text="Log In" click="Label2_clickHandler(event)" 
 			 focusIn="Label_logIn_focusInHandler(event)"
@@ -112,11 +119,11 @@
 			 useHandCursor="true" buttonMode="true" mouseChildren="false"/> -->
 	<s:Label id="Label_copyr" x="87" y="595" width="1200" height="25" text="Copyright © 2012 by [BRB]. All rights reserved"/>
 	<!--<s:Label x="0" y="0" width="1200" height="10" backgroundColor="#000000"/>-->
-	<s:Label id="Label_ab" x="1251" y="0" width="80" height="30" text="About Us" 
+	<!--<s:Label id="Label_ab" x="1251" y="0" width="80" height="30" text="About Us" 
 			 click="Label_ab_clickHandler(event)" 
 			 focusIn="Label_ab_focusInHandler(event)" 
 			 focusOut="Label_ab_focusOutHandler(event)"
-			 useHandCursor="true" buttonMode="true" mouseChildren="false"/>
+			 useHandCursor="true" buttonMode="true" mouseChildren="false"/>-->
 	
 	<!--Images-->
 	<s:Image x="539" y="239" width="289" height="140" source="@Embed('../images/mac_01.png')"/>

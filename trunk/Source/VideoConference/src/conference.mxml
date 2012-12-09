@@ -43,7 +43,6 @@
 		</mx:TitleWindow>
 		
 	</mx:HBox>
-	
 	<!--<mx:Style source="conferenceSkin.css">
 		@namespace s "library://ns.adobe.com/flex/spark";
 	</mx:Style>-->
