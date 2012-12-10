@@ -85,7 +85,12 @@
 			
 		</s:RemoteObject>
 	</fx:Declarations>
-	<s:HGroup verticalAlign="middle" paddingTop="10">
+	<s:BorderContainer>
+		<s:borderStroke>
+			<mx:SolidColorStroke  id="border" color="white"/> 
+		</s:borderStroke>
+	
+	<s:HGroup verticalAlign="middle" paddingTop="10"> 
 		<s:HGroup textAlign="left" paddingLeft="15" verticalAlign="middle" click="view(event)">
 			<s:Label width="35" color="#000000" text="{dateFormatterForTime.format(data.time_start)}" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 			<s:Label text="{dateFormatterForDate.format(data.date)}" color="#000000" width="80" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
@@ -96,4 +101,5 @@
 			<s:Image width="20" height="20" source="@Embed(source='images/edit_trash.png')" click="remove(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 		</s:HGroup>
 	</s:HGroup>
+	</s:BorderContainer>
 </s:ItemRenderer>

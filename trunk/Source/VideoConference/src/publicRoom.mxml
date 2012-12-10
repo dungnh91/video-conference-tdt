@@ -19,10 +19,17 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			
+			import object.Conference;
 			import object.User;
+			
+			import org.osmf.events.TimeEvent;
+			
+			import spark.components.BorderContainer;
+			import spark.formatters.DateTimeFormatter;
 			
 			public var mySO:SharedObject;
 			private var subscipt:String;
+			private var Alarm:Timer;
 			
 			public static var Refresh:Boolean = false;
 			protected function initApp():void
@@ -37,6 +44,50 @@
 				ro_conference.getInvitedConferences(mySO.data.user);
 				ro_user.getUser();
 				timerRefresh();
+				Alarm = new Timer(1000);
+				Alarm.addEventListener(TimerEvent.TIMER, doAlarm);
+				Alarm.start();
+			}
+			
+			private function doAlarm(event:TimerEvent):void
+			{
+				var formatter:DateTimeFormatter = new DateTimeFormatter();
+				formatter.dateTimePattern="HH:mm";
+				var toDay:Date = new Date();
+				if(my_conference.dataProvider.length>0)
+				for each(var tmp:Conference in my_conference.dataProvider)
+				{
+					if(tmp.date.date == toDay.date)
+						if(tmp.time_start.hours == toDay.hours)
+							if(tmp.time_start.minutes>= toDay.minutes+5)
+							{
+								for(var i:int=0;i<my_conference.dataGroup.numElements;i++)
+								{
+									if(my_conference.dataProvider.getItemAt(i).conference_id == tmp.conference_id)
+									{
+										(my_conference.dataGroup.getElementAt(i) as Object).border.color = "red";
+										Message.show("you have '"+ tmp.conference_name + "' conference at: " + formatter.format(tmp.time_start),Message.Information,this);
+									}
+								}
+								
+							}
+				}
+				if(conference_about_me.dataProvider.length>0)
+				for each(var tmp:Conference in conference_about_me.dataProvider)
+				{
+					if(tmp.date.date == toDay.date)
+						if(tmp.time_start.hours == toDay.hours)
+							if(tmp.time_start.minutes>= toDay.minutes-5)
+								for(var i:int=0;i<my_conference.dataGroup.numElements;i++)
+								{
+									if(conference_about_me.dataProvider.getItemAt(i).conference_id == tmp.conference_id)
+									{
+										(conference_about_me.dataGroup.getElementAt(i) as Object).border.color = "red";
+										Message.show("you have '"+ tmp.conference_name + "' conference at: " + formatter.format(tmp.time_start),Message.Information,this);
+									}
+								}
+				}
+				Alarm.stop();
 			}
 			
 			private function timerRefresh():void
@@ -52,6 +103,7 @@
 				{
 					ro_conference.getConferencesByHostId(mySO.data.user);
 					Refresh = false;
+					Alarm.start();
 				}
 			}
 			

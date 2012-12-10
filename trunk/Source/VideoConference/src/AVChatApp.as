@@ -113,7 +113,7 @@ package
 		private function init(event:FlexEvent):void
 		{
 			
-			connectionStr = "rtmp://192.168.1.10/avchat/" + mySO.data.conf;
+			connectionStr = "rtmp://192.168.100.101/avchat/" + mySO.data.conf;
 			doPublish.addEventListener(MouseEvent.CLICK,publish);
 			calltospeak.addEventListener(MouseEvent.CLICK,getcall);
 			streams.addEventListener(ListEvent.CHANGE,stopFirst);

@@ -67,11 +67,15 @@
 				time_end.minutes= minutes_end.value;
 				
 				var today:Date = new Date();
-				if(dtf_date.selectedDate < today)
+				if(dtf_date.selectedDate.fullYear >= today.fullYear)
 				{
-					Message.show("Please choose a day after today",Message.Error,this,true);
-					dtf_date.setFocus();
-					return false;
+					if(dtf_date.selectedDate.month >= today.month)
+						if(dtf_date.selectedDate.date< today.date)
+						{
+							Message.show("Please choose a day after today",Message.Error,this,true);
+							dtf_date.setFocus();
+							return false;
+						}
 				}
 				
 				if(txt_title.text==null || txt_title.text == '')

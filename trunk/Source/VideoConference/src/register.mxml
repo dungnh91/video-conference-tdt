@@ -36,7 +36,7 @@
 			public var mySO:SharedObject;
 			protected function initApp():void
 			{
-				Security.loadPolicyFile("http://192.168.1.10:8080/VideoConference_Server/crossdomain.xml");
+				Security.loadPolicyFile("http://192.168.100.101:8080/VideoConference_Server/crossdomain.xml");
 				mySO = SharedObject.getLocal("info","/");
 				
 				if(mySO.data.view !=null)
@@ -108,9 +108,9 @@
 			{
 				var email:EmailQueue= new EmailQueue();
 				email.to = txt_email.text;
-				email.from = "assmin@videoconference.com";
+				email.fromemail = "assmin@videoconference.com";
 				email.subject = "register sucessfully";
-				email.message = "you 've just register sucessfully an account in website videoconferen.com";
+				email.message = "you have just register sucessfully an account in website videoconferen.com";
 				ro_emailqueue.createEmailQueue(email);
 			}
 			private var fileReference:FileReference;
@@ -126,7 +126,7 @@
 			private function fileReference_uploadHandler(event:Event):void
 			{
 				var name:String = fileReference.name;
-				var directory:String = "C:/wamp/www/video_conference/VideoConference/assets/" + txt_username.text;
+				var directory:String = "C:/blazeds/webapps/VideoConference_Server/bin-debug/assets/" + txt_username.text;
 				var content:ByteArray = new ByteArray();
 				fileReference.data.readBytes(content, 0, fileReference.data.length);
 				ro_file.uploadFile(name, directory, content);
@@ -144,7 +144,7 @@
 			}
 			protected function error(event:FaultEvent):void
 			{
-				if (event.fault.faultCode == "Server.Processing")
+				if (event.fault.faultString == "java.lang.IndexOutOfBoundsException : Index: 0, Size: 0")
 				{
 					ro_user.createUser(getUserFromForm());
 				}
