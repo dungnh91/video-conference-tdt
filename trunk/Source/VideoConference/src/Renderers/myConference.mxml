@@ -87,7 +87,7 @@
 	</fx:Declarations>
 	<s:BorderContainer>
 		<s:borderStroke>
-			<mx:SolidColorStroke  id="border" color="white"/> 
+			<mx:SolidColorStroke  id="border" color="#FFFFFF"/> 
 		</s:borderStroke>
 	
 	<s:HGroup verticalAlign="middle" paddingTop="10"> 

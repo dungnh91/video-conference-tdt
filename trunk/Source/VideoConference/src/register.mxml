@@ -107,7 +107,7 @@
 			protected function createUser_resultHandler(event:ResultEvent):void
 			{
 				var email:EmailQueue= new EmailQueue();
-				email.to = txt_email.text;
+				email.toemail = txt_email.text;
 				email.fromemail = "assmin@videoconference.com";
 				email.subject = "register sucessfully";
 				email.message = "you have just register sucessfully an account in website videoconferen.com";

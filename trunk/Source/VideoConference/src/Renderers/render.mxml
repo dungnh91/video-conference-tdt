@@ -23,7 +23,7 @@
 			{
 				if(data.image == "../images/Sound.png")
 				{
-					nc.connect("rtmp://192.168.1.10/avchat/" + mySO.data.conf);
+					nc.connect("rtmp://192.168.100.101/avchat/" + mySO.data.conf);
 				}
 			}
 			private function getcallSO_Synch(event:SyncEvent):void
