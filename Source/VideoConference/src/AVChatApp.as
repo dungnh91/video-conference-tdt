@@ -73,7 +73,7 @@ package
 		public var connectStr:TextInput
 		public var prompt:Text;			
 		public var fpsText:Text;
-		public var doSubscribe:Boolean;
+		public var doSubscribe:Boolean=false;
 		public var doPublish:Button;
 		public var output:String;
 		public var connectionStr:String;
@@ -86,7 +86,7 @@ package
 		public var user:User;
 		public var ro_user:RemoteObject;
 		public var ro_conference:RemoteObject;
-		
+		public var conn:Button;
 		public var invitedUsers:ArrayCollection;
 
 		public function AVChatApp()
@@ -111,11 +111,12 @@ package
 		private function init(event:FlexEvent):void
 		{
 			
-			connectionStr = "rtmp://192.168.100.101/avchat/" + mySO.data.conf;
+			connectionStr = "rtmp://192.168.137.172/avchat/" + mySO.data.conf;
 			doPublish.addEventListener(MouseEvent.CLICK,publish);
 			calltospeak.addEventListener(MouseEvent.CLICK,getcall);
 			streams.addEventListener(ListEvent.CHANGE,stopFirst);
-			doConnect();
+			conn.addEventListener(MouseEvent.CLICK,doConnect);
+			//doConnect();
 			//connectStr.addEventListener(FlexEvent.ENTER,doConnect);			
 			
 			
@@ -345,7 +346,6 @@ package
 			{
 				doSubscribe=true;
 				subscribe();
-				startStreamSO.setProperty("stream",null);
 			}
 		}
 		
@@ -370,7 +370,15 @@ package
 		
 		private function stopFirst(event:Event = null):void
 		{
-			startStreamSO.setProperty("stream",true);
+			var thestream:String;
+			if (streams.selectedIndex == -1)
+			{
+				streams.selectedIndex=0;
+				thestream = streamList.getItemAt(0).label;
+			} else {
+				thestream = streams.selectedItem.user.user_id;	
+			}
+			startStreamSO.setProperty("stream",thestream);
 			//dispatchEvent(new CustomEvent(CustomEvent.Streams));
 		}
 		
@@ -388,16 +396,9 @@ package
 				nsPlay.client = new StreamClient();// client;
 				// subscribe to the named stream
 				// nsPlay.play(subscribeName.text);
-				var thestream:String;
-				if (streams.selectedIndex == -1)
-				{
-					streams.selectedIndex=0;
-					thestream = streamList.getItemAt(0).label;
-				} else {
-					thestream = streams.selectedItem.label;	
-				}
 				
-				nsPlay.play(thestream);
+				
+				nsPlay.play(startStreamSO.data.stream);
 				
 				// attach to the stream
 				videoRemote.attachNetStream(nsPlay);
