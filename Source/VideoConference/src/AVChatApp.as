@@ -86,7 +86,7 @@ package
 		public var user:User;
 		public var ro_user:RemoteObject;
 		public var ro_conference:RemoteObject;
-		public var conn:Button;
+		//public var conn:Button;
 		public var invitedUsers:ArrayCollection;
 
 		public function AVChatApp()
@@ -115,8 +115,8 @@ package
 			doPublish.addEventListener(MouseEvent.CLICK,publish);
 			calltospeak.addEventListener(MouseEvent.CLICK,getcall);
 			streams.addEventListener(ListEvent.CHANGE,stopFirst);
-			conn.addEventListener(MouseEvent.CLICK,doConnect);
-			//doConnect();
+			//conn.addEventListener(MouseEvent.CLICK,doConnect);
+			doConnect();
 			//connectStr.addEventListener(FlexEvent.ENTER,doConnect);			
 			
 			
