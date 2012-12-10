@@ -307,7 +307,7 @@
 	<s:Label x="290" y="169" id="free" fontWeight="bold" text="Free" width="70" height="30" fontSize="16" textAlign="center" verticalAlign="middle"/>
 	<s:Image x="350" y="169" id="free_icon" source="@Embed('../images/freeicon.png')" />
 	
-	<s:Label text="Basic" x="290" id="basic" y="169" width="70" height="30" fontSize="16" fontWeight="bold"  backgroundColor="#000000" color="#FFFFFF" textAlign="center" verticalAlign="middle"/>
+	<s:Label text="Basic" x="290" id="basic" y="169" width="70" height="30" fontSize="16" fontWeight="bold" color="#FFFFFF" textAlign="center" verticalAlign="middle"/>
 	<s:Image x="350" y="169" id="basic_icon" source="@Embed('../images/silvericon.png')" />
 	
 	<s:Label text="Gold" x="290" id="gold" y="169" width="70" height="30" fontSize="16" fontWeight="bold" color="#FFFF00" textAlign="center" verticalAlign="middle"/>
