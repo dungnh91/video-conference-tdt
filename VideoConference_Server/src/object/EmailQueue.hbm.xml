@@ -8,11 +8,11 @@
 					<column name="email_queue_id"/>
 					<generator class="identity"/>
 				</id>
-				<property name="from" type="java.lang.String">
-				     <column name="from"/>
+				<property name="fromemail" type="java.lang.String">
+				     <column name="fromemail"/>
 				</property>
-				<property name="to" type="java.lang.String">
-				    <column name="to"/>
+				<property name="toemail" type="java.lang.String">
+				    <column name="toemail"/>
 				</property>
 				<property name="message" type="java.lang.String">
 				    <column name="message"/>
@@ -20,22 +20,7 @@
 				<property name="subject" type="java.lang.String">
 				    <column name="subject"></column>
 				</property>
-				<property name="headers" type="java.lang.String">
-				    <column name="headers"></column>
-				</property>
-				<property name="cc" type="java.lang.String">
-				    <column name="cc"></column>
-				</property>
-				<property name="bcc" type="java.lang.String">
-				    <column name="bcc"></column>
-				</property>
-				<property name="descriptions" type="java.lang.String">
-				     <column name="descriptions"/>
-				</property>
-				<property name="ip_add" type="java.lang.String">
-				     <column name="ip_add"/>
-				</property>
-				<property name="status" type="java.lang.Integer">
+<property name="status" type="java.lang.Integer">
 				     <column name="status"/>
 				</property>
             </class>
