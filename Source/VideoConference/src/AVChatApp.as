@@ -70,7 +70,7 @@ package
 		public var streams:List;
 		public var subscribeName:TextInput;
 		public var publishName:Label;
-		//public var connectStr:TextInput
+		public var connectStr:TextInput
 		public var prompt:Text;			
 		public var fpsText:Text;
 		public var doSubscribe:Boolean;
@@ -107,9 +107,7 @@ package
 			ro_conference.getConferencesById.addEventListener(ResultEvent.RESULT,getConferencesById_result);
 			ro_conference.getConferencesById(mySO.data.conf);
 			addEventListener(FlexEvent.CREATION_COMPLETE,init);
-			addEventListener(CustomEvent.Streams,test);
 		}
-		private var myEvent:Event;
 		private function init(event:FlexEvent):void
 		{
 			
@@ -347,14 +345,8 @@ package
 			{
 				doSubscribe=true;
 				subscribe();
-				//startStreamSO.setProperty("stream",null);
+				startStreamSO.setProperty("stream",null);
 			}
-		}
-		
-		private function test(event:CustomEvent):void
-		{
-			doSubscribe=true;
-			subscribe();
 		}
 		
 		private function enablePlayControls(isEnable:Boolean):void 
@@ -386,7 +378,7 @@ package
 			if (streamList.length==0 || nc == null || nc.connected==false)
 				return;
 			
-			if (doSubscribe) {
+			if (doSubscribe == true) {
 				// create a new NetStream object for video playback
 				nsPlay = new NetStream(nc);
 				// trace the NetStream status information

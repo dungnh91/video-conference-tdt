@@ -59,14 +59,15 @@
 				{
 					if(tmp.date.date == toDay.date)
 						if(tmp.time_start.hours == toDay.hours)
-							if(tmp.time_start.minutes>= toDay.minutes+5)
+							if(tmp.time_start.minutes <= toDay.minutes+5)
 							{
 								for(var i:int=0;i<my_conference.dataGroup.numElements;i++)
 								{
 									if(my_conference.dataProvider.getItemAt(i).conference_id == tmp.conference_id)
 									{
-										(my_conference.dataGroup.getElementAt(i) as Object).border.color = "red";
+										(my_conference.dataGroup.getElementAt(i) as Object).border.color = "0xFF3300";
 										Message.show("you have '"+ tmp.conference_name + "' conference at: " + formatter.format(tmp.time_start),Message.Information,this);
+										Alarm.stop();
 									}
 								}
 								
@@ -77,17 +78,17 @@
 				{
 					if(tmp.date.date == toDay.date)
 						if(tmp.time_start.hours == toDay.hours)
-							if(tmp.time_start.minutes>= toDay.minutes-5)
+							if(tmp.time_start.minutes <= toDay.minutes+5)
 								for(var i:int=0;i<my_conference.dataGroup.numElements;i++)
 								{
 									if(conference_about_me.dataProvider.getItemAt(i).conference_id == tmp.conference_id)
 									{
 										(conference_about_me.dataGroup.getElementAt(i) as Object).border.color = "red";
 										Message.show("you have '"+ tmp.conference_name + "' conference at: " + formatter.format(tmp.time_start),Message.Information,this);
+										Alarm.stop();
 									}
 								}
 				}
-				Alarm.stop();
 			}
 			
 			private function timerRefresh():void
@@ -102,8 +103,14 @@
 				if(Refresh)
 				{
 					ro_conference.getConferencesByHostId(mySO.data.user);
-					Refresh = false;
+					if(my_conference.dataProvider.length>0)
+						for(var i:int=0;i<my_conference.dataGroup.numElements;i++)
+						{
+							(my_conference.dataGroup.getElementAt(i) as Object).border.color = "0xFFFFFF";
+							Alarm.stop();
+						}
 					Alarm.start();
+					Refresh = false;
 				}
 			}
 			

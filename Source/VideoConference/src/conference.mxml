@@ -4,7 +4,8 @@
 
 	<mx:HBox horizontalAlign="center" >
 		<!--<mx:Image width="20" height="20" source="@Embed('../images/vclogo.jpg')"/>-->
-		<mx:Label fontSize="22" fontWeight="bold" styleName="logo" text="VideoChat" id="title"/>	
+		<mx:Label fontSize="22" fontWeight="bold" styleName="logo" text="VideoChat" id="title"/>
+		<mx:TextInput text="rtmp://localhost/videochat" id="connectStr" width="448" visible="false"/>
 	</mx:HBox>
 	
 	<mx:HBox horizontalAlign="left">
