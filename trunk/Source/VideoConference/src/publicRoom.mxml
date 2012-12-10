@@ -34,7 +34,7 @@
 			public static var Refresh:Boolean = false;
 			protected function initApp():void
 			{
-				Security.loadPolicyFile("http://192.168.1.10:8080/VideoConference_Server/crossdomain.xml");
+				Security.loadPolicyFile("http://127.0.0.1:8080/VideoConference_Server/crossdomain.xml");
 				mySO = SharedObject.getLocal("info","/");
 				if(mySO.data.user == null)
 					AppModel.getInstance().navigate("home.html");
@@ -54,6 +54,7 @@
 				var formatter:DateTimeFormatter = new DateTimeFormatter();
 				formatter.dateTimePattern="HH:mm";
 				var toDay:Date = new Date();
+				if(my_conference.dataProvider !=null)
 				if(my_conference.dataProvider.length>0)
 				for each(var tmp:Conference in my_conference.dataProvider)
 				{
@@ -73,6 +74,7 @@
 								
 							}
 				}
+				if(conference_about_me.dataProvider !=null)
 				if(conference_about_me.dataProvider.length>0)
 				for each(var tmp:Conference in conference_about_me.dataProvider)
 				{
@@ -172,6 +174,7 @@
 				user_name.text = user.user_name;
 				fullname.text = user.fullname;
 				email.text = user.email;
+				avatar.source = user.avartar;
 				switch(user.subcriptions)
 				{
 					case 1:
@@ -265,7 +268,7 @@
 	<s:Button icon="@Embed(source='../images/gnome_session_logout.png')" x="1200" y="0" height="30" label="Log Out" click="Label_logOut_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	<s:Button icon="@Embed(source='../images/users.png')" x="1081" y="0" height="30" label="Your Account" click="Label_acc_clickHandler(event)" useHandCursor="true" buttonMode="true" mouseChildren="false"/>
 	<!--Left Column-->
-	<s:Image x="68" y="87" width="126" height="126" source="@Embed(source='images/avatar.png')"/>
+	<s:Image x="68" y="87" width="126" height="126" source="@Embed(source='images/avatar.png')" id="avatar"/>
 	
 	<s:TitleWindow x="498" y="121" width="365" height="428" title="My Conference" filters="{[shade]}">
 		<s:List id="my_conference" width="364" height="400" itemRenderer="Renderers.myConference" />	
