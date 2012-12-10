@@ -4,7 +4,7 @@
 				xmlns:mx="library://ns.adobe.com/flex/mx" 
 				autoDrawBackground="true">
 	<s:HGroup verticalAlign="middle" horizontalAlign="center" paddingLeft="15" paddingTop="10">
-		<s:CheckBox id="cb" name="checkbox"/>
-		<s:Label text="{data.fullname}" click="cb.selected = !cb.selected;"/>		
+		<s:CheckBox id="cb" name="checkbox" label="{data.fullname}"/>
+<!--		<s:Label text="{data.fullname}" click="cb.selected = !cb.selected;"/>-->		
 	</s:HGroup>
 </s:ItemRenderer>

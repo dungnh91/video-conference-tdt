@@ -109,7 +109,7 @@
 	<!--<s:Button x="768" y="500" height="30" width="97" icon="@Embed(source='../images/get_info.png')" label="About Us" color="#000000" 
 			  focusOut="Label_signUp_focusOutHandler(event)" mouseChildren="false"   click="Label_ab_clickHandler(event)" 
 			  useHandCursor="true"/>-->
-	<s:Image  x="814" y="500" width="20" height="20" source="@Embed('../images/get_info.png')"
+	<s:Image  x="729" y="211" width="82" height="48" source="@Embed('../images/get_info.png')"
 			  click="Label_ab_clickHandler(event)"  useHandCursor="true" buttonMode="true" mouseChildren="false" />
 	
 	<!--<s:Label filters="{[glow]}" id="Label_logIn" x="590" y="500" width="80" height="30"
